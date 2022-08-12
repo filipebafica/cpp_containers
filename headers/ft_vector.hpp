@@ -1,12 +1,13 @@
 // Copyright (c) 2022 Filipe Báfica, Licensed under the MIT License.
-#ifndef CPP_CONTAINERS_HEADERS_FT_VECTOR_HPP_
-#define CPP_CONTAINERS_HEADERS_FT_VECTOR_HPP_
+#ifndef CPP_CONTAINERS_HEADERS_VECTOR_HPP_
+#define CPP_CONTAINERS_HEADERS_VECTOR_HPP_
 
 #include <memory>
+#include "./ft_vector_base.hpp"
 
 namespace ft {
 template<class T, class Alloc = std::allocator<T> >
-class vector {
+class vector : protected VectorBase<T, Alloc> {
  public:
     /******************** MEMBER TYPES ********************/
     typedef T value_type;
@@ -22,9 +23,8 @@ class vector {
     // typedef difference_type;
     // typedef size_type;
 
-    /******************** MEMBER FUNCTIONS ********************/
-    vector(void);
-    explicit vector(const allocator_type& alloc);
+    /******************** CONSTRUCTORS ********************/
+    explicit vector(const allocator_type& alloc = allocator_type());
     // explicit vector(size_type count,
     //              const T& value = T(),
     //              const Allocator& alloc = Allocator());
@@ -109,4 +109,4 @@ class vector {
 
 #include "./ft_vector.tpp"
 
-#endif  // CPP_CONTAINERS_HEADERS_vector_HPP_
+#endif  // CPP_CONTAINERS_HEADERS_VECTOR_HPP_
