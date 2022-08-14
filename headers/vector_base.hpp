@@ -23,8 +23,13 @@ struct VectorBase {
     explicit VectorBase(const allocator_type& alloc);
     VectorBase(size_t n, const allocator_type& alloc);
 
+    /******************** DESTRUCTORS ********************/
+    ~VectorBase(void);
+
     /******************** MEMBER FUNCTIONS ********************/
+    Alloc get_allocator(void) const;
     T* memoryAllocate(size_t n);
+    void memoryDeallocate(T* memoryStart, size_t n);
 };
 }  // namespace ft
 

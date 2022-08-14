@@ -32,12 +32,15 @@ class vector : protected VectorBase<T, Alloc> {
     // vector(InputIt first, InputIt last,
     //         const Allocator& alloc = Allocator());
     // vector(const vector& src);
-    // ~vector(void);
     // vector& operator=(vector const& rhs);
     // void assign(size_type count, const T& value);
     // template<class InputIt>
     // void assign(InputIt first, InputIt last);
     // allocator_type get_allocator(void) const;
+
+
+    /******************** DESTRUCTORS ********************/
+    ~vector(void);
 
     // // element access
     // reference at(size_type pos);
