@@ -3,7 +3,7 @@
 #define CPP_CONTAINERS_HEADERS_VECTOR_HPP_
 
 #include <memory>
-#include "./ft_vector_base.hpp"
+#include "./vector_base.hpp"
 
 namespace ft {
 template<class T, class Alloc = std::allocator<T> >
@@ -21,13 +21,13 @@ class vector : protected VectorBase<T, Alloc> {
     // typedef reverse_iterator;
     // typedef const_reverse_iterator;
     // typedef difference_type;
-    // typedef size_type;
+    typedef size_t size_type;
 
     /******************** CONSTRUCTORS ********************/
     explicit vector(const allocator_type& alloc = allocator_type());
-    // explicit vector(size_type count,
-    //              const T& value = T(),
-    //              const Allocator& alloc = Allocator());
+    explicit vector(size_type n,
+                 const value_type& value = value_type(),
+                 const allocator_type& alloc = allocator_type());
     // template<class InputIt>
     // vector(InputIt first, InputIt last,
     //         const Allocator& alloc = Allocator());
@@ -107,6 +107,6 @@ class vector : protected VectorBase<T, Alloc> {
 //                 const vector<T, Alloc>& rhs);
 }  // namespace ft
 
-#include "./ft_vector.tpp"
+#include "./vector.tpp"
 
 #endif  // CPP_CONTAINERS_HEADERS_VECTOR_HPP_

@@ -7,25 +7,27 @@
 namespace ft {
 template<class T, class Alloc = std::allocator<T> >
 struct VectorBase {
-    struct VectorImpl : public Alloc {
+    struct MemoryImpl : public Alloc {
         T* memoryStart;
         T* memoryFinish;
         T* memoryEndOfStorage;
-        explicit VectorImpl(Alloc const& alloc) :
-        Alloc(alloc), memoryStart(0), memoryFinish(0), memoryEndOfStorage(0)
-        {}
+        explicit MemoryImpl(Alloc const& alloc) :
+        Alloc(alloc), memoryStart(0), memoryFinish(0), memoryEndOfStorage(0) {}
     };
 
     /******************** MEMBER TYPES ********************/
-    VectorImpl memoryImpl;
+    MemoryImpl memoryImpl;
     typedef Alloc allocator_type;
-
 
     /******************** CONSTRUCTORS ********************/
     explicit VectorBase(const allocator_type& alloc);
+    VectorBase(size_t n, const allocator_type& alloc);
+
+    /******************** MEMBER FUNCTIONS ********************/
+    T* memoryAllocate(size_t n);
 };
 }  // namespace ft
 
-#include "./ft_vector_base.tpp"
+#include "./vector_base.tpp"
 
 #endif  // CPP_CONTAINERS_HEADERS_VECTOR_BASE_HPP_

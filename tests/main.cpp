@@ -2,10 +2,11 @@
 
 #include <vector>
 #include <iostream>
-#include "../headers/ft_vector.hpp"
+#include "../headers/vector.hpp"
 
 int main(void) {
-    ft::vector<int> v;
+    ft::vector<int> v(10);
+    // std::vector<int> v(10);
     return (0);
 }
 
