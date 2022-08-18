@@ -19,6 +19,9 @@ ft::vector<T, Alloc>::vector(size_type n, const value_type& value, const allocat
 }
 
 template<class T, class Alloc>
+ft::vector<T, Alloc>::vector(iterator first, iterator last, const allocator_type& alloc) : VectorBase<T, Alloc>(alloc) {}
+
+template<class T, class Alloc>
 ft::vector<T, Alloc>::~vector(void) {
     std::cout << "Default vector destructor called" << std::endl;
     T* curr = this->memoryImpl.memoryStart;

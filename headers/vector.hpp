@@ -16,7 +16,7 @@ class vector : protected VectorBase<T, Alloc> {
     typedef typename allocator_type::const_reference const_reference;
     typedef typename allocator_type::pointer pointer;
     typedef typename allocator_type::const_pointer const_pointer;
-    // typedef iterator;
+    typedef T* iterator;
     // typedef const_iterator;
     // typedef reverse_iterator;
     // typedef const_reverse_iterator;
@@ -28,14 +28,12 @@ class vector : protected VectorBase<T, Alloc> {
     explicit vector(size_type n,
                  const value_type& value = value_type(),
                  const allocator_type& alloc = allocator_type());
-    // template<class InputIt>
-    // vector(InputIt first, InputIt last,
-    //         const Allocator& alloc = Allocator());
+    vector(iterator first, iterator last, const allocator_type& alloc = allocator_type());
     // vector(const vector& src);
     // vector& operator=(vector const& rhs);
     // void assign(size_type count, const T& value);
-    // template<class InputIt>
-    // void assign(InputIt first, InputIt last);
+    // template<class InputIterator>
+    // void assign(InputIterator first, InputIterator last);
     // allocator_type get_allocator(void) const;
 
 
@@ -75,8 +73,8 @@ class vector : protected VectorBase<T, Alloc> {
     // void clear(void);
     // iterator insert(iterator pos, const T& value);
     // void insert(iterator pos, size_type count, const T& value);
-    // template<class InputIt>
-    // void insert(iterator pos, InputIt first, InputIt last);
+    // template<class InputIterator>
+    // void insert(iterator pos, InputIterator first, InputIterator last);
     // iterator erase(iterator pos);
     // iterator erase(iterator first, iterator last);
     // void push_back(const T& value);
