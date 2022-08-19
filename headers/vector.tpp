@@ -19,7 +19,21 @@ ft::vector<T, Alloc>::vector(size_type n, const value_type& value, const allocat
 }
 
 template<class T, class Alloc>
-ft::vector<T, Alloc>::vector(iterator first, iterator last, const allocator_type& alloc) : VectorBase<T, Alloc>(alloc) {}
+ft::vector<T, Alloc>::vector(iterator first, iterator last, const allocator_type& alloc) : VectorBase<T, Alloc>(alloc) {
+    typedef typename ft::iteratorTraits<iterator>::iterator_category iterator_category;
+    this->memoryRangeInitialize(first, last, iterator_category());
+}
+
+template<class T, class Alloc>
+void ft::vector<T, Alloc>::memoryRangeInitialize(iterator first, iterator last, ft::input_iterator_tag) {
+    // const size_type __n = std::distance(__first, __last);
+    // this->_M_impl._M_start = this->_M_allocate(__n);
+    // this->_M_impl._M_end_of_storage = this->_M_impl._M_start + __n;
+    // this->_M_impl._M_finish =
+    // std::__uninitialized_copy_a(__first, __last,
+	// 				this->_M_impl._M_start,
+	// 				this->get_allocator());
+}
 
 template<class T, class Alloc>
 ft::vector<T, Alloc>::~vector(void) {

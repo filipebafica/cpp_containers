@@ -4,6 +4,8 @@
 
 #include <memory>
 #include "./vector_base.hpp"
+#include "./normal_iterator.hpp"
+#include "./iterator_traits.hpp"
 
 namespace ft {
 template<class T, class Alloc = std::allocator<T> >
@@ -16,7 +18,7 @@ class vector : protected VectorBase<T, Alloc> {
     typedef typename allocator_type::const_reference const_reference;
     typedef typename allocator_type::pointer pointer;
     typedef typename allocator_type::const_pointer const_pointer;
-    typedef T* iterator;
+    typedef NormalIterator<pointer, vector> iterator;
     // typedef const_iterator;
     // typedef reverse_iterator;
     // typedef const_reverse_iterator;
@@ -28,7 +30,8 @@ class vector : protected VectorBase<T, Alloc> {
     explicit vector(size_type n,
                  const value_type& value = value_type(),
                  const allocator_type& alloc = allocator_type());
-    vector(iterator first, iterator last, const allocator_type& alloc = allocator_type());
+    vector(iterator first, iterator last,
+                 const allocator_type& alloc = allocator_type());
     // vector(const vector& src);
     // vector& operator=(vector const& rhs);
     // void assign(size_type count, const T& value);
@@ -40,6 +43,7 @@ class vector : protected VectorBase<T, Alloc> {
     /******************** DESTRUCTORS ********************/
     ~vector(void);
 
+    /******************** MEMBER FUNCTIONS ********************/
     // // element access
     // reference at(size_type pos);
     // const_reference at(size_type pos) const;
@@ -81,6 +85,12 @@ class vector : protected VectorBase<T, Alloc> {
     // void pop_back(void);
     // void resize(size_type count, T value = T());
     // void swap(vector& other);
+
+ private:
+    /******************** MEMBER FUNCTIONS ********************/
+    void memoryRangeInitialize(iterator first,
+                    iterator last,
+                    ft::input_iterator_tag);
 };
 
 // template<class T, class Alloc>

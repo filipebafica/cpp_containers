@@ -6,15 +6,23 @@
 #include "../headers/vector.hpp"
 
 
+// int main(void) {
+//     std::vector<int> v;
+//     for (int i = 0; i < 10; ++i) {
+//         v.insert(v.end(), i);
+//     }
+//     for (std::vector<int>::iterator it = v.begin(); it != v.end(); ++it) {
+//         std::cout << *it << std::endl;
+//     }
+//     std::vector<int> v2(v.begin(), v.end());
+//     for (std::vector<int>::iterator it = v2.begin(); it != v2.end(); ++it) {
+//         std::cout << *it << std::endl;
+//     }
+//     return (0);
+// }
+
 int main(void) {
-    std::vector<int> v;
-    for (int i = 0; i < 10; ++i) {
-        v.insert(v.end(), i);
-    }
-    for (std::vector<int>::iterator it = v.begin(); it != v.end(); ++it) {
-        std::cout << *it << std::endl;
-    }
-    std::cout << "0 appears: " << std::count(v.begin(), v.end(), 0) << std::endl;
+    ft::vector<int> v;
     return (0);
 }
 
