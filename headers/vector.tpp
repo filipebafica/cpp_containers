@@ -19,20 +19,30 @@ ft::vector<T, Alloc>::vector(size_type n, const value_type& value, const allocat
 }
 
 template<class T, class Alloc>
-ft::vector<T, Alloc>::vector(iterator first, iterator last, const allocator_type& alloc) : VectorBase<T, Alloc>(alloc) {
+ft::vector<T, Alloc>::vector(iterator first, iterator last, const allocator_type& alloc) : VectorBase<T, Alloc>(std::distance(first, last), alloc) {
+    std::cout << "Range vector constructor called" << std::endl;
     typedef typename ft::iteratorTraits<iterator>::iterator_category iterator_category;
     this->memoryRangeInitialize(first, last, iterator_category());
 }
 
 template<class T, class Alloc>
-void ft::vector<T, Alloc>::memoryRangeInitialize(iterator first, iterator last, ft::input_iterator_tag) {
-    // const size_type __n = std::distance(__first, __last);
-    // this->_M_impl._M_start = this->_M_allocate(__n);
-    // this->_M_impl._M_end_of_storage = this->_M_impl._M_start + __n;
-    // this->_M_impl._M_finish =
-    // std::__uninitialized_copy_a(__first, __last,
-	// 				this->_M_impl._M_start,
-	// 				this->get_allocator());
+void ft::vector<T, Alloc>::memoryRangeInitialize(iterator first, iterator last, std::input_iterator_tag) {
+    const size_type n = std::distance(first, last);
+    T* curr = this->memoryImpl.memoryStart;
+    for (int i = n; i > 0; i--, curr++) {
+        this->get_allocator().construct(curr, n);
+    }
+    this->memoryImpl.memoryFinish = this->memoryImpl.memoryStart + n;
+}
+
+template<class T, class Alloc>
+typename ft::vector<T, Alloc>::iterator ft::vector<T, Alloc>::begin(void) {
+    return (iterator(this->memoryImpl.memoryStart));
+}
+
+template<class T, class Alloc>
+typename ft::vector<T, Alloc>::iterator ft::vector<T, Alloc>::end(void) {
+    return (iterator(this->memoryImpl.memoryFinish));
 }
 
 template<class T, class Alloc>

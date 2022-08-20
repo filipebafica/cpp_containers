@@ -3,6 +3,7 @@
 #define CPP_CONTAINERS_HEADERS_VECTOR_HPP_
 
 #include <memory>
+#include <iterator>
 #include "./vector_base.hpp"
 #include "./normal_iterator.hpp"
 #include "./iterator_traits.hpp"
@@ -12,13 +13,13 @@ template<class T, class Alloc = std::allocator<T> >
 class vector : protected VectorBase<T, Alloc> {
  public:
     /******************** MEMBER TYPES ********************/
-    typedef T value_type;
-    typedef Alloc allocator_type;
-    typedef typename allocator_type::reference reference;
-    typedef typename allocator_type::const_reference const_reference;
-    typedef typename allocator_type::pointer pointer;
-    typedef typename allocator_type::const_pointer const_pointer;
-    typedef NormalIterator<pointer, vector> iterator;
+    typedef T                                           value_type;
+    typedef Alloc                                       allocator_type;
+    typedef typename allocator_type::reference          reference;
+    typedef typename allocator_type::const_reference    const_reference;
+    typedef typename allocator_type::pointer            pointer;
+    typedef typename allocator_type::const_pointer      const_pointer;
+    typedef NormalIterator<pointer, vector>             iterator;
     // typedef const_iterator;
     // typedef reverse_iterator;
     // typedef const_reverse_iterator;
@@ -44,7 +45,7 @@ class vector : protected VectorBase<T, Alloc> {
     ~vector(void);
 
     /******************** MEMBER FUNCTIONS ********************/
-    // // element access
+    // element access
     // reference at(size_type pos);
     // const_reference at(size_type pos) const;
     // reference operator[](size_type pos);
@@ -57,9 +58,9 @@ class vector : protected VectorBase<T, Alloc> {
     // const T* data() const;
 
     // // iterators
-    // iterator begin(void);
+    iterator begin(void);
     // const_iterator begin(void) const;
-    // iterator end(void);
+    iterator end(void);
     // const_iterator end(void) const;
     // reverse_iterator rbegin(void);
     // const_reverse_iterator rbegin(void) const;
@@ -90,7 +91,7 @@ class vector : protected VectorBase<T, Alloc> {
     /******************** MEMBER FUNCTIONS ********************/
     void memoryRangeInitialize(iterator first,
                     iterator last,
-                    ft::input_iterator_tag);
+                    std::input_iterator_tag);
 };
 
 // template<class T, class Alloc>

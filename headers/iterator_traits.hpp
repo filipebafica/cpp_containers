@@ -3,7 +3,6 @@
 #define CPP_CONTAINERS_HEADERS_ITERATOR_TRAITS_HPP_
 #include <cstddef>
 #include <stdio.h>
-#include "./iterator_tags.hpp"
 
 namespace ft {
 template<typename Iterator>
@@ -17,16 +16,17 @@ struct iteratorTraits {
 
 template<typename T>
 struct iteratorTraits<T*> {
-    typedef ft::random_access_iterator_tag iterator_category;
+    typedef std::random_access_iterator_tag iterator_category;
     typedef T                               value_type;
     typedef ptrdiff_t                       difference_type;
     typedef T*                              pointer;
     typedef T&                              reference;
+
 };
 
 template<typename T>
 struct iteratorTraits<const T*> {
-    typedef ft::random_access_iterator_tag iterator_category;
+    typedef std::random_access_iterator_tag iterator_category;
     typedef T                               value_type;
     typedef std::ptrdiff_t                  difference_type;
     typedef const T*                        pointer;

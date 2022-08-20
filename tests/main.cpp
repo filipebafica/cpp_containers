@@ -7,7 +7,7 @@
 
 
 // int main(void) {
-//     std::vector<int> v;
+    // std::vector<int> v;
 //     for (int i = 0; i < 10; ++i) {
 //         v.insert(v.end(), i);
 //     }
@@ -22,7 +22,9 @@
 // }
 
 int main(void) {
-    ft::vector<int> v;
+    ft::vector<int> v1(10);
+    ft::vector<int> v2(v1.begin(), v2.end());
+
     return (0);
 }
 
