@@ -78,6 +78,90 @@ const Iterator& ft::NormalIterator<Iterator, Container>::base(void) const {
 }
 
 template<typename IteratorL, typename IteratorR, typename Container>
+typename ft::NormalIterator<IteratorL, Container>::difference_type ft::operator==(
+    const ft::NormalIterator<IteratorL, Container>& lhs,
+    const ft::NormalIterator<IteratorR, Container>& rhs) {
+        return (lhs.base() == rhs.base());
+}
+
+template<typename Iterator, typename Container>
+typename ft::NormalIterator<Iterator, Container>::difference_type ft::operator==(
+    const ft::NormalIterator<Iterator, Container>& lhs,
+    const ft::NormalIterator<Iterator, Container>& rhs) {
+        return (lhs.base() == rhs.base());
+}
+
+template<typename IteratorL, typename IteratorR, typename Container>
+typename ft::NormalIterator<IteratorL, Container>::difference_type ft::operator!=(
+    const ft::NormalIterator<IteratorL, Container>& lhs,
+    const ft::NormalIterator<IteratorR, Container>& rhs) {
+        return (lhs.base() != rhs.base());
+}
+
+template<typename Iterator, typename Container>
+typename ft::NormalIterator<Iterator, Container>::difference_type ft::operator!=(
+    const ft::NormalIterator<Iterator, Container>& lhs,
+    const ft::NormalIterator<Iterator, Container>& rhs) {
+        return (lhs.base() != rhs.base());
+}
+
+template<typename IteratorL, typename IteratorR, typename Container>
+typename ft::NormalIterator<IteratorL, Container>::difference_type ft::operator<(
+    const ft::NormalIterator<IteratorL, Container>& lhs,
+    const ft::NormalIterator<IteratorR, Container>& rhs) {
+        return (lhs.base() < rhs.base());
+}
+
+template<typename Iterator, typename Container>
+typename ft::NormalIterator<Iterator, Container>::difference_type ft::operator<(
+    const ft::NormalIterator<Iterator, Container>& lhs,
+    const ft::NormalIterator<Iterator, Container>& rhs) {
+        return (lhs.base() < rhs.base());
+}
+
+template<typename IteratorL, typename IteratorR, typename Container>
+typename ft::NormalIterator<IteratorL, Container>::difference_type ft::operator>(
+    const ft::NormalIterator<IteratorL, Container>& lhs,
+    const ft::NormalIterator<IteratorR, Container>& rhs) {
+        return (lhs.base() > rhs.base());
+}
+
+template<typename Iterator, typename Container>
+typename ft::NormalIterator<Iterator, Container>::difference_type ft::operator>(
+    const ft::NormalIterator<Iterator, Container>& lhs,
+    const ft::NormalIterator<Iterator, Container>& rhs) {
+        return (lhs.base() > rhs.base());
+}
+
+template<typename IteratorL, typename IteratorR, typename Container>
+typename ft::NormalIterator<IteratorL, Container>::difference_type ft::operator<=(
+    const ft::NormalIterator<IteratorL, Container>& lhs,
+    const ft::NormalIterator<IteratorR, Container>& rhs) {
+        return (lhs.base() <= rhs.base());
+}
+
+template<typename Iterator, typename Container>
+typename ft::NormalIterator<Iterator, Container>::difference_type ft::operator<=(
+    const ft::NormalIterator<Iterator, Container>& lhs,
+    const ft::NormalIterator<Iterator, Container>& rhs) {
+        return (lhs.base() <= rhs.base());
+}
+
+template<typename IteratorL, typename IteratorR, typename Container>
+typename ft::NormalIterator<IteratorL, Container>::difference_type ft::operator>=(
+    const ft::NormalIterator<IteratorL, Container>& lhs,
+    const ft::NormalIterator<IteratorR, Container>& rhs) {
+        return (lhs.base() >= rhs.base());
+}
+
+template<typename Iterator, typename Container>
+typename ft::NormalIterator<Iterator, Container>::difference_type ft::operator>=(
+    const ft::NormalIterator<Iterator, Container>& lhs,
+    const ft::NormalIterator<Iterator, Container>& rhs) {
+        return (lhs.base() >= rhs.base());
+}
+
+template<typename IteratorL, typename IteratorR, typename Container>
 typename ft::NormalIterator<IteratorL, Container>::difference_type ft::operator-(
     const ft::NormalIterator<IteratorL, Container>& lhs,
     const ft::NormalIterator<IteratorR, Container>& rhs) {

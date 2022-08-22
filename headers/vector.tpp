@@ -25,12 +25,12 @@ ft::vector<T, Alloc>::vector(iterator first, iterator last, const allocator_type
     this->memoryRangeInitialize(first, last, iterator_category());
 }
 
-// template<class T, class Alloc>
-// void ft::vector<T, Alloc>::memoryRangeInitialize(iterator first, iterator last, std::input_iterator_tag) {
-//     for (; first != last; ++first) {
-//         this->push_back(*first);
-//     }
-// }
+template<class T, class Alloc>
+void ft::vector<T, Alloc>::memoryRangeInitialize(iterator first, iterator last, std::input_iterator_tag) {
+    for (; first != last; ++first) {
+        this->push_back(*first);
+    }
+}
 
 template<class T, class Alloc>
 void ft::vector<T, Alloc>::memoryRangeInitialize(iterator first, iterator last, std::forward_iterator_tag) {

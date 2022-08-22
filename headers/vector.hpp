@@ -89,9 +89,9 @@ class vector : protected VectorBase<T, Alloc> {
 
  private:
     /******************** MEMBER FUNCTIONS ********************/
-    // void memoryRangeInitialize(iterator first,
-    //                 iterator last,
-    //                 std::input_iterator_tag);
+    void memoryRangeInitialize(iterator first,
+                    iterator last,
+                    std::input_iterator_tag);
     void memoryRangeInitialize(iterator first,
                     iterator last,
                     std::forward_iterator_tag);

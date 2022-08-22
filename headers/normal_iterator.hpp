@@ -34,6 +34,54 @@ class NormalIterator {
 };
 
 template<typename IteratorL, typename IteratorR, typename Container>
+bool operator==(const NormalIterator<IteratorL, Container>& lhs,
+                const NormalIterator<IteratorR, Container>& rhs);
+
+template<typename Iterator, typename Container>
+bool operator==(const NormalIterator<Iterator, Container>& lhs,
+                const NormalIterator<Iterator, Container>& rhs);
+
+template<typename IteratorL, typename IteratorR, typename Container>
+bool operator!=(const NormalIterator<IteratorL, Container>& lhs,
+                const NormalIterator<IteratorR, Container>& rhs);
+
+template<typename Iterator, typename Container>
+bool operator!=(const NormalIterator<Iterator, Container>& lhs,
+                const NormalIterator<Iterator, Container>& rhs);
+
+template<typename IteratorL, typename IteratorR, typename Container>
+bool operator<(const NormalIterator<IteratorL, Container>& lhs,
+                const NormalIterator<IteratorR, Container>& rhs);
+
+template<typename Iterator, typename Container>
+bool operator<(const NormalIterator<Iterator, Container>& lhs,
+                const NormalIterator<Iterator, Container>& rhs);
+
+template<typename IteratorL, typename IteratorR, typename Container>
+bool operator>(const NormalIterator<IteratorL, Container>& lhs,
+                const NormalIterator<IteratorR, Container>& rhs);
+
+template<typename Iterator, typename Container>
+bool operator>(const NormalIterator<Iterator, Container>& lhs,
+                const NormalIterator<Iterator, Container>& rhs);
+
+template<typename IteratorL, typename IteratorR, typename Container>
+bool operator<=(const NormalIterator<IteratorL, Container>& lhs,
+                const NormalIterator<IteratorR, Container>& rhs);
+
+template<typename Iterator, typename Container>
+bool operator<=(const NormalIterator<Iterator, Container>& lhs,
+                const NormalIterator<Iterator, Container>& rhs);
+
+template<typename IteratorL, typename IteratorR, typename Container>
+bool operator>=(const NormalIterator<IteratorL, Container>& lhs,
+                const NormalIterator<IteratorR, Container>& rhs);
+
+template<typename Iterator, typename Container>
+bool operator>=(const NormalIterator<Iterator, Container>& lhs,
+                const NormalIterator<Iterator, Container>& rhs);
+
+template<typename IteratorL, typename IteratorR, typename Container>
 typename ft::NormalIterator<IteratorL, Container>::difference_type operator-(
     const ft::NormalIterator<IteratorL, Container>& lhs,
     const ft::NormalIterator<IteratorR, Container>& rhs);

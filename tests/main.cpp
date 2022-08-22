@@ -6,7 +6,7 @@
 #include "../headers/vector.hpp"
 
 int main(void) {
-    ft::vector<int> v1(10);
+    ft::vector<int> v1(10, 10);
     ft::vector<int> v2(v1.begin(), v1.end());
     typename ft::vector<int>::iterator it;
     it = v2.begin();
