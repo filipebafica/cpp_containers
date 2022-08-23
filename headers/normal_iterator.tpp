@@ -4,173 +4,173 @@
 #include "./normal_iterator.hpp"
 
 template<typename Iterator, typename Container>
-ft::NormalIterator<Iterator, Container>::NormalIterator() : memoryCurrent(Iterator()) {
-    std::cout << "Default normalIterator constructor called" << std::endl;
+ft::normal_iterator<Iterator, Container>::normal_iterator() : memory_current(Iterator()) {
+    std::cout << "Default normal_iterator constructor called" << std::endl;
 }
 
 template<typename Iterator, typename Container>
-ft::NormalIterator<Iterator, Container>::NormalIterator(const Iterator& i) : memoryCurrent(Iterator(i)) {
-    std::cout << "Fill normalIterator constructor called" << std::endl;
+ft::normal_iterator<Iterator, Container>::normal_iterator(const Iterator& i) : memory_current(Iterator(i)) {
+    std::cout << "Fill normal_iterator constructor called" << std::endl;
 }
 
 template<typename Iterator, typename Container>
-typename ft::NormalIterator<Iterator, Container>::reference ft::NormalIterator<Iterator, Container>::operator*(void) const {
-    return (*this->memoryCurrent);
+typename ft::normal_iterator<Iterator, Container>::reference ft::normal_iterator<Iterator, Container>::operator*(void) const {
+    return (*this->memory_current);
 }
 
 template<typename Iterator, typename Container>
-typename ft::NormalIterator<Iterator, Container>::pointer ft::NormalIterator<Iterator, Container>::operator->(void) const {
-    return (this->memoryCurrent);
+typename ft::normal_iterator<Iterator, Container>::pointer ft::normal_iterator<Iterator, Container>::operator->(void) const {
+    return (this->memory_current);
 }
 
 template<typename Iterator, typename Container>
-ft::NormalIterator<Iterator, Container>& ft::NormalIterator<Iterator, Container>::operator++(void) {
-    ++this->memoryCurrent;
+ft::normal_iterator<Iterator, Container>& ft::normal_iterator<Iterator, Container>::operator++(void) {
+    ++this->memory_current;
     return (*this);
 }
 
 template<typename Iterator, typename Container>
-ft::NormalIterator<Iterator, Container> ft::NormalIterator<Iterator, Container>::operator++(int) {
-    return (ft::NormalIterator<Iterator, Container>(this->memoryCurrent++));
+ft::normal_iterator<Iterator, Container> ft::normal_iterator<Iterator, Container>::operator++(int) {
+    return (ft::normal_iterator<Iterator, Container>(this->memory_current++));
 }
 
 template<typename Iterator, typename Container>
-ft::NormalIterator<Iterator, Container>& ft::NormalIterator<Iterator, Container>::operator--(void) {
-    --this->memoryCurrent;
+ft::normal_iterator<Iterator, Container>& ft::normal_iterator<Iterator, Container>::operator--(void) {
+    --this->memory_current;
     return (*this);
 }
 
 template<typename Iterator, typename Container>
-ft::NormalIterator<Iterator, Container> ft::NormalIterator<Iterator, Container>::operator--(int) {
-    return (ft::NormalIterator<Iterator, Container>(this->memoryCurrent--));
+ft::normal_iterator<Iterator, Container> ft::normal_iterator<Iterator, Container>::operator--(int) {
+    return (ft::normal_iterator<Iterator, Container>(this->memory_current--));
 }
 
 template<typename Iterator, typename Container>
-typename ft::NormalIterator<Iterator, Container>::reference ft::NormalIterator<Iterator, Container>::operator[](const difference_type& n) const {
-    return (this->memoryCurrent[n]);
+typename ft::normal_iterator<Iterator, Container>::reference ft::normal_iterator<Iterator, Container>::operator[](const difference_type& n) const {
+    return (this->memory_current[n]);
 }
 
 template<typename Iterator, typename Container>
-ft::NormalIterator<Iterator, Container>& ft::NormalIterator<Iterator, Container>::operator+=(const difference_type& n) {
-    this->memoryCurrent += n;
+ft::normal_iterator<Iterator, Container>& ft::normal_iterator<Iterator, Container>::operator+=(const difference_type& n) {
+    this->memory_current += n;
     return (*this);
 }
 
 template<typename Iterator, typename Container>
-ft::NormalIterator<Iterator, Container>& ft::NormalIterator<Iterator, Container>::operator-=(const difference_type& n) {
-    this->memoryCurrent -= n;
+ft::normal_iterator<Iterator, Container>& ft::normal_iterator<Iterator, Container>::operator-=(const difference_type& n) {
+    this->memory_current -= n;
     return (*this);
 }
 
 template<typename Iterator, typename Container>
-ft::NormalIterator<Iterator, Container> ft::NormalIterator<Iterator, Container>::operator+(const difference_type& n) const {
-    return (ft::NormalIterator<Iterator, Container>(this->memoryCurrent + n));
+ft::normal_iterator<Iterator, Container> ft::normal_iterator<Iterator, Container>::operator+(const difference_type& n) const {
+    return (ft::normal_iterator<Iterator, Container>(this->memory_current + n));
 }
 
 template<typename Iterator, typename Container>
-ft::NormalIterator<Iterator, Container> ft::NormalIterator<Iterator, Container>::operator-(const difference_type& n) const {
-    return (ft::NormalIterator<Iterator, Container>(this->memoryCurrent - n));
+ft::normal_iterator<Iterator, Container> ft::normal_iterator<Iterator, Container>::operator-(const difference_type& n) const {
+    return (ft::normal_iterator<Iterator, Container>(this->memory_current - n));
 }
 
 template<typename Iterator, typename Container>
-const Iterator& ft::NormalIterator<Iterator, Container>::base(void) const {
-    return (this->memoryCurrent);
+const Iterator& ft::normal_iterator<Iterator, Container>::base(void) const {
+    return (this->memory_current);
 }
 
 template<typename IteratorL, typename IteratorR, typename Container>
-typename ft::NormalIterator<IteratorL, Container>::difference_type ft::operator==(
-    const ft::NormalIterator<IteratorL, Container>& lhs,
-    const ft::NormalIterator<IteratorR, Container>& rhs) {
+typename ft::normal_iterator<IteratorL, Container>::difference_type ft::operator==(
+    const ft::normal_iterator<IteratorL, Container>& lhs,
+    const ft::normal_iterator<IteratorR, Container>& rhs) {
         return (lhs.base() == rhs.base());
 }
 
 template<typename Iterator, typename Container>
-typename ft::NormalIterator<Iterator, Container>::difference_type ft::operator==(
-    const ft::NormalIterator<Iterator, Container>& lhs,
-    const ft::NormalIterator<Iterator, Container>& rhs) {
+typename ft::normal_iterator<Iterator, Container>::difference_type ft::operator==(
+    const ft::normal_iterator<Iterator, Container>& lhs,
+    const ft::normal_iterator<Iterator, Container>& rhs) {
         return (lhs.base() == rhs.base());
 }
 
 template<typename IteratorL, typename IteratorR, typename Container>
-typename ft::NormalIterator<IteratorL, Container>::difference_type ft::operator!=(
-    const ft::NormalIterator<IteratorL, Container>& lhs,
-    const ft::NormalIterator<IteratorR, Container>& rhs) {
+typename ft::normal_iterator<IteratorL, Container>::difference_type ft::operator!=(
+    const ft::normal_iterator<IteratorL, Container>& lhs,
+    const ft::normal_iterator<IteratorR, Container>& rhs) {
         return (lhs.base() != rhs.base());
 }
 
 template<typename Iterator, typename Container>
-typename ft::NormalIterator<Iterator, Container>::difference_type ft::operator!=(
-    const ft::NormalIterator<Iterator, Container>& lhs,
-    const ft::NormalIterator<Iterator, Container>& rhs) {
+typename ft::normal_iterator<Iterator, Container>::difference_type ft::operator!=(
+    const ft::normal_iterator<Iterator, Container>& lhs,
+    const ft::normal_iterator<Iterator, Container>& rhs) {
         return (lhs.base() != rhs.base());
 }
 
 template<typename IteratorL, typename IteratorR, typename Container>
-typename ft::NormalIterator<IteratorL, Container>::difference_type ft::operator<(
-    const ft::NormalIterator<IteratorL, Container>& lhs,
-    const ft::NormalIterator<IteratorR, Container>& rhs) {
+typename ft::normal_iterator<IteratorL, Container>::difference_type ft::operator<(
+    const ft::normal_iterator<IteratorL, Container>& lhs,
+    const ft::normal_iterator<IteratorR, Container>& rhs) {
         return (lhs.base() < rhs.base());
 }
 
 template<typename Iterator, typename Container>
-typename ft::NormalIterator<Iterator, Container>::difference_type ft::operator<(
-    const ft::NormalIterator<Iterator, Container>& lhs,
-    const ft::NormalIterator<Iterator, Container>& rhs) {
+typename ft::normal_iterator<Iterator, Container>::difference_type ft::operator<(
+    const ft::normal_iterator<Iterator, Container>& lhs,
+    const ft::normal_iterator<Iterator, Container>& rhs) {
         return (lhs.base() < rhs.base());
 }
 
 template<typename IteratorL, typename IteratorR, typename Container>
-typename ft::NormalIterator<IteratorL, Container>::difference_type ft::operator>(
-    const ft::NormalIterator<IteratorL, Container>& lhs,
-    const ft::NormalIterator<IteratorR, Container>& rhs) {
+typename ft::normal_iterator<IteratorL, Container>::difference_type ft::operator>(
+    const ft::normal_iterator<IteratorL, Container>& lhs,
+    const ft::normal_iterator<IteratorR, Container>& rhs) {
         return (lhs.base() > rhs.base());
 }
 
 template<typename Iterator, typename Container>
-typename ft::NormalIterator<Iterator, Container>::difference_type ft::operator>(
-    const ft::NormalIterator<Iterator, Container>& lhs,
-    const ft::NormalIterator<Iterator, Container>& rhs) {
+typename ft::normal_iterator<Iterator, Container>::difference_type ft::operator>(
+    const ft::normal_iterator<Iterator, Container>& lhs,
+    const ft::normal_iterator<Iterator, Container>& rhs) {
         return (lhs.base() > rhs.base());
 }
 
 template<typename IteratorL, typename IteratorR, typename Container>
-typename ft::NormalIterator<IteratorL, Container>::difference_type ft::operator<=(
-    const ft::NormalIterator<IteratorL, Container>& lhs,
-    const ft::NormalIterator<IteratorR, Container>& rhs) {
+typename ft::normal_iterator<IteratorL, Container>::difference_type ft::operator<=(
+    const ft::normal_iterator<IteratorL, Container>& lhs,
+    const ft::normal_iterator<IteratorR, Container>& rhs) {
         return (lhs.base() <= rhs.base());
 }
 
 template<typename Iterator, typename Container>
-typename ft::NormalIterator<Iterator, Container>::difference_type ft::operator<=(
-    const ft::NormalIterator<Iterator, Container>& lhs,
-    const ft::NormalIterator<Iterator, Container>& rhs) {
+typename ft::normal_iterator<Iterator, Container>::difference_type ft::operator<=(
+    const ft::normal_iterator<Iterator, Container>& lhs,
+    const ft::normal_iterator<Iterator, Container>& rhs) {
         return (lhs.base() <= rhs.base());
 }
 
 template<typename IteratorL, typename IteratorR, typename Container>
-typename ft::NormalIterator<IteratorL, Container>::difference_type ft::operator>=(
-    const ft::NormalIterator<IteratorL, Container>& lhs,
-    const ft::NormalIterator<IteratorR, Container>& rhs) {
+typename ft::normal_iterator<IteratorL, Container>::difference_type ft::operator>=(
+    const ft::normal_iterator<IteratorL, Container>& lhs,
+    const ft::normal_iterator<IteratorR, Container>& rhs) {
         return (lhs.base() >= rhs.base());
 }
 
 template<typename Iterator, typename Container>
-typename ft::NormalIterator<Iterator, Container>::difference_type ft::operator>=(
-    const ft::NormalIterator<Iterator, Container>& lhs,
-    const ft::NormalIterator<Iterator, Container>& rhs) {
+typename ft::normal_iterator<Iterator, Container>::difference_type ft::operator>=(
+    const ft::normal_iterator<Iterator, Container>& lhs,
+    const ft::normal_iterator<Iterator, Container>& rhs) {
         return (lhs.base() >= rhs.base());
 }
 
 template<typename IteratorL, typename IteratorR, typename Container>
-typename ft::NormalIterator<IteratorL, Container>::difference_type ft::operator-(
-    const ft::NormalIterator<IteratorL, Container>& lhs,
-    const ft::NormalIterator<IteratorR, Container>& rhs) {
+typename ft::normal_iterator<IteratorL, Container>::difference_type ft::operator-(
+    const ft::normal_iterator<IteratorL, Container>& lhs,
+    const ft::normal_iterator<IteratorR, Container>& rhs) {
         return (lhs.base() - rhs.base());
 }
 
 template<typename IteratorL, typename IteratorR, typename Container>
-typename ft::NormalIterator<IteratorL, Container>::difference_type ft::operator+(
-    typename ft::NormalIterator<IteratorL, Container>::difference_type n,
-    const ft::NormalIterator<IteratorR, Container>& i) {
-        return (ft::NormalIterator<IteratorL, Container>(i.base() + n));
+typename ft::normal_iterator<IteratorL, Container>::difference_type ft::operator+(
+    typename ft::normal_iterator<IteratorL, Container>::difference_type n,
+    const ft::normal_iterator<IteratorR, Container>& i) {
+        return (ft::normal_iterator<IteratorL, Container>(i.base() + n));
 }

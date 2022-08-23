@@ -6,7 +6,7 @@
 
 namespace ft {
 template<typename Iterator>
-struct iteratorTraits {
+struct iterator_traits {
     typedef typename Iterator::iterator_category iterator_category;
     typedef typename Iterator::value_type        value_type;
     typedef typename Iterator::difference_type   difference_type;
@@ -15,7 +15,7 @@ struct iteratorTraits {
 };
 
 template<typename T>
-struct iteratorTraits<T*> {
+struct iterator_traits<T*> {
     typedef std::random_access_iterator_tag iterator_category;
     typedef T                               value_type;
     typedef ptrdiff_t                       difference_type;
@@ -25,7 +25,7 @@ struct iteratorTraits<T*> {
 };
 
 template<typename T>
-struct iteratorTraits<const T*> {
+struct iterator_traits<const T*> {
     typedef std::random_access_iterator_tag iterator_category;
     typedef T                               value_type;
     typedef std::ptrdiff_t                  difference_type;

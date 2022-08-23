@@ -6,30 +6,30 @@
 
 namespace ft {
 template<class T, class Alloc = std::allocator<T> >
-struct VectorBase {
-    struct MemoryImpl : public Alloc {
-        T* memoryStart;
-        T* memoryFinish;
-        T* memoryEndOfStorage;
-        explicit MemoryImpl(Alloc const& alloc) :
-        Alloc(alloc), memoryStart(0), memoryFinish(0), memoryEndOfStorage(0) {}
+struct vector_base {
+    struct memory_impl : public Alloc {
+        T* memory_start;
+        T* memory_finish;
+        T* memory_end_of_storage;
+        explicit memory_impl(Alloc const& alloc) :
+        Alloc(alloc), memory_start(0), memory_finish(0), memory_end_of_storage(0) {}
     };
 
     /******************** MEMBER TYPES ********************/
-    MemoryImpl memoryImpl;
+    memory_impl memory_impl;
     typedef Alloc allocator_type;
 
     /******************** CONSTRUCTORS ********************/
-    explicit VectorBase(const allocator_type& alloc);
-    VectorBase(size_t n, const allocator_type& alloc);
+    explicit vector_base(const allocator_type& alloc);
+    vector_base(size_t n, const allocator_type& alloc);
 
     /******************** DESTRUCTORS ********************/
-    ~VectorBase(void);
+    ~vector_base(void);
 
     /******************** MEMBER FUNCTIONS ********************/
     Alloc get_allocator(void) const;
-    T* memoryAllocate(size_t n);
-    void memoryDeallocate(T* memoryStart, size_t n);
+    T* memory_allocate(size_t n);
+    void memory_deallocate(T* memory_start, size_t n);
 };
 }  // namespace ft
 
