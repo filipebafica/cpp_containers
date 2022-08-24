@@ -46,10 +46,11 @@ void ft::vector<T, Alloc>::memory_range_initialize(iterator first, iterator last
 template<class T, class Alloc>
 ft::vector<T, Alloc>::vector(const ft::vector<T, Alloc>& src) : vector_base<T, Alloc>(src.size(), src.get_allocator()) {
     std::cout << "Copy vector constructor called" << std::endl;
+    T* curr = this->memory_impl.memory_start;
     typename ft::vector<T, Alloc>::const_iterator src_curr = src.begin();
     typename ft::vector<T, Alloc>::const_iterator src_end = src.end();
-    for (; src_curr != src_end; src_curr++) {
-        this->get_allocator().construct(const_cast<T*>(src_curr.base()), *src_curr);
+    for (; src_curr != src_end; curr++, src_curr++) {
+        this->get_allocator().construct(curr, *src_curr);
     }
     this->memory_impl.memory_finish = this->memory_impl.memory_start + std::distance(src.begin(), src.end());
 }
