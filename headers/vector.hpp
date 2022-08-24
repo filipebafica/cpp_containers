@@ -4,6 +4,7 @@
 
 #include <memory>
 #include <iterator>
+#include <algorithm>
 #include "./vector_base.hpp"
 #include "./normal_iterator.hpp"
 #include "./iterator_traits.hpp"
@@ -34,7 +35,7 @@ class vector : protected vector_base<T, Alloc> {
     vector(iterator first, iterator last,
                  const allocator_type& alloc = allocator_type());
     vector(const vector& src);
-    // vector& operator=(vector const& rhs);
+    vector& operator=(vector const& rhs);
     // void assign(size_type count, const T& value);
     // template<class InputIterator>
     // void assign(InputIterator first, InputIterator last);
@@ -97,29 +98,29 @@ class vector : protected vector_base<T, Alloc> {
                     std::forward_iterator_tag);
 };
 
-// template<class T, class Alloc>
-// bool operator==(const vector<T, Alloc>& lhs,
-//                 const vector<T, Alloc>& rhs);
+template<class T, class Alloc>
+bool operator==(const vector<T, Alloc>& lhs,
+                const vector<T, Alloc>& rhs);
 
-// template<class T, class Alloc>
-// bool operator!=(const vector<T, Alloc>& lhs,
-//                 const vector<T, Alloc>& rhs);
+template<class T, class Alloc>
+bool operator!=(const vector<T, Alloc>& lhs,
+                const vector<T, Alloc>& rhs);
 
-// template<class T, class Alloc>
-// bool operator<(const vector<T, Alloc>& lhs,
-//                 const vector<T, Alloc>& rhs);
+template<class T, class Alloc>
+bool operator<(const vector<T, Alloc>& lhs,
+                const vector<T, Alloc>& rhs);
 
-// template<class T, class Alloc>
-// bool operator<=(const vector<T, Alloc>& lhs,
-//                 const vector<T, Alloc>& rhs);
+template<class T, class Alloc>
+bool operator<=(const vector<T, Alloc>& lhs,
+                const vector<T, Alloc>& rhs);
 
-// template<class T, class Alloc>
-// bool operator>(const vector<T, Alloc>& lhs,
-//                 const vector<T, Alloc>& rhs);
+template<class T, class Alloc>
+bool operator>(const vector<T, Alloc>& lhs,
+                const vector<T, Alloc>& rhs);
 
-// template<class T, class Alloc>
-// bool operator>=(const vector<T, Alloc>& lhs,
-//                 const vector<T, Alloc>& rhs);
+template<class T, class Alloc>
+bool operator>=(const vector<T, Alloc>& lhs,
+                const vector<T, Alloc>& rhs);
 }  // namespace ft
 
 #include "./vector.tpp"

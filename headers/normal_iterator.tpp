@@ -5,12 +5,12 @@
 
 template<typename Iterator, typename Container>
 ft::normal_iterator<Iterator, Container>::normal_iterator() : memory_current(Iterator()) {
-    std::cout << "Default normal_iterator constructor called" << std::endl;
+    std::cout << "Normal Iterator default constructor called" << std::endl;
 }
 
 template<typename Iterator, typename Container>
 ft::normal_iterator<Iterator, Container>::normal_iterator(const Iterator& i) : memory_current(Iterator(i)) {
-    std::cout << "Fill normal_iterator constructor called" << std::endl;
+    std::cout << "Normal Iterator fill constructor called" << std::endl;
 }
 
 template<typename Iterator, typename Container>

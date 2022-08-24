@@ -5,12 +5,12 @@
 
 template<class T, class Alloc>
 ft::vector_base<T, Alloc>::vector_base(const allocator_type& alloc) : memory_impl(alloc) {
-    std::cout << "Default vector base constructor called" << std::endl;
+    std::cout << "Vector Base default base constructor called" << std::endl;
 }
 
 template<class T, class Alloc>
 ft::vector_base<T, Alloc>::vector_base(size_t n, const allocator_type& alloc) : memory_impl(alloc) {
-    std::cout << "Fill vector base constructor called" << std::endl;
+    std::cout << "Vector Base fill constructor called" << std::endl;
     this->memory_impl.memory_start = this->memory_allocate(n);
     this->memory_impl.memory_finish = this->memory_impl.memory_start;
     this->memory_impl.memory_end_of_storage = this->memory_impl.memory_start + n;
@@ -18,7 +18,7 @@ ft::vector_base<T, Alloc>::vector_base(size_t n, const allocator_type& alloc) : 
 
 template<class T, class Alloc>
 ft::vector_base<T, Alloc>::~vector_base(void) {
-    std::cout << "Default vector base destructor called" << std::endl;
+    std::cout << "Vector Base default  destructor called" << std::endl;
     this->memory_deallocate(this->memory_impl.memory_start, 
     this->memory_impl.memory_end_of_storage - this->memory_impl.memory_start);
 }
