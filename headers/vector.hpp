@@ -69,11 +69,11 @@ class vector : protected vector_base<T, Alloc> {
     // const_reverse_iterator rend(void) const;
 
     // // capacity
-    // bool empty(void) const;
+    bool empty(void) const;
     size_type size(void) const;
     // size_type max_size(void) const;
     // void reserve(size_type new_cap);
-    // size_type capacity(void) const;
+    size_type capacity(void) const;
 
     // // modifiers
     // void clear(void);
@@ -96,6 +96,10 @@ class vector : protected vector_base<T, Alloc> {
     void memory_range_initialize(iterator first,
                     iterator last,
                     std::forward_iterator_tag);
+
+ protected:
+    pointer memory_allocate_and_copy(size_type n, iterator first,
+                    iterator last);
 };
 
 template<class T, class Alloc>
