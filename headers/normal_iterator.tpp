@@ -78,84 +78,84 @@ const Iterator& ft::normal_iterator<Iterator, Container>::base(void) const {
 }
 
 template<typename IteratorL, typename IteratorR, typename Container>
-typename ft::normal_iterator<IteratorL, Container>::difference_type ft::operator==(
+bool ft::operator==(
     const ft::normal_iterator<IteratorL, Container>& lhs,
     const ft::normal_iterator<IteratorR, Container>& rhs) {
         return (lhs.base() == rhs.base());
 }
 
 template<typename Iterator, typename Container>
-typename ft::normal_iterator<Iterator, Container>::difference_type ft::operator==(
+bool ft::operator==(
     const ft::normal_iterator<Iterator, Container>& lhs,
     const ft::normal_iterator<Iterator, Container>& rhs) {
         return (lhs.base() == rhs.base());
 }
 
 template<typename IteratorL, typename IteratorR, typename Container>
-typename ft::normal_iterator<IteratorL, Container>::difference_type ft::operator!=(
+bool ft::operator!=(
     const ft::normal_iterator<IteratorL, Container>& lhs,
     const ft::normal_iterator<IteratorR, Container>& rhs) {
         return (lhs.base() != rhs.base());
 }
 
 template<typename Iterator, typename Container>
-typename ft::normal_iterator<Iterator, Container>::difference_type ft::operator!=(
+bool ft::operator!=(
     const ft::normal_iterator<Iterator, Container>& lhs,
     const ft::normal_iterator<Iterator, Container>& rhs) {
         return (lhs.base() != rhs.base());
 }
 
 template<typename IteratorL, typename IteratorR, typename Container>
-typename ft::normal_iterator<IteratorL, Container>::difference_type ft::operator<(
+bool ft::operator<(
     const ft::normal_iterator<IteratorL, Container>& lhs,
     const ft::normal_iterator<IteratorR, Container>& rhs) {
         return (lhs.base() < rhs.base());
 }
 
 template<typename Iterator, typename Container>
-typename ft::normal_iterator<Iterator, Container>::difference_type ft::operator<(
+bool ft::operator<(
     const ft::normal_iterator<Iterator, Container>& lhs,
     const ft::normal_iterator<Iterator, Container>& rhs) {
         return (lhs.base() < rhs.base());
 }
 
 template<typename IteratorL, typename IteratorR, typename Container>
-typename ft::normal_iterator<IteratorL, Container>::difference_type ft::operator>(
+bool ft::operator>(
     const ft::normal_iterator<IteratorL, Container>& lhs,
     const ft::normal_iterator<IteratorR, Container>& rhs) {
         return (lhs.base() > rhs.base());
 }
 
 template<typename Iterator, typename Container>
-typename ft::normal_iterator<Iterator, Container>::difference_type ft::operator>(
+bool ft::operator>(
     const ft::normal_iterator<Iterator, Container>& lhs,
     const ft::normal_iterator<Iterator, Container>& rhs) {
         return (lhs.base() > rhs.base());
 }
 
 template<typename IteratorL, typename IteratorR, typename Container>
-typename ft::normal_iterator<IteratorL, Container>::difference_type ft::operator<=(
+bool ft::operator<=(
     const ft::normal_iterator<IteratorL, Container>& lhs,
     const ft::normal_iterator<IteratorR, Container>& rhs) {
         return (lhs.base() <= rhs.base());
 }
 
 template<typename Iterator, typename Container>
-typename ft::normal_iterator<Iterator, Container>::difference_type ft::operator<=(
+bool ft::operator<=(
     const ft::normal_iterator<Iterator, Container>& lhs,
     const ft::normal_iterator<Iterator, Container>& rhs) {
         return (lhs.base() <= rhs.base());
 }
 
 template<typename IteratorL, typename IteratorR, typename Container>
-typename ft::normal_iterator<IteratorL, Container>::difference_type ft::operator>=(
+bool ft::operator>=(
     const ft::normal_iterator<IteratorL, Container>& lhs,
     const ft::normal_iterator<IteratorR, Container>& rhs) {
         return (lhs.base() >= rhs.base());
 }
 
 template<typename Iterator, typename Container>
-typename ft::normal_iterator<Iterator, Container>::difference_type ft::operator>=(
+bool ft::operator>=(
     const ft::normal_iterator<Iterator, Container>& lhs,
     const ft::normal_iterator<Iterator, Container>& rhs) {
         return (lhs.base() >= rhs.base());

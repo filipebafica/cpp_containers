@@ -19,8 +19,8 @@ class vector : protected vector_base<T, Alloc> {
     typedef typename allocator_type::const_reference    const_reference;
     typedef typename allocator_type::pointer            pointer;
     typedef typename allocator_type::const_pointer      const_pointer;
-    typedef normal_iterator<pointer, vector>             iterator;
-    // typedef const_iterator;
+    typedef normal_iterator<pointer, vector>            iterator;
+    typedef normal_iterator<const_pointer, vector>      const_iterator;
     // typedef reverse_iterator;
     // typedef const_reverse_iterator;
     // typedef difference_type;
@@ -59,9 +59,9 @@ class vector : protected vector_base<T, Alloc> {
 
     // // iterators
     iterator begin(void);
-    // const_iterator begin(void) const;
+    const_iterator begin(void) const;
     iterator end(void);
-    // const_iterator end(void) const;
+    const_iterator end(void) const;
     // reverse_iterator rbegin(void);
     // const_reverse_iterator rbegin(void) const;
     // reverse_iterator rend(void);
@@ -69,7 +69,7 @@ class vector : protected vector_base<T, Alloc> {
 
     // // capacity
     // bool empty(void) const;
-    // size_type size(void) const;
+    size_type size(void) const;
     // size_type max_size(void) const;
     // void reserve(size_type new_cap);
     // size_type capacity(void) const;

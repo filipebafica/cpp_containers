@@ -46,6 +46,12 @@ void ft::vector<T, Alloc>::memory_range_initialize(iterator first, iterator last
 template<class T, class Alloc>
 ft::vector<T, Alloc>::vector(const ft::vector<T, Alloc>& src) : vector_base<T, Alloc>(src.size(), src.get_allocator()) {
     std::cout << "Copy vector constructor called" << std::endl;
+    typename ft::vector<T, Alloc>::const_iterator src_curr = src.begin();
+    typename ft::vector<T, Alloc>::const_iterator src_end = src.end();
+    for (; src_curr != src_end; src_curr++) {
+        this->get_allocator().construct(const_cast<T*>(src_curr.base()), *src_curr);
+    }
+    this->memory_impl.memory_finish = this->memory_impl.memory_start + std::distance(src.begin(), src.end());
 }
 
 
@@ -68,7 +74,23 @@ typename ft::vector<T, Alloc>::iterator ft::vector<T, Alloc>::begin(void) {
 }
 
 template<class T, class Alloc>
+typename ft::vector<T, Alloc>::const_iterator ft::vector<T, Alloc>::begin(void) const {
+    return (const_iterator(this->memory_impl.memory_start));
+}
+
+template<class T, class Alloc>
 typename ft::vector<T, Alloc>::iterator ft::vector<T, Alloc>::end(void) {
     return (iterator(this->memory_impl.memory_finish));
+}
+
+template<class T, class Alloc>
+typename ft::vector<T, Alloc>::const_iterator ft::vector<T, Alloc>::end(void) const {
+    return (const_iterator(this->memory_impl.memory_finish));
+}
+
+// capacity
+template<class T, class Alloc>
+typename ft::vector<T, Alloc>::size_type ft::vector<T, Alloc>::size(void) const {
+    return (typename ft::vector<T, Alloc>::size_type(this->end() - this->begin()));
 }
 
