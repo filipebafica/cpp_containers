@@ -44,9 +44,37 @@ ft::vector<T, Alloc>& ft::vector<T, Alloc>::operator=(const ft::vector<T, Alloc>
     if (&rhs == this)
         return (*this);
     const size_type rhs_len = rhs.size();
+
+    // if rhs length is greater than 
+    // lhs hold capacity in currently allocated storage
     if (rhs_len > this->capacity()) {
         pointer tmp = this->memory_allocate_and_copy(rhs_len, rhs.begin(), rhs.end());
+        std::_Destroy(this->begin(), this->end(), this->get_allocator());
+        this->memory_deallocate(this->memory_impl.memory_end_of_storage - this->memory_impl.memory_start);
+        this->memory_impl.memory_start = tmp;
+        this->memory_impl.memory_end_of_storage = this->memory_impl.memory_start + rhs_len;
     }
+    // if lhs number of elements is greater or equal than 
+    // rhs hold capacity in currently allocated storage
+    else if (this->size() >= rhs_len) {
+        iterator i(std::copy(rhs.begin(), rhs.end(), this->begin()));
+        std::_Destroy(i, this->end(), this->get_allocator());
+    } 
+    // if rhs length is less than 
+    // lhs hold capacity in currently allocated storage
+    else {
+        // will copy from rhs the lhs number of elements into lhs
+        std::copy(rhs.begin(), rhs.begin() + this->size(), this->memory_impl.memory_start);
+        // will construct the remaining elements from rhs into lhs
+        pointer lhs_curr = this->memory_impl.memory_start;
+        iterator rhs_curr = rhs.begin() + this->size();
+        iterator rhs_end = rhs.end();
+        for (; rhs_curr != rhs_end; lhs_curr++, rhs_curr++) {
+            this->get_allocator().construct(lhs_curr, *rhs_curr);
+        }
+        this->memory_impl.memory_finish = this->memory_impl.memory_start + rhs_len;
+    }
+    return (*this);
 }
 
 
@@ -123,6 +151,16 @@ void ft::vector<T, Alloc>::memory_range_initialize(iterator first, iterator last
 template<class T, class Alloc>
 typename ft::vector<T, Alloc>::pointer ft::vector<T, Alloc>::memory_allocate_and_copy(size_type n,
     iterator first, iterator last) {
+        pointer result = this->memory_allocate(n);
+        for (; first != last; result++, first++) {
+            this->get_allocator().construct(result, *first);
+        }
+        return (result - n);
+}
+
+template<class T, class Alloc>
+typename ft::vector<T, Alloc>::pointer ft::vector<T, Alloc>::memory_allocate_and_copy(size_type n,
+    const_iterator first, const_iterator last) {
         pointer result = this->memory_allocate(n);
         for (; first != last; result++, first++) {
             this->get_allocator().construct(result, *first);

@@ -100,6 +100,8 @@ class vector : protected vector_base<T, Alloc> {
  protected:
     pointer memory_allocate_and_copy(size_type n, iterator first,
                     iterator last);
+    pointer memory_allocate_and_copy(size_type n, const_iterator first,
+                    const_iterator last);
 };
 
 template<class T, class Alloc>
