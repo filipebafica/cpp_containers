@@ -35,5 +35,6 @@ T* ft::vector_base<T, Alloc>::memory_allocate(size_t n) {
 
 template<class T, class Alloc>
 void ft::vector_base<T, Alloc>::memory_deallocate(T* memory_start, size_t n) {
-    this->memory_impl.deallocate(memory_start, n);
+    if (memory_start)
+        this->memory_impl.deallocate(memory_start, n);
 }

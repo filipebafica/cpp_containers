@@ -90,12 +90,17 @@ class vector : protected vector_base<T, Alloc> {
 
  private:
     /******************** MEMBER FUNCTIONS ********************/
-    void memory_range_initialize(iterator first,
-                    iterator last,
+    void unitialized_fill_n_a(pointer memory_start, size_type n,
+                    const value_type& value);
+    void unitialized_copy_a(iterator first, iterator last,
+                    pointer memory_start);
+    void unitialized_copy_a(const_iterator first, const_iterator last,
+                    pointer memory_start);
+    void memory_range_initialize(iterator first, iterator last,
                     std::input_iterator_tag);
-    void memory_range_initialize(iterator first,
-                    iterator last,
+    void memory_range_initialize(iterator first, iterator last,
                     std::forward_iterator_tag);
+    void destroy(pointer memory_start, pointer memory_finish);
 
  protected:
     pointer memory_allocate_and_copy(size_type n, iterator first,
