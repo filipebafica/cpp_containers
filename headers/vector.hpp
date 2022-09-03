@@ -36,9 +36,9 @@ class vector : protected vector_base<T, Alloc> {
                  const allocator_type& alloc = allocator_type());
     vector(const vector& src);
     vector& operator=(vector const& rhs);
-    // void assign(size_type count, const T& value);
-    // template<class InputIterator>
-    // void assign(InputIterator first, InputIterator last);
+    void assign(size_type count, const T& value);
+    template<class InputIterator>
+    void assign(InputIterator first, InputIterator last);
     // allocator_type get_allocator(void) const;
 
 
@@ -75,7 +75,7 @@ class vector : protected vector_base<T, Alloc> {
     // void reserve(size_type new_cap);
     size_type capacity(void) const;
 
-    // // modifiers
+    // modifiers
     // void clear(void);
     // iterator insert(iterator pos, const T& value);
     // void insert(iterator pos, size_type count, const T& value);
@@ -86,7 +86,7 @@ class vector : protected vector_base<T, Alloc> {
     // void push_back(const T& value);
     // void pop_back(void);
     // void resize(size_type count, T value = T());
-    // void swap(vector& other);
+    void swap(vector& x);
 
  private:
     /******************** MEMBER FUNCTIONS ********************/
@@ -107,6 +107,7 @@ class vector : protected vector_base<T, Alloc> {
                     iterator last);
     pointer memory_allocate_and_copy(size_type n, const_iterator first,
                     const_iterator last);
+    void memory_fill_assign(size_type n, const value_type& value);
 };
 
 template<class T, class Alloc>
@@ -132,6 +133,10 @@ bool operator>(const vector<T, Alloc>& lhs,
 template<class T, class Alloc>
 bool operator>=(const vector<T, Alloc>& lhs,
                 const vector<T, Alloc>& rhs);
+
+template<class T, class Alloc>
+bool swap(const vector<T, Alloc>& x,
+            const vector<T, Alloc>& y);
 }  // namespace ft
 
 #include "./vector.tpp"

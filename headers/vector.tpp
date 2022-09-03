@@ -31,7 +31,7 @@ ft::vector<T, Alloc>::vector(const ft::vector<T, Alloc>& src) : vector_base<T, A
 }
 
 template<class T, class Alloc>
-ft::vector<T, Alloc>& ft::vector<T, Alloc>::operator=(const ft::vector<T, Alloc>& rhs) {
+ft::vector<T, Alloc>& ft::vector<T, Alloc>::operator=(const vector& rhs) {
     std::cout << "Vector assignment operator vector called" << std::endl;
     if (&rhs == this)
         return (*this);
@@ -113,6 +113,14 @@ bool ft::vector<T, Alloc>::empty(void) const {
     return (begin() == end());
 }
 
+// modifiers
+template<class T, class Alloc>
+void ft::vector<T, Alloc>::swap(vector& x) {
+    std::swap(this->memory_impl.memory_start, x.memory_impl.memory_start);
+    std::swap(this->memory_impl.memory_finish, x.memory_impl.memory_finish);
+    std::swap(this->memory_impl.memory_end_of_storage, x.memory_impl.memory_end_of_storage);
+}
+
 /************************************* PRIVATE MEMBER FUCNTIONS *************************************/
 template<class T, class Alloc>
 void ft::vector<T, Alloc>::unitialized_fill_n_a(pointer memory_start, size_type n, const value_type& value) {
@@ -179,6 +187,13 @@ typename ft::vector<T, Alloc>::pointer ft::vector<T, Alloc>::memory_allocate_and
         }
         return (result - n);
 }
+template<class T, class Alloc>
+void  ft::vector<T, Alloc>::memory_fill_assign(size_type n, const value_type& value) {
+    if (n > this->capacity()) {
+        vector tmp(n, value);
+        tmp.swap(*this)
+    }
+}
 
 /************************************* NON-MEMBER OPERATORS OVERLOAD *************************************/
 template<class T, class Alloc>
@@ -226,4 +241,12 @@ bool ft::operator>=(
     const ft::vector<T, Alloc>& lhs,
     const ft::vector<T, Alloc>& rhs) {
         return !(lhs < rhs);
+}
+
+/************************************* NON-MEMBER FUNCTIONS *************************************/
+template<class T, class Alloc>
+void ft::swap(
+        const ft::vector<T, Alloc>& x,
+        const ft::vector<T, Alloc>& y) {
+            x.swap(y);
 }

@@ -23,4 +23,3 @@ int main(void) {
     print_test(lhs);
     return (0);
 }
-
