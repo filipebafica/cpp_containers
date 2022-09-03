@@ -36,9 +36,6 @@ class vector : protected vector_base<T, Alloc> {
                  const allocator_type& alloc = allocator_type());
     vector(const vector& src);
     vector& operator=(vector const& rhs);
-    void assign(size_type count, const T& value);
-    template<class InputIterator>
-    void assign(InputIterator first, InputIterator last);
     // allocator_type get_allocator(void) const;
 
 
@@ -76,6 +73,9 @@ class vector : protected vector_base<T, Alloc> {
     size_type capacity(void) const;
 
     // modifiers
+    void assign(size_type n, const value_type& value);
+    // template<class InputIterator>
+    // void assign(InputIterator first, InputIterator last);
     // void clear(void);
     // iterator insert(iterator pos, const T& value);
     // void insert(iterator pos, size_type count, const T& value);

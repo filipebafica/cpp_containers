@@ -115,6 +115,12 @@ bool ft::vector<T, Alloc>::empty(void) const {
 
 // modifiers
 template<class T, class Alloc>
+void ft::vector<T, Alloc>::assign(size_type n, const value_type& value) {
+    this->memory_fill_assign(n, value);
+}
+
+
+template<class T, class Alloc>
 void ft::vector<T, Alloc>::swap(vector& x) {
     std::swap(this->memory_impl.memory_start, x.memory_impl.memory_start);
     std::swap(this->memory_impl.memory_finish, x.memory_impl.memory_finish);
@@ -189,10 +195,23 @@ typename ft::vector<T, Alloc>::pointer ft::vector<T, Alloc>::memory_allocate_and
 }
 template<class T, class Alloc>
 void  ft::vector<T, Alloc>::memory_fill_assign(size_type n, const value_type& value) {
+    // if the number of elements to fill (n) is greater than the current allocation capacity
+    // if yes, creates a new vector (tmp) with the intended capacity and swap pointers
     if (n > this->capacity()) {
         vector tmp(n, value);
-        tmp.swap(*this)
+        tmp.swap(*this);
     }
+    // n is less or equal thand capacity but greater than current number os elements
+    else if (n > size()) {
+        std::fill(this->begin(), this->end(), value);
+        this->unitialized_fill_n_a(this->memory_impl.memory_finish, n - this->size(), value);
+        this->memory_impl.memory_finish += n - size();
+    }
+    else {
+        std::cout << "here" << std::endl;
+        //erase
+    }
+
 }
 
 /************************************* NON-MEMBER OPERATORS OVERLOAD *************************************/

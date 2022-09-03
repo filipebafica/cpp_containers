@@ -14,12 +14,11 @@ void print_test(ft::vector<int> v) {
 
 int main(void) {
     ft::vector<int> lhs(10, 10);
-    ft::vector<int> rhs(15, 15);
-    rhs = lhs;
     typename ft::vector<int>::iterator it;
-    it = rhs.begin();
+    it = lhs.begin();
     for (int i = 0; i < 10; ++i, ++it)
         std::cout << *it << std::endl;
+    lhs.assign(15, 5);
     print_test(lhs);
     return (0);
 }
