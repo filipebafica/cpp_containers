@@ -20,5 +20,7 @@ int main(void) {
         std::cout << *it << std::endl;
     lhs.assign(15, 5);
     print_test(lhs);
+    std::vector<int> v;
+    v.erase()
     return (0);
 }

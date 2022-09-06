@@ -119,6 +119,27 @@ void ft::vector<T, Alloc>::assign(size_type n, const value_type& value) {
     this->memory_fill_assign(n, value);
 }
 
+template<class T, class Alloc>
+typename ft::vector<T, Alloc>::iterator ft::vector<T, Alloc>::erase(iterator position) {
+    if (position + 1 != this->end()) {
+        // copy position + 1 into postion this makes what position held to be erased
+        std::copy(position + 1, this->end(), position);
+    }
+    // since thre is one less element, the memory finish must be decreased one position
+    --this->memory_impl.memory_finish;
+    // destroy remaining element
+    this->memory_impl.destroy(this>memory_impl.memory_finish);
+    return (position);
+}
+
+template<class T, class Alloc>
+typename ft::vector<T, Alloc>::iterator ft::vector<T, Alloc>::erase(iterator first, iterator last) {
+    // initialize an iterator copying FROM the last parameter to this container's end INTO 
+    // the this container's begining.
+    iterator i(std::copy(last, this->end(), first));
+    // 
+    // have to call the destructor to the iterator base
+}
 
 template<class T, class Alloc>
 void ft::vector<T, Alloc>::swap(vector& x) {
