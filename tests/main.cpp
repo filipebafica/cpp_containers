@@ -8,7 +8,7 @@
 void print_test(ft::vector<int> v) {
     typename ft::vector<int>::iterator it;
     it = v.begin();
-    for (int i = 0; i < 10; ++i, ++it)
+    for (int i = 0; i < 11; ++i, ++it)
         std::cout << *it << std::endl;
 }
 
@@ -18,9 +18,9 @@ int main(void) {
     it = lhs.begin();
     for (int i = 0; i < 10; ++i, ++it)
         std::cout << *it << std::endl;
-    lhs.assign(15, 5);
+    lhs.assign(1, 5);
     print_test(lhs);
-    std::vector<int> v;
-    v.erase()
+    // std::vector<int> v;
+    // v.erase()
     return (0);
 }

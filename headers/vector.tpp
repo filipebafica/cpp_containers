@@ -128,17 +128,22 @@ typename ft::vector<T, Alloc>::iterator ft::vector<T, Alloc>::erase(iterator pos
     // since thre is one less element, the memory finish must be decreased one position
     --this->memory_impl.memory_finish;
     // destroy remaining element
-    this->memory_impl.destroy(this>memory_impl.memory_finish);
+    this->memory_impl.destroy(this->memory_impl.memory_finish);
     return (position);
 }
 
 template<class T, class Alloc>
 typename ft::vector<T, Alloc>::iterator ft::vector<T, Alloc>::erase(iterator first, iterator last) {
     // initialize an iterator copying FROM the last parameter to this container's end INTO 
-    // the this container's begining.
+    // the area pointed to by first parameter
     iterator i(std::copy(last, this->end(), first));
-    // 
-    // have to call the destructor to the iterator base
+    // 'i' will return an iterator pointing to the end
+    // of the copied area
+    // erase will delete from that pointer to the end of container
+    this->destroy(i, this->end());
+    // the finish will be moved back the length erased (last - first)
+    this->memory_impl.memory_finish = this->memory_impl.memory_finish - (last - first);
+    return (first);
 }
 
 template<class T, class Alloc>
@@ -186,11 +191,22 @@ void ft::vector<T, Alloc>::memory_range_initialize(iterator first, iterator last
     }
     this->memory_impl.memory_finish = this->memory_impl.memory_start + n;
 }
+template<class T, class Alloc>
+void ft::vector<T, Alloc>::destroy(T* p) {
+    p->~T();
+}
 
 template<class T, class Alloc>
 void ft::vector<T, Alloc>::destroy(pointer memory_start, pointer memory_finish) {
     for (; memory_start != memory_finish; memory_start++) {
         this->get_allocator().destroy(memory_start);
+    }
+}
+
+template<class T, class Alloc>
+void ft::vector<T, Alloc>::destroy(iterator first, iterator last) {
+    for (; first != last; first++) {
+        this->destroy(&*first.base());
     }
 }
 
@@ -229,10 +245,11 @@ void  ft::vector<T, Alloc>::memory_fill_assign(size_type n, const value_type& va
         this->memory_impl.memory_finish += n - size();
     }
     else {
-        std::cout << "here" << std::endl;
-        //erase
+        // fill the range 'n' with 'value'
+        std::fill_n(this->begin(), n, value);
+        //erase from the end of range 'n' untill the end of this vector
+        this->erase(this->begin() + n, this->end());
     }
-
 }
 
 /************************************* NON-MEMBER OPERATORS OVERLOAD *************************************/

@@ -21,7 +21,6 @@ struct iterator_traits<T*> {
     typedef ptrdiff_t                       difference_type;
     typedef T*                              pointer;
     typedef T&                              reference;
-
 };
 
 template<typename T>

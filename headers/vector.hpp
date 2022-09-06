@@ -100,7 +100,9 @@ class vector : protected vector_base<T, Alloc> {
                     std::input_iterator_tag);
     void memory_range_initialize(iterator first, iterator last,
                     std::forward_iterator_tag);
+    void destroy(T* p);
     void destroy(pointer memory_start, pointer memory_finish);
+    void destroy(iterator first, iterator last);
 
  protected:
     pointer memory_allocate_and_copy(size_type n, iterator first,
