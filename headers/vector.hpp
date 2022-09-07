@@ -74,8 +74,7 @@ class vector : protected vector_base<T, Alloc> {
 
     // modifiers
     void assign(size_type n, const value_type& value);
-    // template<class InputIterator>
-    // void assign(InputIterator first, InputIterator last);
+    void assign(iterator first, iterator last);
     // void clear(void);
     // iterator insert(iterator pos, const T& value);
     // void insert(iterator pos, size_type count, const T& value);
@@ -96,20 +95,24 @@ class vector : protected vector_base<T, Alloc> {
                     pointer memory_start);
     void unitialized_copy_a(const_iterator first, const_iterator last,
                     pointer memory_start);
-    void memory_range_initialize(iterator first, iterator last,
-                    std::input_iterator_tag);
-    void memory_range_initialize(iterator first, iterator last,
-                    std::forward_iterator_tag);
     void destroy(T* p);
     void destroy(pointer memory_start, pointer memory_finish);
     void destroy(iterator first, iterator last);
 
  protected:
+    void memory_range_initialize(iterator first, iterator last,
+                    std::input_iterator_tag);
+    void memory_range_initialize(iterator first, iterator last,
+                    std::forward_iterator_tag);
     pointer memory_allocate_and_copy(size_type n, iterator first,
                     iterator last);
     pointer memory_allocate_and_copy(size_type n, const_iterator first,
                     const_iterator last);
     void memory_fill_assign(size_type n, const value_type& value);
+    void memory_assign_aux(iterator first, iterator last,
+                    std::input_iterator_tag);
+    void memory_assign_aux(iterator first, iterator last,
+                    std::forward_iterator_tag);
 };
 
 template<class T, class Alloc>

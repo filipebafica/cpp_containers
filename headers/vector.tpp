@@ -210,6 +210,11 @@ void ft::vector<T, Alloc>::destroy(iterator first, iterator last) {
     }
 }
 
+template<class T, class Alloc>
+void ft::vector<T, Alloc>::memory_assign_aux(iterator first, iterator last, std::input_iterator_tag) {
+    
+}
+
 /************************************* PROTECTED MEMBER FUCNTIONS *************************************/
 template<class T, class Alloc>
 typename ft::vector<T, Alloc>::pointer ft::vector<T, Alloc>::memory_allocate_and_copy(size_type n,
@@ -230,6 +235,7 @@ typename ft::vector<T, Alloc>::pointer ft::vector<T, Alloc>::memory_allocate_and
         }
         return (result - n);
 }
+
 template<class T, class Alloc>
 void  ft::vector<T, Alloc>::memory_fill_assign(size_type n, const value_type& value) {
     // if the number of elements to fill (n) is greater than the current allocation capacity
