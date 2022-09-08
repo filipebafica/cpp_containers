@@ -76,10 +76,9 @@ class vector : protected vector_base<T, Alloc> {
     void assign(size_type n, const value_type& value);
     void assign(iterator first, iterator last);
     // void clear(void);
-    // iterator insert(iterator pos, const T& value);
-    // void insert(iterator pos, size_type count, const T& value);
-    // template<class InputIterator>
-    // void insert(iterator pos, InputIterator first, InputIterator last);
+    iterator insert(iterator position, const value_type& value);
+    // void insert(iterator position, size_type n, const value_type& value);
+    // void insert(iterator position, iterator first, iterator last);
     iterator erase(iterator position);
     iterator erase(iterator first, iterator last);
     // void push_back(const T& value);

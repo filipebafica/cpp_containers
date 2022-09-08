@@ -125,6 +125,21 @@ void ft::vector<T, Alloc>::assign(iterator first, iterator last) {
 }
 
 template<class T, class Alloc>
+typename ft::vector<T, Alloc>::iterator ft::vector<T, Alloc>::insert(iterator position, const value_type& value) {
+    const size_type n = position - this->begin();
+
+    // check if there is space and the postion to insert is at the end
+    if (this->memory_impl.memory_finish != this->memory_impl.memory_end_of_storage 
+        && position == this->end()) {
+            this->memory_impl.construct(this->memory_impl, value);
+            ++this->memory_impl.memory_finish;
+        }
+        else {
+            // inset aux
+        }
+}
+
+template<class T, class Alloc>
 typename ft::vector<T, Alloc>::iterator ft::vector<T, Alloc>::erase(iterator position) {
     if (position + 1 != this->end()) {
         // copy position + 1 into postion this makes what position held to be erased
