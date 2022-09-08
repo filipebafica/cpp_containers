@@ -110,13 +110,18 @@ typename ft::vector<T, Alloc>::size_type ft::vector<T, Alloc>::capacity(void) co
 
 template<class T, class Alloc>
 bool ft::vector<T, Alloc>::empty(void) const {
-    return (begin() == end());
+    return (this->begin() == this->end());
 }
 
 // modifiers
 template<class T, class Alloc>
 void ft::vector<T, Alloc>::assign(size_type n, const value_type& value) {
     this->memory_fill_assign(n, value);
+}
+
+template<class T, class Alloc>
+void ft::vector<T, Alloc>::assign(iterator first, iterator last) {
+    // code
 }
 
 template<class T, class Alloc>
@@ -212,7 +217,18 @@ void ft::vector<T, Alloc>::destroy(iterator first, iterator last) {
 
 template<class T, class Alloc>
 void ft::vector<T, Alloc>::memory_assign_aux(iterator first, iterator last, std::input_iterator_tag) {
-    
+    // will replace this vector with the content from first to last params
+    iterator curr(this->begin());
+    for (; first != last && curr != this->end(); ++curr, ++first) {
+        *curr = *first;
+    }
+    // if the assign was completed fro first to last params
+    // the rest of this vector will be erased
+    // if not, an insertion will be made from this vector's end
+    if (first == last)
+        this->erase(curr, this->end());
+    else
+        this->insert(this->end(), first, last);
 }
 
 /************************************* PROTECTED MEMBER FUCNTIONS *************************************/
