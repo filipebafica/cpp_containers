@@ -5,6 +5,7 @@
 #include <memory>
 #include <iterator>
 #include <algorithm>
+#include <stdexcept>
 #include "./vector_base.hpp"
 #include "./normal_iterator.hpp"
 #include "./iterator_traits.hpp"
@@ -112,6 +113,7 @@ class vector : protected vector_base<T, Alloc> {
                     std::input_iterator_tag);
     void memory_assign_aux(iterator first, iterator last,
                     std::forward_iterator_tag);
+    void memory_insert_aux(iterator position, const value_type& value);
 };
 
 template<class T, class Alloc>

@@ -129,6 +129,7 @@ typename ft::vector<T, Alloc>::iterator ft::vector<T, Alloc>::insert(iterator po
     const size_type n = position - this->begin();
 
     // check if there is space and the postion to insert is at the end
+    // if so an insertion will take place
     if (this->memory_impl.memory_finish != this->memory_impl.memory_end_of_storage 
         && position == this->end()) {
             this->memory_impl.construct(this->memory_impl, value);
@@ -237,7 +238,7 @@ void ft::vector<T, Alloc>::memory_assign_aux(iterator first, iterator last, std:
     for (; first != last && curr != this->end(); ++curr, ++first) {
         *curr = *first;
     }
-    // if the assign was completed fro first to last params
+    // if the assign was completed from first to last params
     // the rest of this vector will be erased
     // if not, an insertion will be made from this vector's end
     if (first == last)
@@ -286,6 +287,30 @@ void  ft::vector<T, Alloc>::memory_fill_assign(size_type n, const value_type& va
         std::fill_n(this->begin(), n, value);
         //erase from the end of range 'n' untill the end of this vector
         this->erase(this->begin() + n, this->end());
+    }
+}
+
+template<class T, class Alloc>
+void ft::vector<T, Alloc>::memory_insert_aux(iterator postion, const value_type& value) {
+    // check if there is sapce, the last element will be copied to finish + 1
+    // then, elements will be copied  from finish -1 to position + 1
+    // finally, the insertion value will be placed at the postion param
+    // thils is equivalent to 'move foward' all elments one postion
+    if (this->memory_impl.memory_finsh != this->memory_impl.memory_end_of_storage) {
+        this->memory_impl.construct(this->memory_impl.memory_finish, (this->memory_impl.memory_finish))
+        ++this->memory_impl.memory_finish;
+        value_type tmp = value;
+        std::copy_backward(postion,
+            iterator(this->memory_impl.memory_finish - 2),
+            iterator(this->memory_impl.memory_finish - 1)
+        )
+        *postion = tmp;
+    }
+    else {
+        const size_type old_size = this->size();
+        // check if the max size was reached
+        if (old_size ==  this->max_size())
+            std::length_error("vector::_memory_insert_aux");
     }
 }
 
