@@ -138,12 +138,13 @@ typename ft::vector<T, Alloc>::iterator ft::vector<T, Alloc>::insert(iterator po
     // if so an insertion will take place
     if (this->memory_impl.memory_finish != this->memory_impl.memory_end_of_storage 
         && position == this->end()) {
-            this->memory_impl.construct(this->memory_impl, value);
+            this->memory_impl.construct(this->memory_impl.memory_finish, value);
             ++this->memory_impl.memory_finish;
         }
         else {
-            // inset aux
+            this->memory_insert_aux(position, value);
         }
+        return (this->begin() + n);
 }
 
 template<class T, class Alloc>
@@ -190,7 +191,7 @@ void ft::vector<T, Alloc>::unitialized_fill_n_a(pointer memory_start, size_type 
 
 template<class T, class Alloc>
 void ft::vector<T, Alloc>::unitialized_copy_a(iterator first, iterator last, pointer memory_start) {
-    // copy from first to last into memory_start
+    // construct from first to last into memory_start
     for (; first != last; memory_start++, first++) {
         this->get_allocator().construct(memory_start, *first);
     }
@@ -202,6 +203,16 @@ void ft::vector<T, Alloc>::unitialized_copy_a(const_iterator first, const_iterat
     for (; first != last; memory_start++, first++) {
         this->get_allocator().construct(memory_start, *first);
     }
+};
+
+template<class T, class Alloc>
+typename ft::vector<T, Alloc>::iterator ft::vector<T, Alloc>::unitialized_copy_a(iterator first, iterator last, iterator result) {
+    // construct from first to last into result
+    iterator curr = result;
+    for (; first != last; curr++, first++) {
+        this->get_allocator().construct(&*curr, *first);
+    }
+    return (curr);
 };
 
 template<class T, class Alloc>
@@ -304,38 +315,53 @@ void ft::vector<T, Alloc>::memory_insert_aux(iterator position, const value_type
     // then, elements will be copied  from finish -1 to position + 1
     // finally, the insertion value will be placed at the postion param
     // thils is equivalent to 'move foward' all elments one postion
-    if (this->memory_impl.memory_finsh != this->memory_impl.memory_end_of_storage) {
-        this->memory_impl.construct(this->memory_impl.memory_finish, (this->memory_impl.memory_finish));
+    if (this->memory_impl.memory_finish != this->memory_impl.memory_end_of_storage) {
+        this->memory_impl.construct(this->memory_impl.memory_finish, *(this->memory_impl.memory_finish - 1));
         ++this->memory_impl.memory_finish;
         value_type tmp = value;
-        std::copy_backward(postion,
+        std::copy_backward(position,
             iterator(this->memory_impl.memory_finish - 2),
             iterator(this->memory_impl.memory_finish - 1)
-        )
-        *postion = tmp;
+        );
+        *position = tmp;
     }
     else {
         const size_type old_size = this->size();
         // check if the max size was reached
         if (old_size ==  this->max_size())
             std::length_error("vector::_memory_insert_aux");
-    }
-    // if the previous size is different than 0, len will be doubled
-    // if not, len will be 1
-    size_type len = old_size != 0 ? 2* old_size : 1;
-    // this can true only if old_size is 0,then len wil be 1
-    if (len < old_size)
-        len = this->max_size();
 
-    iterator new_start(this->memory_allocate(len));
-    iterator new_finish(new_start);
-    try {
-        // copy from 
-        new_finish = this->unitialized_copy_a(
-            iterator(this->memory_impl.memory_start),
-            position,
-            new_start
-        )
+        // if the previous size is different than 0, len will be doubled
+        // if not, len will be 1
+        size_type len = old_size != 0 ? 2 * old_size : 1;
+        // this can true only if old_size is 0,then len wil be 1
+        if (len < old_size)
+            len = this->max_size();
+
+        iterator new_start(this->memory_allocate(len));
+        iterator new_finish(new_start);
+        try {
+            // copy from this vector begin to position parameter into new_start
+            new_finish = this->unitialized_copy_a(
+                this->begin(),
+                position,
+                new_start
+            );
+            this->memory_impl.construct(new_finish.base(), value);
+        }
+        catch(...) {
+            this->destroy(new_start, new_finish);
+            this->memory_deallocate(&*new_start.base(), len);
+            throw;
+        }
+        // destroy current memory and set it to the new allocation
+        this->destroy(this->begin(), this->end());
+        this->memory_deallocate(this->memory_impl.memory_start,
+                                this->memory_impl.memory_end_of_storage - 
+                                this->memory_impl.memory_start);
+        this->memory_impl.memory_start = &*new_start.base();
+        this->memory_impl.memory_finish = &*new_finish.base();
+        this->memory_impl.memory_end_of_storage = &*new_start.base() + len;
     }
 }
 

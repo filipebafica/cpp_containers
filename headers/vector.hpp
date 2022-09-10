@@ -95,6 +95,8 @@ class vector : protected vector_base<T, Alloc> {
                     pointer memory_start);
     void unitialized_copy_a(const_iterator first, const_iterator last,
                     pointer memory_start);
+    iterator unitialized_copy_a(iterator first, iterator last,
+                    iterator result);
     void destroy(T* p);
     void destroy(pointer memory_start, pointer memory_finish);
     void destroy(iterator first, iterator last);

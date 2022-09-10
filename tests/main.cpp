@@ -12,13 +12,18 @@
 //         std::cout << *it << std::endl;
 // }
 
+
 int main(void) {
-    // ft::vector<int> lhs(10, 10);
+    ft::vector<int> lhs(10, 10);
+
     // typename ft::vector<int>::iterator it;
     // it = lhs.begin();
     // for (int i = 0; i < 10; ++i, ++it)
     //     std::cout << *it << std::endl;
     // lhs.assign(1, 5);
     // print_test(lhs);
+    // std::cout << lhs.capacity() << std::endl;
+    // lhs.insert(lhs.end(), 10);
+    // std::cout << lhs.capacity() << std::endl;
     return (0);
 }
