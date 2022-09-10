@@ -69,7 +69,7 @@ class vector : protected vector_base<T, Alloc> {
     // // capacity
     bool empty(void) const;
     size_type size(void) const;
-    // size_type max_size(void) const;
+    size_type max_size(void) const;
     // void reserve(size_type new_cap);
     size_type capacity(void) const;
 

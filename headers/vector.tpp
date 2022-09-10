@@ -102,6 +102,12 @@ typename ft::vector<T, Alloc>::size_type ft::vector<T, Alloc>::size(void) const 
 }
 
 template<class T, class Alloc>
+typename ft::vector<T, Alloc>::size_type ft::vector<T, Alloc>::max_size(void) const {
+    // -1 will make size_type reach its max since it is unsigned
+    return (size_type(-1) / sizeof(value_type));
+}
+
+template<class T, class Alloc>
 typename ft::vector<T, Alloc>::size_type ft::vector<T, Alloc>::capacity(void) const {
     return (
         size_type(const_iterator(this->memory_impl.memory_end_of_storage) - this->begin())
@@ -184,6 +190,7 @@ void ft::vector<T, Alloc>::unitialized_fill_n_a(pointer memory_start, size_type 
 
 template<class T, class Alloc>
 void ft::vector<T, Alloc>::unitialized_copy_a(iterator first, iterator last, pointer memory_start) {
+    // copy from first to last into memory_start
     for (; first != last; memory_start++, first++) {
         this->get_allocator().construct(memory_start, *first);
     }
@@ -191,6 +198,7 @@ void ft::vector<T, Alloc>::unitialized_copy_a(iterator first, iterator last, poi
 
 template<class T, class Alloc>
 void ft::vector<T, Alloc>::unitialized_copy_a(const_iterator first, const_iterator last, pointer memory_start) {
+    // construct from first to last into memory_start
     for (; first != last; memory_start++, first++) {
         this->get_allocator().construct(memory_start, *first);
     }
@@ -229,22 +237,6 @@ void ft::vector<T, Alloc>::destroy(iterator first, iterator last) {
     for (; first != last; first++) {
         this->destroy(&*first.base());
     }
-}
-
-template<class T, class Alloc>
-void ft::vector<T, Alloc>::memory_assign_aux(iterator first, iterator last, std::input_iterator_tag) {
-    // will replace this vector with the content from first to last params
-    iterator curr(this->begin());
-    for (; first != last && curr != this->end(); ++curr, ++first) {
-        *curr = *first;
-    }
-    // if the assign was completed from first to last params
-    // the rest of this vector will be erased
-    // if not, an insertion will be made from this vector's end
-    if (first == last)
-        this->erase(curr, this->end());
-    else
-        this->insert(this->end(), first, last);
 }
 
 /************************************* PROTECTED MEMBER FUCNTIONS *************************************/
@@ -291,13 +283,29 @@ void  ft::vector<T, Alloc>::memory_fill_assign(size_type n, const value_type& va
 }
 
 template<class T, class Alloc>
-void ft::vector<T, Alloc>::memory_insert_aux(iterator postion, const value_type& value) {
+void ft::vector<T, Alloc>::memory_assign_aux(iterator first, iterator last, std::input_iterator_tag) {
+    // will replace this vector with the content from first to last params
+    iterator curr(this->begin());
+    for (; first != last && curr != this->end(); ++curr, ++first) {
+        *curr = *first;
+    }
+    // if the assign was completed from first to last params
+    // the rest of this vector will be erased
+    // if not, an insertion will be made from this vector's end
+    if (first == last)
+        this->erase(curr, this->end());
+    else
+        this->insert(this->end(), first, last);
+}
+
+template<class T, class Alloc>
+void ft::vector<T, Alloc>::memory_insert_aux(iterator position, const value_type& value) {
     // check if there is sapce, the last element will be copied to finish + 1
     // then, elements will be copied  from finish -1 to position + 1
     // finally, the insertion value will be placed at the postion param
     // thils is equivalent to 'move foward' all elments one postion
     if (this->memory_impl.memory_finsh != this->memory_impl.memory_end_of_storage) {
-        this->memory_impl.construct(this->memory_impl.memory_finish, (this->memory_impl.memory_finish))
+        this->memory_impl.construct(this->memory_impl.memory_finish, (this->memory_impl.memory_finish));
         ++this->memory_impl.memory_finish;
         value_type tmp = value;
         std::copy_backward(postion,
@@ -311,6 +319,23 @@ void ft::vector<T, Alloc>::memory_insert_aux(iterator postion, const value_type&
         // check if the max size was reached
         if (old_size ==  this->max_size())
             std::length_error("vector::_memory_insert_aux");
+    }
+    // if the previous size is different than 0, len will be doubled
+    // if not, len will be 1
+    size_type len = old_size != 0 ? 2* old_size : 1;
+    // this can true only if old_size is 0,then len wil be 1
+    if (len < old_size)
+        len = this->max_size();
+
+    iterator new_start(this->memory_allocate(len));
+    iterator new_finish(new_start);
+    try {
+        // copy from 
+        new_finish = this->unitialized_copy_a(
+            iterator(this->memory_impl.memory_start),
+            position,
+            new_start
+        )
     }
 }
 
