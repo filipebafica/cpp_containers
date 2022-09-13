@@ -323,8 +323,8 @@ void ft::vector<T, Alloc>::memory_fill_insert(iterator position, size_type n, co
             const size_type elements_after_position = this->end() - position;
             iterator old_finish(this->memory_impl.memory_finish);
             if (elements_after_position > n) {
-                this->unitialized_copy_a(this->memory_impl.memory_finish - n,
-                                            this->memory_impl.memory_finish,
+                this->unitialized_copy_a(iterator(this->memory_impl.memory_finish - n),
+                                            iterator(this->memory_impl.memory_finish),
                                             this->memory_impl.memory_finish);
                 this->memory_impl.memory_finish += n;
                 std::copy_backward(position, old_finish - n, old_finish);
@@ -341,8 +341,53 @@ void ft::vector<T, Alloc>::memory_fill_insert(iterator position, size_type n, co
                 std::fill(position, old_finish, value_copy);
             }
         }
+        // unused space allocated is not greater than the insertion attempt size
         else {
-            
+            const size_type old_size = this->size();
+            // check if the max size was reached
+            if (old_size ==  this->max_size())
+                std::length_error("vector::_memory_insert_aux");
+
+            // extra allocation size is defined here
+            size_type len = old_size + std::max(old_size, n);
+            // this can true only if old_size is 0,then len wil be 1
+            if (len < old_size)
+                len = this->max_size();
+
+            iterator new_start(this->memory_allocate(len));
+            iterator new_finish(new_start);
+            try {
+                // copy from this vector begin to position parameter into new_start
+                new_finish = this->unitialized_copy_a(
+                    this->begin(),
+                    position,
+                    iterator(new_start)
+                );
+                this->unitialized_fill_n_a(
+                    &*new_finish,
+                    n,
+                    value
+                );
+                new_finish += n;
+                this->unitialized_copy_a(
+                    position,
+                    this->end(),
+                    new_finish
+                );
+            }
+            catch(...) {
+                this->destroy(new_start, new_finish);
+                this->memory_deallocate(&*new_start.base(), len);
+                throw;
+            }
+            // destroy current memory and set it to the new allocation
+            this->destroy(this->begin(), this->end());
+            this->memory_deallocate(this->memory_impl.memory_start,
+                                    this->memory_impl.memory_end_of_storage - 
+                                    this->memory_impl.memory_start);
+            this->memory_impl.memory_start = &*new_start.base();
+            this->memory_impl.memory_finish = &*new_finish.base();
+            this->memory_impl.memory_end_of_storage = &*new_start.base() + len;
         }
     }
 }

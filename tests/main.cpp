@@ -5,16 +5,18 @@
 #include <algorithm>
 #include "../headers/vector.hpp"
 
-// void print_test(ft::vector<int> v) {
-//     typename ft::vector<int>::iterator it;
-//     it = v.begin();
-//     for (int i = 0; i < 11; ++i, ++it)
-//         std::cout << *it << std::endl;
-// }
+void print_test(std::vector<int> v) {
+    typename std::vector<int>::iterator first;
+    typename std::vector<int>::iterator last;
+    first = v.begin();
+    last = v.end();
+    for (; first != last; ++first)
+        std::cout << *first << std::endl;
+}
 
 
 int main(void) {
-    ft::vector<int> lhs(10, 10);
+    std::vector<int> lhs(10, 10);
 
     // typename ft::vector<int>::iterator it;
     // it = lhs.begin();
@@ -22,8 +24,11 @@ int main(void) {
     //     std::cout << *it << std::endl;
     // lhs.assign(1, 5);
     // print_test(lhs);
-    // std::cout << lhs.capacity() << std::endl;
+    std::cout << lhs.capacity() << std::endl;
     // lhs.insert(lhs.end(), 10);
     // std::cout << lhs.capacity() << std::endl;
+    lhs.insert(lhs.begin(), 10, 18);
+    std::cout << lhs.capacity() << std::endl;
+    print_test(lhs);
     return (0);
 }
