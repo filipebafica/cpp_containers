@@ -148,6 +148,11 @@ typename ft::vector<T, Alloc>::iterator ft::vector<T, Alloc>::insert(iterator po
 }
 
 template<class T, class Alloc>
+void ft::vector<T, Alloc>::insert(iterator position, size_type n, const value_type& value) {
+    return this->memory_fill_insert(position, n, value);
+}
+
+template<class T, class Alloc>
 typename ft::vector<T, Alloc>::iterator ft::vector<T, Alloc>::erase(iterator position) {
     if (position + 1 != this->end()) {
         // copy position + 1 into postion this makes what position held to be erased
@@ -307,6 +312,39 @@ void ft::vector<T, Alloc>::memory_assign_aux(iterator first, iterator last, std:
         this->erase(curr, this->end());
     else
         this->insert(this->end(), first, last);
+}
+
+template<class T, class Alloc>
+void ft::vector<T, Alloc>::memory_fill_insert(iterator position, size_type n, const value_type& value) {
+    if (n != 0) {
+        //if the unused space allocated is greater than the insertion attempt size
+        if (size_type(this->memory_impl.memory_end_of_storage - this->memory_impl.memory_finish) >= n) {
+            value_type value_copy = value;
+            const size_type elements_after_position = this->end() - position;
+            iterator old_finish(this->memory_impl.memory_finish);
+            if (elements_after_position > n) {
+                this->unitialized_copy_a(this->memory_impl.memory_finish - n,
+                                            this->memory_impl.memory_finish,
+                                            this->memory_impl.memory_finish);
+                this->memory_impl.memory_finish += n;
+                std::copy_backward(position, old_finish - n, old_finish);
+                std::fill(position, position + n, value_copy);
+            }
+            else {
+                this->unitialized_fill_n_a(this->memory_impl.memory_finish,
+                                            n - elements_after_position,
+                                            value_copy);
+                this->memory_impl.memory_finish += n - elements_after_position;
+                this->unitialized_copy_a(position, old_finish,
+                                            this->memory_impl.memory_finish);
+                this->memory_impl.memory_finish += elements_after_position;
+                std::fill(position, old_finish, value_copy);
+            }
+        }
+        else {
+            
+        }
+    }
 }
 
 template<class T, class Alloc>

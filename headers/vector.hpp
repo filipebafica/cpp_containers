@@ -78,7 +78,7 @@ class vector : protected vector_base<T, Alloc> {
     void assign(iterator first, iterator last);
     // void clear(void);
     iterator insert(iterator position, const value_type& value);
-    // void insert(iterator position, size_type n, const value_type& value);
+    void insert(iterator position, size_type n, const value_type& value);
     // void insert(iterator position, iterator first, iterator last);
     iterator erase(iterator position);
     iterator erase(iterator first, iterator last);
@@ -115,6 +115,8 @@ class vector : protected vector_base<T, Alloc> {
                     std::input_iterator_tag);
     void memory_assign_aux(iterator first, iterator last,
                     std::forward_iterator_tag);
+    void memory_fill_insert(iterator position, size_type n,
+                    const value_type& value);
     void memory_insert_aux(iterator position, const value_type& value);
 };
 
