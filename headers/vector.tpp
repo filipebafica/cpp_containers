@@ -343,10 +343,11 @@ void ft::vector<T, Alloc>::memory_fill_insert(iterator position, size_type n, co
         }
         // unused space allocated is not greater than the insertion attempt size
         else {
+            std::cout << "hey!" << std::endl;
             const size_type old_size = this->size();
-            // check if the max size was reached
-            if (old_size ==  this->max_size())
-                std::length_error("vector::_memory_insert_aux");
+            // check if there is enough space availabe
+            if (this->max_size() - old_size < n)
+                std::length_error("vector::_memory_fill_insert");
 
             // extra allocation size is defined here
             size_type len = old_size + std::max(old_size, n);
@@ -369,7 +370,7 @@ void ft::vector<T, Alloc>::memory_fill_insert(iterator position, size_type n, co
                     value
                 );
                 new_finish += n;
-                this->unitialized_copy_a(
+                new_finish = this->unitialized_copy_a(
                     position,
                     this->end(),
                     new_finish
