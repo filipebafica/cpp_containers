@@ -152,6 +152,11 @@ void ft::vector<T, Alloc>::insert(iterator position, size_type n, const value_ty
     return this->memory_fill_insert(position, n, value);
 }
 
+// template<class T, class Alloc>
+// void ft::vector<T, Alloc>::insert(iterator position, iterator first, iterator last) {
+
+// }
+
 template<class T, class Alloc>
 typename ft::vector<T, Alloc>::iterator ft::vector<T, Alloc>::erase(iterator position) {
     if (position + 1 != this->end()) {

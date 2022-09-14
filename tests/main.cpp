@@ -4,6 +4,7 @@
 #include <vector>
 #include <algorithm>
 #include "../headers/vector.hpp"
+#include "../headers/type_traits.hpp"
 
 // void print_test(ft::vector<int> v) {
 //     typename ft::vector<int>::iterator first;
@@ -30,5 +31,10 @@ int main(void) {
     // lhs.insert(lhs.begin(), 20, 18);
     // std::cout << lhs.capacity() << std::endl;
     // print_test(lhs);
+    std::cout << "is_integral:" << std::endl;
+    std::cout << "char: " << ft::is_integral<char>::value << std::endl;
+    std::cout << "int: " << ft::is_integral<int>::value << std::endl;
+    std::cout << "float: " << ft::is_integral<float>::value << std::endl;
+
     return (0);
 }
