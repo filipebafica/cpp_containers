@@ -127,7 +127,11 @@ void ft::vector<T, Alloc>::assign(size_type n, const value_type& value) {
 
 template<class T, class Alloc>
 void ft::vector<T, Alloc>::assign(iterator first, iterator last) {
-    // code
+    typedef typename ft::is_integral<iterator>::type integral;
+    if (integral() == true_type())
+        return ;
+    typedef typename ft::iterator_traits<iterator>::iterator_category iter_category;
+    this->memory_assign_aux(first, last, iter_category());
 }
 
 template<class T, class Alloc>
@@ -136,7 +140,7 @@ typename ft::vector<T, Alloc>::iterator ft::vector<T, Alloc>::insert(iterator po
 
     // check if there is space and the postion to insert is at the end
     // if so an insertion will take place
-    if (this->memory_impl.memory_finish != this->memory_impl.memory_end_of_storage 
+    if (this->memory_impl.memory_finish != this->memory_impl.memory_end_of_storage
         && position == this->end()) {
             this->memory_impl.construct(this->memory_impl.memory_finish, value);
             ++this->memory_impl.memory_finish;
@@ -152,10 +156,14 @@ void ft::vector<T, Alloc>::insert(iterator position, size_type n, const value_ty
     return this->memory_fill_insert(position, n, value);
 }
 
-// template<class T, class Alloc>
-// void ft::vector<T, Alloc>::insert(iterator position, iterator first, iterator last) {
-
-// }
+template<class T, class Alloc>
+void ft::vector<T, Alloc>::insert(iterator position, iterator first, iterator last) {
+    typedef typename ft::is_integral<iterator>::type integral;
+    if (integral() == true_type())
+        return ;
+    typedef typename ft::iterator_traits<iterator>::iterator_category iter_category;
+    this->memory_range_insert(position, first, last, iter_category());
+}
 
 template<class T, class Alloc>
 typename ft::vector<T, Alloc>::iterator ft::vector<T, Alloc>::erase(iterator position) {
@@ -241,6 +249,16 @@ void ft::vector<T, Alloc>::memory_range_initialize(iterator first, iterator last
     }
     this->memory_impl.memory_finish = this->memory_impl.memory_start + n;
 }
+
+template<class T, class Alloc>
+void ft::vector<T, Alloc>::memory_range_insert(iterator position, iterator first, iterator last,
+                                                std::input_iterator_tag) {
+    for (; first != last; ++first) {
+        position = insert(position, *first);
+        ++position;
+    }
+}
+
 template<class T, class Alloc>
 void ft::vector<T, Alloc>::destroy(T* p) {
     p->~T();
@@ -437,6 +455,8 @@ void ft::vector<T, Alloc>::memory_insert_aux(iterator position, const value_type
                 new_start
             );
             this->memory_impl.construct(new_finish.base(), value);
+            ++new_finish;
+            new_finish = this->unitialized_copy_a(position, this->end(), new_finish);
         }
         catch(...) {
             this->destroy(new_start, new_finish);
