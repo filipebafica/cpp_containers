@@ -27,7 +27,7 @@ struct vector_base {
     ~vector_base(void);
 
     /******************** MEMBER FUNCTIONS ********************/
-    Alloc get_allocator(void) const;
+    virtual Alloc get_allocator(void) const;
     T* memory_allocate(size_t n);
     void memory_deallocate(T* memory_start, size_t n);
 };

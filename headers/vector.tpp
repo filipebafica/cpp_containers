@@ -65,6 +65,10 @@ ft::vector<T, Alloc>& ft::vector<T, Alloc>::operator=(const vector& rhs) {
     return (*this);
 }
 
+template<class T, class Alloc>
+typename ft::vector<T, Alloc>::allocator_type ft::vector<T, Alloc>::get_allocator(void) const {
+    return (this->memory_impl);
+}
 
 /************************************* DESTRUCTORS *************************************/
 template<class T, class Alloc>

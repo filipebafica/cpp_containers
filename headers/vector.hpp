@@ -38,7 +38,7 @@ class vector : protected vector_base<T, Alloc> {
                  const allocator_type& alloc = allocator_type());
     vector(const vector& src);
     vector& operator=(vector const& rhs);
-    // allocator_type get_allocator(void) const;
+    allocator_type get_allocator(void) const;
 
 
     /******************** DESTRUCTORS ********************/
@@ -46,7 +46,7 @@ class vector : protected vector_base<T, Alloc> {
 
     /******************** MEMBER FUNCTIONS ********************/
     // element access
-    // reference at(size_type pos);
+    // reference at(size_type position);
     // const_reference at(size_type pos) const;
     // reference operator[](size_type pos);
     // const_reference operator[](size_type pos) const;
