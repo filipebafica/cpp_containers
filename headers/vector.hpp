@@ -54,8 +54,8 @@ class vector : protected vector_base<T, Alloc> {
     const_reference front(void) const;
     reference back(void);
     const_reference back(void) const;
-    // T* data(void);
-    // const T* data() const;
+    value_type* data(void);
+    const value_type* data() const;
 
     // // iterators
     iterator begin(void);
