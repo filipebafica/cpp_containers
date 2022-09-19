@@ -78,6 +78,21 @@ ft::vector<T, Alloc>::~vector(void) {
 }
 
 /************************************* MEMBER FUNCTIONS *************************************/
+// element access
+template<class T, class Alloc>
+typename ft::vector<T, Alloc>::reference ft::vector<T, Alloc>::at(size_type n) {
+    if (n > this->size())
+        throw std::out_of_range("vector::range_check");
+    return ((*this)[n]);
+}
+
+template<class T, class Alloc>
+typename ft::vector<T, Alloc>::const_reference ft::vector<T, Alloc>::at(size_type n) const {
+    if (n > this->size())
+        throw std::out_of_range("vector::range_check");
+    return ((*this)[n]);
+}
+
 // iterators
 template<class T, class Alloc>
 typename ft::vector<T, Alloc>::iterator ft::vector<T, Alloc>::begin(void) {
@@ -374,7 +389,7 @@ void ft::vector<T, Alloc>::memory_fill_insert(iterator position, size_type n, co
             const size_type old_size = this->size();
             // check if there is enough space availabe
             if (this->max_size() - old_size < n)
-                std::length_error("vector::_memory_fill_insert");
+                throw std::length_error("vector::_memory_fill_insert");
 
             // extra allocation size is defined here
             size_type len = old_size + std::max(old_size, n);
@@ -440,7 +455,7 @@ void ft::vector<T, Alloc>::memory_insert_aux(iterator position, const value_type
         const size_type old_size = this->size();
         // check if the max size was reached
         if (old_size ==  this->max_size())
-            std::length_error("vector::_memory_insert_aux");
+            throw std::length_error("vector::_memory_insert_aux");
 
         // if the previous size is different than 0, len will be doubled
         // if not, len will be 1
@@ -476,6 +491,17 @@ void ft::vector<T, Alloc>::memory_insert_aux(iterator position, const value_type
         this->memory_impl.memory_finish = &*new_finish.base();
         this->memory_impl.memory_end_of_storage = &*new_start.base() + len;
     }
+}
+
+/************************************* MEMBER OPERATORS OVERLOAD *************************************/
+template<class T, class Alloc>
+typename ft::vector<T, Alloc>::reference ft::vector<T, Alloc>::operator[](size_type n) {
+    return (*(this->begin() + n));
+}
+
+template<class T, class Alloc>
+typename ft::vector<T, Alloc>::const_reference ft::vector<T, Alloc>::operator[](size_type n) const {
+    return (*(this->begin() + n));
 }
 
 /************************************* NON-MEMBER OPERATORS OVERLOAD *************************************/

@@ -46,10 +46,10 @@ class vector : protected vector_base<T, Alloc> {
 
     /******************** MEMBER FUNCTIONS ********************/
     // element access
-    // reference at(size_type position);
-    // const_reference at(size_type pos) const;
-    // reference operator[](size_type pos);
-    // const_reference operator[](size_type pos) const;
+    reference at(size_type n);
+    const_reference at(size_type n) const;
+    reference operator[](size_type n);
+    const_reference operator[](size_type n) const;
     // reference front(void);
     // const_reference front(void) const;
     // reference back(void);

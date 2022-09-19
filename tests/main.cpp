@@ -17,8 +17,6 @@
 
 
 int main(void) {
-    // ft::vector<int> v;
-
-    // v.get_allocator();
+    // ft::vector<int> v(10, 7);
     return (0);
 }
