@@ -93,6 +93,16 @@ typename ft::vector<T, Alloc>::const_reference ft::vector<T, Alloc>::at(size_typ
     return ((*this)[n]);
 }
 
+template<class T, class Alloc>
+typename ft::vector<T, Alloc>::reference ft::vector<T, Alloc>::front(void) {
+    return (*this->begin());
+}
+
+template<class T, class Alloc>
+typename ft::vector<T, Alloc>::const_reference ft::vector<T, Alloc>::front(void) const {
+    return (*this->begin());
+}
+
 // iterators
 template<class T, class Alloc>
 typename ft::vector<T, Alloc>::iterator ft::vector<T, Alloc>::begin(void) {

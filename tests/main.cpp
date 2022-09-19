@@ -17,6 +17,5 @@
 
 
 int main(void) {
-    // ft::vector<int> v(10, 7);
     return (0);
 }
