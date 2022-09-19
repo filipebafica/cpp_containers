@@ -52,8 +52,8 @@ class vector : protected vector_base<T, Alloc> {
     const_reference operator[](size_type n) const;
     reference front(void);
     const_reference front(void) const;
-    // reference back(void);
-    // const_reference back(void) const;
+    reference back(void);
+    const_reference back(void) const;
     // T* data(void);
     // const T* data() const;
 
