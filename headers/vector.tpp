@@ -277,6 +277,12 @@ void ft::vector<T, Alloc>::push_back(const value_type& value) {
 }
 
 template<class T, class Alloc>
+void ft::vector<T, Alloc>::pop_back(void) {
+    --this->memory_impl.memory_finish;
+    this->memory_impl.destroy(this->memory_impl.memory_finish);
+}
+
+template<class T, class Alloc>
 void ft::vector<T, Alloc>::swap(vector& x) {
     std::swap(this->memory_impl.memory_start, x.memory_impl.memory_start);
     std::swap(this->memory_impl.memory_finish, x.memory_impl.memory_finish);
