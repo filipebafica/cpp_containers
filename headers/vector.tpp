@@ -266,6 +266,17 @@ typename ft::vector<T, Alloc>::iterator ft::vector<T, Alloc>::erase(iterator fir
 }
 
 template<class T, class Alloc>
+void ft::vector<T, Alloc>::push_back(const value_type& value) {
+    if (this->memory_impl.memory_finish != this->memory_impl.memory_end_of_storage) {
+        this->memory_impl.construct(this->memory_impl.memory_finish, value);
+        ++this->memory_impl.memory_finish;
+    }
+    else {
+        this->memory_insert_aux(this->end(), value);
+    }
+}
+
+template<class T, class Alloc>
 void ft::vector<T, Alloc>::swap(vector& x) {
     std::swap(this->memory_impl.memory_start, x.memory_impl.memory_start);
     std::swap(this->memory_impl.memory_finish, x.memory_impl.memory_finish);
