@@ -146,14 +146,38 @@ typename ft::vector<T, Alloc>::const_iterator ft::vector<T, Alloc>::end(void) co
 
 // capacity
 template<class T, class Alloc>
+bool ft::vector<T, Alloc>::empty(void) const {
+    return (this->begin() == this->end());
+}
+
+template<class T, class Alloc>
 typename ft::vector<T, Alloc>::size_type ft::vector<T, Alloc>::size(void) const {
     return (typename ft::vector<T, Alloc>::size_type(this->end() - this->begin()));
 }
 
 template<class T, class Alloc>
 typename ft::vector<T, Alloc>::size_type ft::vector<T, Alloc>::max_size(void) const {
-    // -1 will make size_type reach its max since it is unsigned
+    // '-1' will make size_type reach its max since it is unsigned
     return (size_type(-1) / sizeof(value_type));
+}
+
+template<class T, class Alloc>
+void ft::vector<T, Alloc>::reserve(size_type n) {
+    if (n > this->max_size()) {
+        throw std::length_error("vector::reserve");
+    }
+    if (this->capacity() < n) {
+        const size_type old_size = this->size();
+        pointer tmp = this->memory_allocate_and_copy(n,
+                                                     iterator(this->memory_impl.memory_start),
+                                                     iterator(this->memory_impl.memory_finish));
+        this->destroy(this->memory_impl.memory_start, this->memory_impl.memory_finish);
+        this->memory_deallocate(this->memory_impl.memory_start, this->memory_impl.memory_end_of_storage
+                                                                - this->memory_impl.memory_start);
+        this->memory_impl.memory_start = tmp;
+        this->memory_impl.memory_finish = tmp + old_size;
+        this->memory_impl.memory_end_of_storage = this->memory_impl.memory_start + n;
+    }
 }
 
 template<class T, class Alloc>
@@ -161,11 +185,6 @@ typename ft::vector<T, Alloc>::size_type ft::vector<T, Alloc>::capacity(void) co
     return (
         size_type(const_iterator(this->memory_impl.memory_end_of_storage) - this->begin())
     );
-}
-
-template<class T, class Alloc>
-bool ft::vector<T, Alloc>::empty(void) const {
-    return (this->begin() == this->end());
 }
 
 // modifiers
@@ -309,7 +328,7 @@ void ft::vector<T, Alloc>::memory_range_insert(iterator position, iterator first
 }
 
 template<class T, class Alloc>
-void ft::vector<T, Alloc>::destroy(T* p) {
+void ft::vector<T, Alloc>::destroy(value_type* p) {
     p->~T();
 }
 
@@ -332,20 +351,16 @@ template<class T, class Alloc>
 typename ft::vector<T, Alloc>::pointer ft::vector<T, Alloc>::memory_allocate_and_copy(size_type n,
     iterator first, iterator last) {
         pointer result = this->memory_allocate(n);
-        for (; first != last; result++, first++) {
-            this->get_allocator().construct(result, *first);
-        }
-        return (result - n);
+        this->unitialized_copy_a(first, last, result);
+        return (result);
 }
 
 template<class T, class Alloc>
 typename ft::vector<T, Alloc>::pointer ft::vector<T, Alloc>::memory_allocate_and_copy(size_type n,
     const_iterator first, const_iterator last) {
         pointer result = this->memory_allocate(n);
-        for (; first != last; result++, first++) {
-            this->get_allocator().construct(result, *first);
-        }
-        return (result - n);
+        this->unitialized_copy_a(first, last, result);
+        return (result);
 }
 
 template<class T, class Alloc>
@@ -419,7 +434,7 @@ void ft::vector<T, Alloc>::memory_fill_insert(iterator position, size_type n, co
             const size_type old_size = this->size();
             // check if there is enough space availabe
             if (this->max_size() - old_size < n)
-                throw std::length_error("vector::_memory_fill_insert");
+                throw std::length_error("vector::memory_fill_insert");
 
             // extra allocation size is defined here
             size_type len = old_size + std::max(old_size, n);

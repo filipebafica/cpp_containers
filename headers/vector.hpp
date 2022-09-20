@@ -71,7 +71,7 @@ class vector : protected vector_base<T, Alloc> {
     bool empty(void) const;
     size_type size(void) const;
     size_type max_size(void) const;
-    // void reserve(size_type new_cap);
+    void reserve(size_type n);
     size_type capacity(void) const;
 
     // modifiers
@@ -98,7 +98,7 @@ class vector : protected vector_base<T, Alloc> {
                     pointer memory_start);
     iterator unitialized_copy_a(iterator first, iterator last,
                     iterator result);
-    void destroy(T* p);
+    void destroy(value_type* p);
     void destroy(pointer memory_start, pointer memory_finish);
     void destroy(iterator first, iterator last);
 
