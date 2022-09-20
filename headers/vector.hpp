@@ -77,7 +77,7 @@ class vector : protected vector_base<T, Alloc> {
     // modifiers
     void assign(size_type n, const value_type& value);
     void assign(iterator first, iterator last);
-    // void clear(void);
+    void clear(void);
     iterator insert(iterator position, const value_type& value);
     void insert(iterator position, size_type n, const value_type& value);
     void insert(iterator position, iterator first, iterator last);

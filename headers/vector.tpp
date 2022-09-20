@@ -203,6 +203,11 @@ void ft::vector<T, Alloc>::assign(iterator first, iterator last) {
 }
 
 template<class T, class Alloc>
+void ft::vector<T, Alloc>::clear(void) {
+    this->erase(this->begin(), this->end());
+}
+
+template<class T, class Alloc>
 typename ft::vector<T, Alloc>::iterator ft::vector<T, Alloc>::insert(iterator position, const value_type& value) {
     const size_type n = position - this->begin();
 
