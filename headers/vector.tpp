@@ -283,6 +283,16 @@ void ft::vector<T, Alloc>::pop_back(void) {
 }
 
 template<class T, class Alloc>
+void ft::vector<T, Alloc>::resize(size_type n, value_type value) {
+    if (n < this->size()) {
+        this->erase(this->begin() + n, this->end());
+    }
+    else {
+        this->insert(this->end(), n - this->size(), value);
+    }
+}
+
+template<class T, class Alloc>
 void ft::vector<T, Alloc>::swap(vector& x) {
     std::swap(this->memory_impl.memory_start, x.memory_impl.memory_start);
     std::swap(this->memory_impl.memory_finish, x.memory_impl.memory_finish);
@@ -452,7 +462,6 @@ void ft::vector<T, Alloc>::memory_fill_insert(iterator position, size_type n, co
         }
         // unused space allocated is not greater than the insertion attempt size
         else {
-            std::cout << "hey!" << std::endl;
             const size_type old_size = this->size();
             // check if there is enough space availabe
             if (this->max_size() - old_size < n)

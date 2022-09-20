@@ -18,5 +18,9 @@
 
 int main(void) {
     // ft::vector<int> v(10);
+
+    // std::cout << v.size() << std::endl;
+    // v.resize(5);
+    // std::cout << v.size() << std::endl;
     return (0);
 }

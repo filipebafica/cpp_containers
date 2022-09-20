@@ -85,7 +85,7 @@ class vector : protected vector_base<T, Alloc> {
     iterator erase(iterator first, iterator last);
     void push_back(const value_type& value);
     void pop_back(void);
-    // void resize(size_type count, T value = T());
+    void resize(size_type n, value_type value = value_type());
     void swap(vector& x);
 
  private:
