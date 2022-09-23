@@ -2,9 +2,18 @@
 #ifndef CPP_CONTAINERS_HEADERS_ITERATOR_TRAITS_HPP_
 #define CPP_CONTAINERS_HEADERS_ITERATOR_TRAITS_HPP_
 #include <cstddef>
-#include <stdio.h>
 
 namespace ft {
+template<typename Category, typename T, typename Distance = ptrdiff_t,
+         typename Pointer = T*, typename Reference = T&>
+struct iterator {
+    typedef Category  iterator_category;
+    typedef T         value_type;
+    typedef Distance  difference_type;
+    typedef Pointer   pointer;
+    typedef Reference reference;
+};
+
 template<typename Iterator>
 struct iterator_traits {
     typedef typename Iterator::iterator_category iterator_category;

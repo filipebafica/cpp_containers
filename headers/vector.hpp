@@ -8,7 +8,8 @@
 #include <stdexcept>
 #include "./vector_base.hpp"
 #include "./normal_iterator.hpp"
-#include "./iterator_traits.hpp"
+#include "./reverse_iterator.hpp"
+#include "./iterator_base_types.hpp"
 #include "./type_traits.hpp"
 
 namespace ft {
@@ -24,7 +25,7 @@ class vector : protected vector_base<T, Alloc> {
     typedef typename allocator_type::const_pointer      const_pointer;
     typedef normal_iterator<pointer, vector>            iterator;
     typedef normal_iterator<const_pointer, vector>      const_iterator;
-    // typedef reverse_iterator;
+    typedef reverse_iterator<iterator>                  reverse_iterator;
     // typedef const_reverse_iterator;
     // typedef difference_type;
     typedef size_t size_type;
@@ -57,7 +58,7 @@ class vector : protected vector_base<T, Alloc> {
     value_type* data(void);
     const value_type* data() const;
 
-    // // iterators
+    // iterators
     iterator begin(void);
     const_iterator begin(void) const;
     iterator end(void);
@@ -67,7 +68,7 @@ class vector : protected vector_base<T, Alloc> {
     // reverse_iterator rend(void);
     // const_reverse_iterator rend(void) const;
 
-    // // capacity
+    // capacity
     bool empty(void) const;
     size_type size(void) const;
     size_type max_size(void) const;

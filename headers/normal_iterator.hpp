@@ -1,7 +1,7 @@
 // Copyright (c) 2022 Filipe Báfica, Licensed under the MIT License.
 #ifndef CPP_CONTAINERS_HEADERS_NORMAL_ITERATOR_HPP_
 #define CPP_CONTAINERS_HEADERS_NORMAL_ITERATOR_HPP_
-#include "./iterator_traits.hpp"
+#include "./iterator_base_types.hpp"
 
 namespace ft {
 template<typename Iterator, typename Container>

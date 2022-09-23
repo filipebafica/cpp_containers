@@ -22,5 +22,18 @@ int main(void) {
     // std::cout << v.size() << std::endl;
     // v.resize(5);
     // std::cout << v.size() << std::endl;
+    std::vector<int> v(5);
+    v.insert(v.end(), 10);
+    v.insert(v.end(), 11);
+    v.insert(v.end(), 12);
+    v.insert(v.end(), 13);
+    v.insert(v.end(), 14);
+    // typename std::vector<int>::reverse_iterator rit;
+    std::vector<int>::reverse_iterator rit;
+
+    rit = v.rbegin();
+
+    // std::cout << *rit << std::endl;
+    // std::cout << *rit << std::endl;
     return (0);
 }
