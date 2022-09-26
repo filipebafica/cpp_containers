@@ -5,17 +5,14 @@
 
 template<typename Iterator, typename Container>
 ft::normal_iterator<Iterator, Container>::normal_iterator() : memory_current(Iterator()) {
-    std::cout << "Normal Iterator default constructor called" << std::endl;
 }
 
 template<typename Iterator, typename Container>
 ft::normal_iterator<Iterator, Container>::normal_iterator(const Iterator& i) : memory_current(Iterator(i)) {
-    std::cout << "Normal Iterator fill constructor called" << std::endl;
 }
 
 template<typename Iterator, typename Container>
 ft::normal_iterator<Iterator, Container>::normal_iterator(const normal_iterator& src) : memory_current(Iterator()) {
-    std::cout << "Reverse Iterator copy constructor called" << std::endl;
     *this = src;
 }
 

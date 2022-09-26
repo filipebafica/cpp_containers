@@ -6,33 +6,28 @@
 /************************************* CONSTRUCTORS *************************************/
 template<class T, class Alloc>
 ft::vector<T, Alloc>::vector(const allocator_type& alloc) : vector_base<T, Alloc>(alloc) {
-    std::cout << "Vector empty constructor called" << std::endl;
 }
 
 template<class T, class Alloc>
 ft::vector<T, Alloc>::vector(size_type n, const value_type& value, const allocator_type& alloc) : vector_base<T, Alloc>(n, alloc) {
-    std::cout << "Vector fill constructor called" << std::endl;
     this->unitialized_fill_n_a(this->memory_impl.memory_start, n, value);
     this->memory_impl.memory_finish = this->memory_impl.memory_start + n;
 }
 
 template<class T, class Alloc>
 ft::vector<T, Alloc>::vector(iterator first, iterator last, const allocator_type& alloc) : vector_base<T, Alloc>(std::distance(first, last), alloc) {
-    std::cout << "Vector range constructor called" << std::endl;
     typedef typename ft::iterator_traits<iterator>::iterator_category iterator_category;
     this->memory_range_initialize(first, last, iterator_category());
 }
 
 template<class T, class Alloc>
 ft::vector<T, Alloc>::vector(const ft::vector<T, Alloc>& src) : vector_base<T, Alloc>(src.size(), src.get_allocator()) {
-    std::cout << "Vector copy constructor called" << std::endl;
     this->unitialized_copy_a(src.begin(), src.end(), this->memory_impl.memory_start);
     this->memory_impl.memory_finish = this->memory_impl.memory_start + std::distance(src.begin(), src.end());
 }
 
 template<class T, class Alloc>
 ft::vector<T, Alloc>& ft::vector<T, Alloc>::operator=(const vector& rhs) {
-    std::cout << "Vector assignment operator vector called" << std::endl;
     if (&rhs == this)
         return (*this);
     // if rhs length is greater than 
@@ -73,7 +68,6 @@ typename ft::vector<T, Alloc>::allocator_type ft::vector<T, Alloc>::get_allocato
 /************************************* DESTRUCTORS *************************************/
 template<class T, class Alloc>
 ft::vector<T, Alloc>::~vector(void) {
-    std::cout << "Vector default destructor called" << std::endl;
     this->destroy(this->memory_impl.memory_start, this->memory_impl.memory_finish);
 }
 
@@ -592,11 +586,15 @@ void ft::vector<T, Alloc>::memory_insert_aux(iterator position, const value_type
 /************************************* MEMBER OPERATORS OVERLOAD *************************************/
 template<class T, class Alloc>
 typename ft::vector<T, Alloc>::reference ft::vector<T, Alloc>::operator[](size_type n) {
+    if (n > this->size())
+        throw std::out_of_range("vector::range_check");
     return (*(this->begin() + n));
 }
 
 template<class T, class Alloc>
 typename ft::vector<T, Alloc>::const_reference ft::vector<T, Alloc>::operator[](size_type n) const {
+    if (n > this->size())
+        throw std::out_of_range("vector::range_check");
     return (*(this->begin() + n));
 }
 

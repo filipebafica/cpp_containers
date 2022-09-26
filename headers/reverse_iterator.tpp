@@ -5,17 +5,14 @@
 
 template<typename Iterator, typename Container>
 ft::reverse_iterator<Iterator, Container>::reverse_iterator() : normal_iterator<Iterator, Container>() {
-    std::cout << "Reverse Iterator default constructor called" << std::endl;
 }
 
 template<typename Iterator, typename Container>
 ft::reverse_iterator<Iterator, Container>::reverse_iterator(const Iterator& i) : normal_iterator<Iterator, Container>(i) {
-    std::cout << "Reverse Iterator fill constructor called" << std::endl;
 }
 
 template<typename Iterator, typename Container>
 ft::reverse_iterator<Iterator, Container>::reverse_iterator(const reverse_iterator& src) : normal_iterator<Iterator, Container>() {
-    std::cout << "Reverse Iterator copy constructor called" << std::endl;
     *this = src;
 }
 

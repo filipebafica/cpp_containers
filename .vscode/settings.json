@@ -66,6 +66,7 @@
 		"fstream": "cpp",
 		"iomanip": "cpp",
 		"sstream": "cpp",
-		"ios": "cpp"
+		"ios": "cpp",
+		"map": "cpp"
 	}
 }
