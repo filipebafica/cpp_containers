@@ -14,6 +14,18 @@ ft::normal_iterator<Iterator, Container>::normal_iterator(const Iterator& i) : m
 }
 
 template<typename Iterator, typename Container>
+ft::normal_iterator<Iterator, Container>::normal_iterator(const normal_iterator& src) : memory_current(Iterator()) {
+    std::cout << "Reverse Iterator copy constructor called" << std::endl;
+    *this = src;
+}
+
+template<typename Iterator, typename Container>
+ft::normal_iterator<Iterator, Container>& ft::normal_iterator<Iterator, Container>::operator=(const normal_iterator& src) {
+    this->memory_current = src.base();
+    return (*this);
+}
+
+template<typename Iterator, typename Container>
 typename ft::normal_iterator<Iterator, Container>::reference ft::normal_iterator<Iterator, Container>::operator*(void) const {
     return (*this->memory_current);
 }

@@ -15,25 +15,21 @@
 //         std::cout << *first << std::endl;
 // }
 
+// void print_test(std::vector<int>::reverse_iterator it) {
+//     std::cout << *it << std::endl;
+// }
+
 
 int main(void) {
-    // ft::vector<int> v(10);
+    // std::vector<int>v(10, 10);
+    // v.insert(v.end(), 11);
+    // v.insert(v.end(), 12);
+    // std::vector<int>::reverse_iterator rit;
+    // std::vector<int>::iterator it;
 
-    // std::cout << v.size() << std::endl;
-    // v.resize(5);
-    // std::cout << v.size() << std::endl;
-    std::vector<int> v(5);
-    v.insert(v.end(), 10);
-    v.insert(v.end(), 11);
-    v.insert(v.end(), 12);
-    v.insert(v.end(), 13);
-    v.insert(v.end(), 14);
-    // typename std::vector<int>::reverse_iterator rit;
-    std::vector<int>::reverse_iterator rit;
-
-    rit = v.rbegin();
-
+    // rit = v.rbegin();
+    // it = v.end();
     // std::cout << *rit << std::endl;
-    // std::cout << *rit << std::endl;
+    // std::cout << *it << std::endl;
     return (0);
 }

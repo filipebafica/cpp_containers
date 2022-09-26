@@ -61,6 +61,11 @@
 		"streambuf": "cpp",
 		"typeinfo": "cpp",
 		"*.tpp": "cpp",
-		"list": "cpp"
+		"list": "cpp",
+		"ctime": "cpp",
+		"fstream": "cpp",
+		"iomanip": "cpp",
+		"sstream": "cpp",
+		"ios": "cpp"
 	}
 }

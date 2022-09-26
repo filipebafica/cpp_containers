@@ -6,9 +6,7 @@
 
 namespace ft {
 template<typename Iterator, typename Container>
-class reverse_iterator {
- protected:
-    Iterator memory_current;
+class reverse_iterator : public normal_iterator<Iterator, Container> {
  public:
     typedef typename ft::iterator_traits<Iterator>::iterator_category    iterator_category;
     typedef typename ft::iterator_traits<Iterator>::value_type           value_type;
@@ -20,6 +18,7 @@ class reverse_iterator {
     explicit reverse_iterator(const Iterator& i);
     reverse_iterator(const reverse_iterator& src);
 
+    reverse_iterator& operator=(const reverse_iterator& src);
     reference operator*(void) const;
     pointer operator->(void) const;
     reverse_iterator& operator++(void);
@@ -31,66 +30,7 @@ class reverse_iterator {
     reverse_iterator& operator-=(const difference_type& n);
     reverse_iterator operator+(const difference_type& n) const;
     reverse_iterator operator-(const difference_type& n) const;
-
-    const Iterator& base(void) const;
 };
-
-template<typename IteratorL, typename IteratorR, typename Container>
-bool operator==(const reverse_iterator<IteratorL, Container>& lhs,
-                const reverse_iterator<IteratorR, Container>& rhs);
-
-template<typename Iterator, typename Container>
-bool operator==(const reverse_iterator<Iterator, Container>& lhs,
-                const reverse_iterator<Iterator, Container>& rhs);
-
-template<typename IteratorL, typename IteratorR, typename Container>
-bool operator!=(const reverse_iterator<IteratorL, Container>& lhs,
-                const reverse_iterator<IteratorR, Container>& rhs);
-
-template<typename Iterator, typename Container>
-bool operator!=(const reverse_iterator<Iterator, Container>& lhs,
-                const reverse_iterator<Iterator, Container>& rhs);
-
-template<typename IteratorL, typename IteratorR, typename Container>
-bool operator<(const reverse_iterator<IteratorL, Container>& lhs,
-                const reverse_iterator<IteratorR, Container>& rhs);
-
-template<typename Iterator, typename Container>
-bool operator<(const reverse_iterator<Iterator, Container>& lhs,
-                const reverse_iterator<Iterator, Container>& rhs);
-
-template<typename IteratorL, typename IteratorR, typename Container>
-bool operator>(const reverse_iterator<IteratorL, Container>& lhs,
-                const reverse_iterator<IteratorR, Container>& rhs);
-
-template<typename Iterator, typename Container>
-bool operator>(const reverse_iterator<Iterator, Container>& lhs,
-                const reverse_iterator<Iterator, Container>& rhs);
-
-template<typename IteratorL, typename IteratorR, typename Container>
-bool operator<=(const reverse_iterator<IteratorL, Container>& lhs,
-                const reverse_iterator<IteratorR, Container>& rhs);
-
-template<typename Iterator, typename Container>
-bool operator<=(const reverse_iterator<Iterator, Container>& lhs,
-                const reverse_iterator<Iterator, Container>& rhs);
-
-template<typename IteratorL, typename IteratorR, typename Container>
-bool operator>=(const reverse_iterator<IteratorL, Container>& lhs,
-                const reverse_iterator<IteratorR, Container>& rhs);
-
-template<typename Iterator, typename Container>
-bool operator>=(const reverse_iterator<Iterator, Container>& lhs,
-                const reverse_iterator<Iterator, Container>& rhs);
-
-template<typename IteratorL, typename IteratorR, typename Container>
-typename ft::reverse_iterator<IteratorL, Container>::difference_type operator-(
-    const ft::reverse_iterator<IteratorL, Container>& lhs,
-    const ft::reverse_iterator<IteratorR, Container>& rhs);
-
-template<typename IteratorL, typename IteratorR, typename Container>
-typename ft::reverse_iterator<IteratorL, Container>::difference_type operator+(
-    typename ft::reverse_iterator<IteratorL, Container>& i);
 
 }  // namespace ft
 

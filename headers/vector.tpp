@@ -144,6 +144,26 @@ typename ft::vector<T, Alloc>::const_iterator ft::vector<T, Alloc>::end(void) co
     return (const_iterator(this->memory_impl.memory_finish));
 }
 
+template<class T, class Alloc>
+typename ft::vector<T, Alloc>::reverse_iterator ft::vector<T, Alloc>::rbegin(void) {
+    return (reverse_iterator(this->end()));
+}
+
+template<class T, class Alloc>
+typename ft::vector<T, Alloc>::const_reverse_iterator ft::vector<T, Alloc>::rbegin(void) const {
+    return (const_reverse_iterator(this->end()));
+}
+
+template<class T, class Alloc>
+typename ft::vector<T, Alloc>::reverse_iterator ft::vector<T, Alloc>::rend(void) {
+    return (reverse_iterator(this->begin()));
+}
+
+template<class T, class Alloc>
+typename ft::vector<T, Alloc>::const_reverse_iterator ft::vector<T, Alloc>::rend(void) const {
+    return (const_reverse_iterator(this->begin()));
+}
+
 // capacity
 template<class T, class Alloc>
 bool ft::vector<T, Alloc>::empty(void) const {

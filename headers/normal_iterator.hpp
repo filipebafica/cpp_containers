@@ -17,7 +17,9 @@ class normal_iterator {
 
     normal_iterator(void);
     explicit normal_iterator(const Iterator& i);
+    normal_iterator(const normal_iterator& src);
 
+    normal_iterator& operator=(const normal_iterator& src);
     reference operator*(void) const;
     pointer operator->(void) const;
     normal_iterator& operator++(void);
