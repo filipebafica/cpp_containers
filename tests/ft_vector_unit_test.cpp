@@ -100,8 +100,61 @@ int main(void) {
         std::cout << std::endl << "[RBEGIN FUNCTION v(10, 1)]" << std::endl;
         ft::vector<int> ft_v(10, 1);
         std::vector<int> std_v(10, 1);
-        std::cout << "*--ft_v.end(): " << *--ft_v.rend() << std::endl;
-        std::cout << "*--std_v.end(): " << *--std_v.rend() << std::endl;
+        std::cout << "*ft_v.rbegin(): " << *ft_v.rbegin() << std::endl;
+        std::cout << "*std_v.rbegin(): " << *std_v.rbegin() << std::endl;
+    }
+    {
+        std::cout << std::endl << "[REND FUNCTION v(10, 1)]" << std::endl;
+        ft::vector<int> ft_v(10, 1);
+        std::vector<int> std_v(10, 1);
+        std::cout << "*--ft_v.rend(): " << *--ft_v.rend() << std::endl;
+        std::cout << "*--std_v.rend(): " << *--std_v.rend() << std::endl;
+    }
+    {
+        std::cout << std::endl << "[EMPTY FUNCTION v(10, 1)]" << std::endl;
+        ft::vector<int> ft_v(10, 1);
+        std::vector<int> std_v(10, 1);
+        std::cout << "ft_v.empty(): " << ft_v.empty() << std::endl;
+        std::cout << "std_v.empty(): " << std_v.empty() << std::endl;
+    }
+    {
+        std::cout << std::endl << "[EMPTY FUNCTION v()]" << std::endl;
+        ft::vector<int> ft_v;
+        std::vector<int> std_v;
+        std::cout << "ft_v.empty(): " << ft_v.empty() << std::endl;
+        std::cout << "std_v.empty(): " << std_v.empty() << std::endl;
+    }
+    {
+        std::cout << std::endl << "[SIZE FUNCTION v(10, 1)]" << std::endl;
+        ft::vector<int> ft_v(10, 1);
+        std::vector<int> std_v(10, 1);
+        std::cout << "ft_v.size(): " << ft_v.size() << std::endl;
+        std::cout << "std_v.size(): " << std_v.size() << std::endl;
+    }
+    {
+        std::cout << std::endl << "[MAX_SIZE FUNCTION v(10, 1)]" << std::endl;
+        ft::vector<int> ft_v(10, 1);
+        std::vector<int> std_v(10, 1);
+        std::cout << "ft_v.max_size(): " << ft_v.max_size() << std::endl;
+        std::cout << "std_v.max_size(): " << std_v.max_size() << std::endl;
+    }
+    {
+        std::cout << std::endl << "[CAPACITY FUNCTION v(10, 1)]" << std::endl;
+        ft::vector<int> ft_v(10, 1);
+        std::vector<int> std_v(10, 1);
+        std::cout << "ft_v.capacity(): " << ft_v.capacity() << std::endl;
+        std::cout << "std_v.capacity(): " << std_v.capacity() << std::endl;
+    }
+    {
+        std::cout << std::endl << "[RESERVE FUNCTION]" << std::endl;
+        ft::vector<int> ft_v(10, 1);
+        std::vector<int> std_v(10, 1);
+        std::cout << "before ft_v.reserve() capacity is: " << ft_v.capacity() << std::endl;
+        std::cout << "before std_v.reserve() capacity is: " << std_v.capacity() << std::endl;
+        ft_v.reserve(100);
+        std_v.reserve(100);
+        std::cout << "after ft_v.reserve(100) capacity is: " << ft_v.capacity() << std::endl;
+        std::cout << "after std_v.reserve(100) capacity is: " << std_v.capacity() << std::endl;
     }
     return (0);
 }

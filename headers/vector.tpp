@@ -171,8 +171,10 @@ typename ft::vector<T, Alloc>::size_type ft::vector<T, Alloc>::size(void) const 
 
 template<class T, class Alloc>
 typename ft::vector<T, Alloc>::size_type ft::vector<T, Alloc>::max_size(void) const {
-    // '-1' will make size_type reach its max since it is unsigned
-    return (size_type(-1) / sizeof(value_type));
+    // ptrdiff_t (ptrdiff_t) is a type able to represent
+    // the result of any valid pointer subtraction operation
+    // then, we can't store more than ptrdiff_t::max /sizeof(value_type)
+    return (std::numeric_limits<difference_type>::max() / sizeof(value_type));
 }
 
 template<class T, class Alloc>
