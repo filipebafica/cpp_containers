@@ -5,17 +5,24 @@
 #include "./normal_iterator.hpp"
 
 namespace ft {
-template<typename Iterator, typename Container>
-class reverse_iterator : public normal_iterator<Iterator, Container> {
+template<typename Iterator>
+class reverse_iterator
+: public iterator<typename iterator_traits<Iterator>::iterator_category,
+                  typename iterator_traits<Iterator>::value_type,
+                  typename iterator_traits<Iterator>::difference_type,
+                  typename iterator_traits<Iterator>::pointer,
+                  typename iterator_traits<Iterator>::reference> {
+ protected:
+    Iterator memory_current;
+
  public:
-    typedef typename ft::iterator_traits<Iterator>::iterator_category    iterator_category;
-    typedef typename ft::iterator_traits<Iterator>::value_type           value_type;
+    typedef Iterator                                                     iterator_type;
     typedef typename ft::iterator_traits<Iterator>::difference_type      difference_type;
     typedef typename ft::iterator_traits<Iterator>::reference            reference;
     typedef typename ft::iterator_traits<Iterator>::pointer              pointer;
 
     reverse_iterator(void);
-    explicit reverse_iterator(const Iterator& i);
+    explicit reverse_iterator(const iterator_type& i);
     reverse_iterator(const reverse_iterator& src);
 
     reverse_iterator& operator=(const reverse_iterator& src);
@@ -30,6 +37,8 @@ class reverse_iterator : public normal_iterator<Iterator, Container> {
     reverse_iterator& operator-=(const difference_type& n);
     reverse_iterator operator+(const difference_type& n) const;
     reverse_iterator operator-(const difference_type& n) const;
+
+    const Iterator& base(void) const;
 };
 
 }  // namespace ft
