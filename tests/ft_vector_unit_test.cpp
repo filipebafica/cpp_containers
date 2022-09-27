@@ -149,12 +149,130 @@ int main(void) {
         std::cout << std::endl << "[RESERVE FUNCTION]" << std::endl;
         ft::vector<int> ft_v(10, 1);
         std::vector<int> std_v(10, 1);
-        std::cout << "before ft_v.reserve() capacity is: " << ft_v.capacity() << std::endl;
-        std::cout << "before std_v.reserve() capacity is: " << std_v.capacity() << std::endl;
+        std::cout << "before ft_v.reserve(100) capacity is: " << ft_v.capacity() << std::endl;
+        std::cout << "before std_v.reserve(100) capacity is: " << std_v.capacity() << std::endl;
         ft_v.reserve(100);
         std_v.reserve(100);
         std::cout << "after ft_v.reserve(100) capacity is: " << ft_v.capacity() << std::endl;
         std::cout << "after std_v.reserve(100) capacity is: " << std_v.capacity() << std::endl;
+    }
+    {
+        std::cout << std::endl << "[ASSIGN FUNCTION (FILL)] " << std::endl;
+        ft::vector<int> ft_v;
+        std::vector<int> std_v;
+        ft_v.assign(5, 1);
+        std_v.assign(5, 1);
+        std::cout << "ft_v.assign(5, 1): ";
+        for (ft::vector<int>::iterator it = ft_v.begin(); it != ft_v.end(); it++)
+            std::cout << *it << " ";
+        std::cout << std::endl;
+        std::cout << "std_v.assign(5, 1): ";
+        for (std::vector<int>::iterator it = std_v.begin(); it != std_v.end(); it++)
+            std::cout << *it << " ";
+        std::cout << std::endl;
+    }
+    {
+        std::cout << std::endl << "[ASSIGN FUNCTION (RANGE)] " << std::endl;
+        ft::vector<int> ft_v0(5, 1);
+        ft::vector<int> ft_v1;
+        std::vector<int> std_v0(5, 1);
+        std::vector<int> std_v1;
+        ft_v1.assign(ft_v0.begin(), ft_v0.end());
+        std_v1.assign(std_v0.begin(), std_v0.end());
+        std::cout << "ft_v.assign(5, 1): ";
+        for (ft::vector<int>::iterator it = ft_v1.begin(); it != ft_v1.end(); it++)
+            std::cout << *it << " ";
+        std::cout << std::endl;
+        std::cout << "std_v.assign(5, 1): ";
+        for (std::vector<int>::iterator it = std_v1.begin(); it != std_v1.end(); it++)
+            std::cout << *it << " ";
+        std::cout << std::endl;
+    }
+    {
+        std::cout << std::endl << "[CLEAR FUNCTION v(10, 1)]" << std::endl;
+        ft::vector<int> ft_v(10, 1);
+        std::vector<int> std_v(10, 1);
+        std::cout << "before ft_v.clear() size is: " << ft_v.size() << std::endl;
+        std::cout << "before std_v.clear() size is: " << std_v.size() << std::endl;
+        ft_v.clear();
+        std_v.clear();
+        std::cout << "after ft_v.clear() size is: " << ft_v.size() << std::endl;
+        std::cout << "after std_v.clear() size is: " << std_v.size() << std::endl;
+    }
+    {
+        std::cout << std::endl << "[INSERT FUNCTION (POSITION, VALUE)]" << std::endl;
+        ft::vector<int> ft_v;
+        std::vector<int> std_v;
+        ft_v.insert(ft_v.begin(), 10);
+        std_v.insert(std_v.begin(), 10);
+        std::cout << "ft_v.insert(ft_v.begin(), 10): " << *ft_v.begin() << std::endl;
+        std::cout << "std_v.insert(ft_v.begin(), 10): " << *std_v.begin() << std::endl;
+        ft_v.insert(ft_v.end(), 10);
+        std_v.insert(std_v.end(), 10);
+        std::cout << "ft_v.insert(ft_v.end(), 10): " << *--ft_v.end() << std::endl;
+        std::cout << "std_v.insert(ft_v.end(), 10): " << *--std_v.end() << std::endl;
+    }
+    {
+        std::cout << std::endl << "[INSERT FUNCTION (POSITION, N, VALUE)]" << std::endl;
+        {
+            ft::vector<int> ft_v;
+            std::vector<int> std_v;
+            ft_v.insert(ft_v.begin(), 5, 1);
+            std_v.insert(std_v.begin(), 5, 1);
+            std::cout << "ft_v.insert(ft_v.begin(), 5, 1): ";
+            for (ft::vector<int>::iterator it = ft_v.begin(); it != ft_v.end(); it++)
+                std::cout << *it << " ";
+            std::cout << std::endl;
+            std::cout << "std_v.insert(std_v.begin(), 5, 1): ";
+            for (std::vector<int>::iterator it = std_v.begin(); it != std_v.end(); it++)
+                std::cout << *it << " ";
+            std::cout << std::endl;
+        }
+        {
+            ft::vector<int> ft_v;
+            std::vector<int> std_v;
+            ft_v.insert(ft_v.end(), 5, 1);
+            std_v.insert(std_v.end(), 5, 1);
+            std::cout << "ft_v.insert(ft_v.end(), 5, 1): ";
+            for (ft::vector<int>::iterator it = ft_v.begin(); it != ft_v.end(); it++)
+                std::cout << *it << " ";
+            std::cout << std::endl;
+            std::cout << "std_v.insert(std_v.end(), 5, 1): ";
+            for (std::vector<int>::iterator it = std_v.begin(); it != std_v.end(); it++)
+                std::cout << *it << " ";
+            std::cout << std::endl;
+        }
+        std::cout << std::endl << "[INSERT FUNCTION (POSITION, FIRST, LAST)]" << std::endl;
+        ft::vector<int> ft_v_base(5, 1);
+        std::vector<int> std_v_base(5, 1);
+        {
+            ft::vector<int> ft_v;
+            std::vector<int> std_v;
+            ft_v.insert(ft_v.begin(), ft_v_base.begin(), ft_v_base.end());
+            std_v.insert(std_v.begin(), std_v_base.begin(), std_v_base.end());
+            std::cout << "ft_v.insert(ft_v.begin(), ft_v_base.begin(), ft_v_base.end()): ";
+            for (ft::vector<int>::iterator it = ft_v.begin(); it != ft_v.end(); it++)
+                std::cout << *it << " ";
+            std::cout << std::endl;
+            std::cout << "std_v.insert(std_v.begin(), std_v_base.begin(), std_v_base.end()): ";
+            for (std::vector<int>::iterator it = std_v.begin(); it != std_v.end(); it++)
+                std::cout << *it << " ";
+            std::cout << std::endl;
+        }
+        {
+            ft::vector<int> ft_v;
+            std::vector<int> std_v;
+            ft_v.insert(ft_v.end(), ft_v_base.begin(), ft_v_base.end());
+            std_v.insert(std_v.end(), std_v_base.begin(), std_v_base.end());
+            std::cout << "ft_v.insert(ft_v.end(), ft_v_base.begin(), ft_v_base.end()): ";
+            for (ft::vector<int>::iterator it = ft_v.begin(); it != ft_v.end(); it++)
+                std::cout << *it << " ";
+            std::cout << std::endl;
+            std::cout << "std_v.insert(std_v.end(), std_v_base.begin(), std_v_base.end()): ";
+            for (std::vector<int>::iterator it = std_v.begin(); it != std_v.end(); it++)
+                std::cout << *it << " ";
+            std::cout << std::endl;
+        }
     }
     return (0);
 }
