@@ -229,15 +229,14 @@ typename ft::vector<T, Alloc>::iterator ft::vector<T, Alloc>::insert(iterator po
 
     // check if there is space and the postion to insert is at the end
     // if so an insertion will take place
-    if (this->memory_impl.memory_finish != this->memory_impl.memory_end_of_storage
-        && position == this->end()) {
-            this->memory_impl.construct(this->memory_impl.memory_finish, value);
-            ++this->memory_impl.memory_finish;
-        }
-        else {
-            this->memory_insert_aux(position, value);
-        }
-        return (this->begin() + n);
+    if (this->memory_impl.memory_finish != this->memory_impl.memory_end_of_storage && position == this->end()) {
+        this->memory_impl.construct(this->memory_impl.memory_finish, value);
+        ++this->memory_impl.memory_finish;
+    }
+    else {
+        this->memory_insert_aux(position, value);
+    }
+    return (this->begin() + n);
 }
 
 template<class T, class Alloc>
@@ -462,7 +461,7 @@ void ft::vector<T, Alloc>::memory_fill_insert(iterator position, size_type n, co
                                             iterator(this->memory_impl.memory_finish),
                                             this->memory_impl.memory_finish);
                 this->memory_impl.memory_finish += n;
-                std::copy_backward(position, old_finish - n, old_finish);
+                std::copy_backward(position, old_finish.base() - n, old_finish.base());
                 std::fill(position, position + n, value_copy);
             }
             else {
@@ -537,9 +536,9 @@ void ft::vector<T, Alloc>::memory_insert_aux(iterator position, const value_type
         this->memory_impl.construct(this->memory_impl.memory_finish, *(this->memory_impl.memory_finish - 1));
         ++this->memory_impl.memory_finish;
         value_type tmp = value;
-        std::copy_backward(position,
-            iterator(this->memory_impl.memory_finish - 2),
-            iterator(this->memory_impl.memory_finish - 1)
+        std::copy_backward(position.base(),
+            this->memory_impl.memory_finish - 2,
+            this->memory_impl.memory_finish - 1
         );
         *position = tmp;
     }
