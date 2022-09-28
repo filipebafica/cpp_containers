@@ -242,10 +242,12 @@ int main(void) {
                 std::cout << *it << " ";
             std::cout << std::endl;
         }
+    }
+    {
         std::cout << std::endl << "[INSERT FUNCTION (POSITION, FIRST, LAST)]" << std::endl;
-        ft::vector<int> ft_v_base(5, 1);
-        std::vector<int> std_v_base(5, 1);
         {
+            ft::vector<int> ft_v_base(5, 1);
+            std::vector<int> std_v_base(5, 1);
             ft::vector<int> ft_v;
             std::vector<int> std_v;
             ft_v.insert(ft_v.begin(), ft_v_base.begin(), ft_v_base.end());
@@ -260,6 +262,8 @@ int main(void) {
             std::cout << std::endl;
         }
         {
+            ft::vector<int> ft_v_base(5, 1);
+            std::vector<int> std_v_base(5, 1);
             ft::vector<int> ft_v;
             std::vector<int> std_v;
             ft_v.insert(ft_v.end(), ft_v_base.begin(), ft_v_base.end());
@@ -273,6 +277,98 @@ int main(void) {
                 std::cout << *it << " ";
             std::cout << std::endl;
         }
+    }
+    {
+        std::cout << std::endl << "[ERASE FUNCTION (POSITION)]" << std::endl;
+        ft::vector<int> ft_v(5, 1);
+        std::vector<int> std_v(5, 1);
+        std::cout << "before ft_v.erase(ft_v.begin()): ";
+        for (ft::vector<int>::iterator it = ft_v.begin(); it != ft_v.end(); it++)
+            std::cout << *it << " ";
+        std::cout << std::endl;
+        std::cout << "before std_v.erase(std_v.begin()): ";
+        for (std::vector<int>::iterator it = std_v.begin(); it != std_v.end(); it++)
+            std::cout << *it << " ";
+        std::cout << std::endl;
+        ft_v.erase(ft_v.begin());
+        std_v.erase(std_v.begin());
+        std::cout << "after ft_v.erase(ft_v.begin()): ";
+        for (ft::vector<int>::iterator it = ft_v.begin(); it != ft_v.end(); it++)
+            std::cout << *it << " ";
+        std::cout << std::endl;
+        std::cout << "after std_v.erase(std_v.begin()): ";
+        for (std::vector<int>::iterator it = std_v.begin(); it != std_v.end(); it++)
+            std::cout << *it << " ";
+        std::cout << std::endl;
+    }
+    {
+        std::cout << std::endl << "[ERASE FUNCTION (FIRST, LAST)]" << std::endl;
+        ft::vector<int> ft_v(5, 1);
+        std::vector<int> std_v(5, 1);
+        std::cout << "before ft_v.erase(ft_v.begin(), ft_v.end()): ";
+        for (ft::vector<int>::iterator it = ft_v.begin(); it != ft_v.end(); it++)
+            std::cout << *it << " ";
+        std::cout << std::endl;
+        std::cout << "before std_v.erase(std_v.begin(), std_v.end()): ";
+        for (std::vector<int>::iterator it = std_v.begin(); it != std_v.end(); it++)
+            std::cout << *it << " ";
+        std::cout << std::endl;
+        ft_v.erase(ft_v.begin(), ft_v.end());
+        std_v.erase(std_v.begin(), std_v.end());
+        std::cout << "after ft_v.erase(ft_v.begin(), ft_v.end()): ";
+        for (ft::vector<int>::iterator it = ft_v.begin(); it != ft_v.end(); it++)
+            std::cout << *it << " ";
+        std::cout << std::endl;
+        std::cout << "after std_v.erase(std_v.begin(), std_v.end()): ";
+        for (std::vector<int>::iterator it = std_v.begin(); it != std_v.end(); it++)
+            std::cout << *it << " ";
+        std::cout << std::endl;
+    }
+    {
+        std::cout << std::endl << "[PUSH FUNCTION]" << std::endl;
+        ft::vector<int> ft_v(5, 1);
+        std::vector<int> std_v(5, 1);
+        std::cout << "before ft_v.push_back(99): ";
+        for (ft::vector<int>::iterator it = ft_v.begin(); it != ft_v.end(); it++)
+            std::cout << *it << " ";
+        std::cout << std::endl;
+        std::cout << "before std_v.push_back(99): ";
+        for (std::vector<int>::iterator it = std_v.begin(); it != std_v.end(); it++)
+            std::cout << *it << " ";
+        std::cout << std::endl;
+        ft_v.push_back(99);
+        std_v.push_back(99);
+        std::cout << "after ft_v.push_back(99): ";
+        for (ft::vector<int>::iterator it = ft_v.begin(); it != ft_v.end(); it++)
+            std::cout << *it << " ";
+        std::cout << std::endl;
+        std::cout << "after std_v.push_back(99): ";
+        for (std::vector<int>::iterator it = std_v.begin(); it != std_v.end(); it++)
+            std::cout << *it << " ";
+        std::cout << std::endl;
+    }
+    {
+        std::cout << std::endl << "[POP FUNCTION]" << std::endl;
+        ft::vector<int> ft_v(5, 1);
+        std::vector<int> std_v(5, 1);
+        std::cout << "before ft_v.pop_back(): ";
+        for (ft::vector<int>::iterator it = ft_v.begin(); it != ft_v.end(); it++)
+            std::cout << *it << " ";
+        std::cout << std::endl;
+        std::cout << "before std_v.pop_back(): ";
+        for (std::vector<int>::iterator it = std_v.begin(); it != std_v.end(); it++)
+            std::cout << *it << " ";
+        std::cout << std::endl;
+        ft_v.pop_back();
+        std_v.pop_back();
+        std::cout << "after ft_v.pop_back(): ";
+        for (ft::vector<int>::iterator it = ft_v.begin(); it != ft_v.end(); it++)
+            std::cout << *it << " ";
+        std::cout << std::endl;
+        std::cout << "after std_v.pop_back(): ";
+        for (std::vector<int>::iterator it = std_v.begin(); it != std_v.end(); it++)
+            std::cout << *it << " ";
+        std::cout << std::endl;
     }
     return (0);
 }
