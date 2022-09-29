@@ -457,5 +457,66 @@ int main(void) {
             std::cout << *it << " ";
         std::cout << std::endl;
     }
+
+    {
+        std::cout << std::endl << "[== OPERATOR / v_a(5, 1) / v_b(5, 2)]" << std::endl;
+        ft::vector<int> ft_v_a(5, 1);
+        ft::vector<int> ft_v_b(5, 2);
+        std::vector<int> std_v_a(5, 1);
+        std::vector<int> std_v_b(5, 2);
+        std::cout << "ft_v_a == ft_v_b: " << (ft_v_a == ft_v_b) << std::endl;
+        std::cout << "std_v_a == std_v_b: " << (std_v_a == std_v_b) << std::endl;
+    }
+
+    {
+        std::cout << std::endl << "[!= OPERATOR / v_a(5, 1) / v_b(5, 2)]" << std::endl;
+        ft::vector<int> ft_v_a(5, 1);
+        ft::vector<int> ft_v_b(5, 2);
+        std::vector<int> std_v_a(5, 1);
+        std::vector<int> std_v_b(5, 2);
+        std::cout << "ft_v_a != ft_v_b: " << (ft_v_a != ft_v_b) << std::endl;
+        std::cout << "std_v_a != std_v_b: " << (std_v_a != std_v_b) << std::endl;
+    }
+
+    {
+        std::cout << std::endl << "[< OPERATOR / v_a(5, 1) / v_b(5, 2)]" << std::endl;
+        ft::vector<int> ft_v_a(5, 1);
+        ft::vector<int> ft_v_b(5, 2);
+        std::vector<int> std_v_a(5, 1);
+        std::vector<int> std_v_b(5, 2);
+        std::cout << "ft_v_a < ft_v_b: " << (ft_v_a < ft_v_b) << std::endl;
+        std::cout << "std_v_a < std_v_b: " << (std_v_a < std_v_b) << std::endl;
+    }
+
+    {
+        std::cout << std::endl << "[<= OPERATOR / v_a(5, 1) / v_b(5, 2)]" << std::endl;
+        ft::vector<int> ft_v_a(5, 1);
+        ft::vector<int> ft_v_b(5, 2);
+        std::vector<int> std_v_a(5, 1);
+        std::vector<int> std_v_b(5, 2);
+        std::cout << "ft_v_a <= ft_v_b: " << (ft_v_a <= ft_v_b) << std::endl;
+        std::cout << "std_v_a <= std_v_b: " << (std_v_a <= std_v_b) << std::endl;
+    }
+
+    {
+        std::cout << std::endl << "[> OPERATOR / v_a(5, 1) / v_b(5, 2)]" << std::endl;
+        ft::vector<int> ft_v_a(5, 1);
+        ft::vector<int> ft_v_b(5, 2);
+        std::vector<int> std_v_a(5, 1);
+        std::vector<int> std_v_b(5, 2);
+        std::cout << "ft_v_a > ft_v_b: " << (ft_v_a > ft_v_b) << std::endl;
+        std::cout << "std_v_a > std_v_b: " << (std_v_a > std_v_b) << std::endl;
+    }
+
+    {
+        std::cout << std::endl << "[>= OPERATOR / v_a(5, 1) / v_b(5, 2)]" << std::endl;
+        ft::vector<int> ft_v_a(5, 1);
+        ft::vector<int> ft_v_b(5, 2);
+        std::vector<int> std_v_a(5, 1);
+        std::vector<int> std_v_b(5, 2);
+        std::cout << "ft_v_a >= ft_v_b: " << (ft_v_a >= ft_v_b) << std::endl;
+        std::cout << "std_v_a >= std_v_b: " << (std_v_a >= std_v_b) << std::endl;
+    }
+
     return (0);
 }

@@ -461,7 +461,7 @@ void ft::vector<T, Alloc>::memory_fill_insert(iterator position, size_type n, co
                                             iterator(this->memory_impl.memory_finish),
                                             this->memory_impl.memory_finish);
                 this->memory_impl.memory_finish += n;
-                std::copy_backward(position, old_finish.base() - n, old_finish.base());
+                std::copy_backward(position.base(), old_finish.base() - n, old_finish.base());
                 std::fill(position, position + n, value_copy);
             }
             else {
@@ -614,7 +614,7 @@ template<class T, class Alloc>
 bool ft::operator<(
     const ft::vector<T, Alloc>& lhs,
     const ft::vector<T, Alloc>& rhs) {
-        return (std::lexicographical_compare(
+        return (ft::lexicographical_compare(
             lhs.begin(), lhs.end(), rhs.begin(), rhs.end()
         ));
 }

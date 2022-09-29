@@ -12,6 +12,7 @@
 #include "./reverse_iterator.hpp"
 #include "./iterator_base_types.hpp"
 #include "./type_traits.hpp"
+#include "./lexicographical_compare.hpp"
 
 namespace ft {
 template<class T, class Alloc = std::allocator<T> >
