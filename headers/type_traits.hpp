@@ -1,11 +1,9 @@
 // Copyright (c) 2022 Filipe Báfica, Licensed under the MIT License.
-#ifndef CPP_CONTAINERS_HEADERS_UTILS_HPP_
-#define CPP_CONTAINERS_HEADERS_UTILS_HPP_
-
-// #include <type_traits>
+#ifndef CPP_CONTAINERS_HEADERS_TYPE_TRAITS_HPP_
+#define CPP_CONTAINERS_HEADERS_TYPE_TRAITS_HPP_
 
 namespace ft {
-
+/******************** IS_INTEGRAL ********************/
 template<class T, T v>
 struct integral_constant {
     static const T value = v;
@@ -33,6 +31,17 @@ template<> struct is_integral_base<unsigned long int> : public true_type {};
 template<> struct is_integral_base<unsigned long long int> : public true_type {};
 
 template<typename T> struct is_integral : is_integral_base<T> {};
+
+
+/******************** ENABLE_IF ********************/
+template<bool B, typename T>
+struct enable_if {};
+
+template<typename T>
+struct enable_if<true, T> {
+    typedef T type;
+};
+
 }  // namespace ft
 
-#endif  // CPP_CONTAINERS_HEADERS_UTILS_HPP_
+#endif  // CPP_CONTAINERS_HEADERS_TYPE_TRAITS_HPP_
