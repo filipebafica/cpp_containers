@@ -1,7 +1,7 @@
 # Copyright (c) 2022 Filipe Báfica, Licensed under the MIT License.
 NAME = program
 HEADERS = ./headers/
-SOURCE = std_vector_perfomance_test.cpp
+SOURCE = enable_if_test.cpp
 OBJECTS_DIR = ./objects/
 OBJECTS = $(SOURCE:%.cpp=$(OBJECTS_DIR)%.o)
 VPATH = ./tests/
