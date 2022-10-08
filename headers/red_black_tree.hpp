@@ -23,13 +23,16 @@ class red_black_tree {
     red_black_tree(void);
     ~red_black_tree(void);
 
-    node<T> *create_node(T key);
-    void insert(T key);
-    void left_rotate(node<T> *x);
-    void right_rotate(node<T> *y);
-
     void print_tree_debug(void);
     void print_tree_debug(node<T> *node);
+
+    void insert(T key);
+
+ private:
+    node<T> *create_node(T key);
+    void insert_fixup(node<T> *new_node);
+    void left_rotate(node<T> *x);
+    void right_rotate(node<T> *y);
 };
 }  // namespace ft
 
