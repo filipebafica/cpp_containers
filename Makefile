@@ -1,7 +1,7 @@
 # Copyright (c) 2022 Filipe Báfica, Licensed under the MIT License.
 NAME = program
 HEADERS = ./headers/
-SOURCE = enable_if_test.cpp
+SOURCE = red_black_tree_test.cpp
 OBJECTS_DIR = ./objects/
 OBJECTS = $(SOURCE:%.cpp=$(OBJECTS_DIR)%.o)
 VPATH = ./tests/
