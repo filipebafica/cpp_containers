@@ -89,6 +89,8 @@ void ft::red_black_tree<T>::delete_node(T key) {
     // if z doesn't have any child
     // y is z's successor
     // y = minimum starting form z->right
+    // the successor must be >= than z (that's why get from right)
+    // and will get a node without a child
     else {
         y = this->minimum_node(z->right);
         y_original_color = y->color;
