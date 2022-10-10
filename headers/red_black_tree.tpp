@@ -15,106 +15,175 @@ ft::red_black_tree<T>::~red_black_tree(void) {
 
 template<typename T>
 ft::node<T> *ft::red_black_tree<T>::create_node(T key) {
-    ft::node<T> *new_node = new ft::node<T>;
-    new_node->color = 'B';
-    new_node->key = key;
-    new_node->parent = NULL;
-    new_node->left = NULL;
-    new_node->right = NULL;
-    return (new_node);
+    ft::node<T> *z = new ft::node<T>;
+    z->color = 'B';
+    z->key = key;
+    z->parent = NULL;
+    z->left = NULL;
+    z->right = NULL;
+    return (z);
 }
 
 template<typename T>
-void ft::red_black_tree<T>::insert(T key) {
-    ft::node<T> *new_node = this->create_node(key);
+void ft::red_black_tree<T>::insert_node(T key) {
+    ft::node<T> *z = this->create_node(key);
     ft::node<T> *x = this->root;
     ft::node<T> *y = NULL;
 
     // descend until reaching a leaf
     while (x != NULL) {
         y = x;
-        if (new_node->key < x->key) {
+        if (z->key < x->key) {
             x = x->left;
         } else {
             x = x->right;
         }
     }
 
-    // attatch the new_node to the leaf found
-    new_node->parent = y;
+    // attatch the z to the leaf found
+    z->parent = y;
 
     // if y is NULL, the tree is empty (loop above won't start) 
-    // new_node bocomes the root
+    // z bocomes the root
     if (y == NULL) {
-        this->root = new_node;
+        this->root = z;
     } 
-    // if new_node->key is less than y->key (y is new_node's parent), 
-    // then new_node will go the left leaf
-    else if (new_node->key < y->key) {
-         y->left = new_node;
+    // if z->key is less than y->key (y is z's parent), 
+    // then z will go the left leaf
+    else if (z->key < y->key) {
+         y->left = z;
     }
-    // if new_node->key is not less than y->key (y is new_node's parent), 
-    // then new_node will go the right leaf
+    // if z->key is not less than y->key (y is z's parent), 
+    // then z will go the right leaf
     else {
-        y->right = new_node;
+        y->right = z;
     }
-    new_node->left = NULL;
-    new_node->right = NULL;
-    new_node->color = 'R';
-    this->insert_fixup(new_node);
+    z->left = NULL;
+    z->right = NULL;
+    z->color = 'R';
+    this->insert_node_fixup(z);
 }
 
 template<typename T>
-void ft::red_black_tree<T>::insert_fixup(node<T> *new_node) {
+void ft::red_black_tree<T>::delete_node(T key) {
+    ft::node<T> *z = this->search_node(key);
+    if (z == NULL)
+        return;
+
+    ft::node<T> *y = z;
+    ft::node<T> *x = NULL;
+    char y_original_color = y->color;
+
+    // if z doesn't have a left child
+    // replace z by its right child
+    if (z->left == NULL) {
+        x = z->right;
+        this->transplant_node(z, z->right);
+    } 
+    // if z doesn't have a right child
+    // replace z by its left child
+    else if (z->right == NULL) {
+        x = z->left;
+        this->transplant_node(z, z->left);
+    }
+    // if z doesn't have any child
+    // y is z's successor
+    // y = minimum starting form z->right
+    else {
+        y = this->minimum_node(z->right);
+        y_original_color = y->color;
+        x = y->right;
+        // if y's father is down the tree
+        if (y != z->right) {
+            // replace y by its right child
+            this->transplant_node(y, y->right);
+            // z's right child becomes y's right child
+            y->right = z->right;
+            y->right->parent = y;
+        } 
+        else if (x) {
+            x->parent = y;
+            //replace z by its successor y
+            // and gives z's left child to y
+            // which had no left child
+            this->transplant_node(z, y);
+            y->left = z.left;
+            y->left->parent = y;
+            y->color = z->color;
+        }
+    }
+    if (y_original_color == 'B') {
+        this->delete_fixup(x);
+    }
+}
+
+template<typename T>
+ft::node<T> *ft::red_black_tree<T>::search_node(T key) {
+    return(search_node_aux(this->root, key));
+}
+
+template<typename T>
+ft::node<T> *ft::red_black_tree<T>::search_node_aux(ft::node<T> *x, T key) {
+    if (x == NULL || key == x->key) {
+        return (x);
+    } else if (key < x->key) {
+        return (this->search_node_aux(x->left, key));
+    } else {
+        return (this->search_node_aux(x->right, key));
+    }
+}
+
+template<typename T>
+void ft::red_black_tree<T>::insert_node_fixup(ft::node<T> *z) {
     ft::node<T> *y;
-    while (new_node->parent && new_node->parent->color == 'R') {
-        // if new_node's parent is a left child
-        // y becomes new_node's uncle
-        if (new_node->parent->parent && new_node->parent == new_node->parent->parent->left) {
-            y = new_node->parent->parent->right;
-            // if new_node's parent && uncle are red
+    while (z->parent && z->parent->color == 'R') {
+        // if z's parent is a left child
+        // y becomes z's uncle
+        if (z->parent->parent && z->parent == z->parent->parent->left) {
+            y = z->parent->parent->right;
+            // if z's parent && uncle are red
             // case 1
             if (y && y->color == 'R') {
-                new_node->parent->color = 'B';
+                z->parent->color = 'B';
                 y->color = 'B';
-                new_node->parent->parent->color = 'R';
-                new_node = new_node->parent->parent;
+                z->parent->parent->color = 'R';
+                z = z->parent->parent;
             }
-            // new_node's parent && uncle are not red
+            // z's parent && uncle are not red
             else {
                 //case 2
-                if (new_node == new_node->parent->right) {
-                    new_node = new_node->parent;
-                    this->left_rotate(new_node);
+                if (z == z->parent->right) {
+                    z = z->parent;
+                    this->left_rotate(z);
                 }
                 // case 3
-                new_node->parent->color = 'B';
-                new_node->parent->parent->color = 'R';
-                this->right_rotate(new_node->parent->parent);
+                z->parent->color = 'B';
+                z->parent->parent->color = 'R';
+                this->right_rotate(z->parent->parent);
             }
         }
-        // new_node's parent is a right child
-        else if (new_node->parent->parent && new_node->parent == new_node->parent->parent->right) {
-            y = new_node->parent->parent->left;
-            // if new_node's parent && uncle are red
+        // z's parent is a right child
+        else if (z->parent->parent && z->parent == z->parent->parent->right) {
+            y = z->parent->parent->left;
+            // if z's parent && uncle are red
             // case 1
             if (y && y->color == 'R') {
-                new_node->parent->color = 'B';
+                z->parent->color = 'B';
                 y->color = 'B';
-                new_node->parent->parent->color = 'R';
-                new_node = new_node->parent->parent;
+                z->parent->parent->color = 'R';
+                z = z->parent->parent;
             } 
-            // new_node's parent && uncle are not red
+            // z's parent && uncle are not red
             else {
                 // case 2
-                if (new_node == new_node->parent->left) {
-                    new_node = new_node->parent;
-                    this->right_rotate(new_node);
+                if (z == z->parent->left) {
+                    z = z->parent;
+                    this->right_rotate(z);
                 }
                 // case 3
-                new_node->parent->color = 'B';
-                new_node->parent->parent->color = 'R';
-                this->left_rotate(new_node->parent->parent);
+                z->parent->color = 'B';
+                z->parent->parent->color = 'R';
+                this->left_rotate(z->parent->parent);
             }
         }
     }
@@ -122,7 +191,7 @@ void ft::red_black_tree<T>::insert_fixup(node<T> *new_node) {
 }
 
 template<typename T>
-void ft::red_black_tree<T>::left_rotate(node<T> *x) {
+void ft::red_black_tree<T>::left_rotate(ft::node<T> *x) {
     // y becomes the x's right child (since it is a left rotate, right goes up)
     ft::node<T> *y = x->right;
     // turn y's (x->right) left subtree into x's right subtree
@@ -155,7 +224,7 @@ void ft::red_black_tree<T>::left_rotate(node<T> *x) {
 }
 
 template<typename T>
-void ft::red_black_tree<T>::right_rotate(node<T> *x) {
+void ft::red_black_tree<T>::right_rotate(ft::node<T> *x) {
     // y becomes the x's left child (since it is a right rotate, left goes up)
     ft::node<T> *y = x->left;
 
@@ -189,29 +258,32 @@ void ft::red_black_tree<T>::right_rotate(node<T> *x) {
 }
 
 template<typename T>
-void ft::red_black_tree<T>::print_tree_debug(void) {
-    if (this->root != NULL) {
-        print_tree_debug(this->root->left);
-        std::cout << "k: " << (this->root ? this->root->key : 0)
-                  << " | p: " << (this->root->parent ? this->root->parent->key : 0)
-                  << " | l: " << (this->root->left ? this->root->left->key : 0)
-                  << " | r: " << (this->root->right ? this->root->right->key : 0)
-                  << " | c: " << (this->root->color ? this->root->color : ' ')
-                  << std::endl;
-        print_tree_debug(this->root->right);
+void ft::red_black_tree<T>::transplant_node(ft::node<T> *u, ft::node<T> *v) {
+    if (u->parent == NULL) {
+        this->root = v;
+    } else if (u == u->parent->left) {
+        u->parent->left = v;
+    } else {
+        u->parent->right = v;
     }
+    v->parent = u->parent;
 }
 
 template<typename T>
-void ft::red_black_tree<T>::print_tree_debug(node<T> *node) {
+void ft::red_black_tree<T>::print_tree_debug(void) {
+    print_tree_debug_aux(this->root);
+}
+
+template<typename T>
+void ft::red_black_tree<T>::print_tree_debug_aux(ft::node<T> *node) {
     if (node != NULL) {
-        print_tree_debug(node->left);
+        print_tree_debug_aux(node->left);
         std::cout << "k: " << (node ? node->key : 0)
                   << " | p: " << (node->parent ? node->parent->key : 0)
                   << " | l: " << (node->left ? node->left->key : 0)
                   << " | r: " << (node->right ? node->right->key : 0)
                   << " | c: " << (node->color ? node->color : ' ')
                   << std::endl;
-        print_tree_debug(node->right);
+        print_tree_debug_aux(node->right);
     }
 }

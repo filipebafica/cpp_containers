@@ -18,21 +18,25 @@ struct node {
 template<typename T>
 class red_black_tree {
  public:
-    node<T> *root;
+    ft::node<T> *root;
 
     red_black_tree(void);
     ~red_black_tree(void);
 
     void print_tree_debug(void);
-    void print_tree_debug(node<T> *node);
 
-    void insert(T key);
+    void insert_node(T key);
+    void delete_node(T key);
+    ft::node<T> *search_node(T key);
 
  private:
-    node<T> *create_node(T key);
-    void insert_fixup(node<T> *new_node);
-    void left_rotate(node<T> *x);
-    void right_rotate(node<T> *y);
+    ft::node<T> *create_node(T key);
+    void insert_node_fixup(ft::node<T> *z);
+    void left_rotate(ft::node<T> *x);
+    void right_rotate(ft::node<T> *y);
+    void transplant_node(ft::node<T> *u, ft::node<T> *v);
+    ft::node<T> *search_node_aux(ft::node<T> *x, T key);
+    void print_tree_debug_aux(ft::node<T> *node);
 };
 }  // namespace ft
 
