@@ -15,5 +15,9 @@ int main(void) {
     rb.insert_node(8);
     rb.insert_node(4);
     rb.print_tree_debug();
+
+    std::cout << std::endl;
+    rb.delete_node(7);
+    rb.print_tree_debug();
     return (0);
 }

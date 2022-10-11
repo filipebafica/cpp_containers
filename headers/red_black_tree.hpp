@@ -28,6 +28,8 @@ class red_black_tree {
     void insert_node(T key);
     void delete_node(T key);
     ft::node<T> *search_node(T key);
+    ft::node<T> *minimum_node(ft::node<T> *x);
+    ft::node<T> *maximum_node(ft::node<T> *x);
 
  private:
     ft::node<T> *create_node(T key);

@@ -67,8 +67,20 @@ void ft::red_black_tree<T>::insert_node(T key) {
 template<typename T>
 void ft::red_black_tree<T>::delete_node(T key) {
     ft::node<T> *z = this->search_node(key);
-    if (z == NULL)
+    if (z == NULL) {
         return;
+    }
+
+    // z doesn't have any child
+    if (z->left == NULL && z->right == NULL) {
+        if (z == z->parent->left) {
+            z->parent->left = NULL;
+        } else {
+            z->parent->right = NULL;
+        }
+        delete z;
+        return;
+    }
 
     ft::node<T> *y = z;
     ft::node<T> *x = NULL;
@@ -76,47 +88,49 @@ void ft::red_black_tree<T>::delete_node(T key) {
 
     // if z doesn't have a left child
     // replace z by its right child
-    if (z->left == NULL) {
+    if (z->left == NULL && z->right) {
         x = z->right;
         this->transplant_node(z, z->right);
-    } 
+    }
     // if z doesn't have a right child
     // replace z by its left child
-    else if (z->right == NULL) {
+    else if (z->right == NULL && z->left) {
         x = z->left;
         this->transplant_node(z, z->left);
     }
-    // if z doesn't have any child
+    // if z has two children
     // y is z's successor
-    // y = minimum starting form z->right
+    // y = minimum starting from z->right
     // the successor must be >= than z (that's why get from right)
     // and will get a node without a child
     else {
         y = this->minimum_node(z->right);
         y_original_color = y->color;
         x = y->right;
-        // if y's father is down the tree
+        // if y is z's right child
         if (y != z->right) {
             // replace y by its right child
             this->transplant_node(y, y->right);
             // z's right child becomes y's right child
             y->right = z->right;
             y->right->parent = y;
-        } 
+        }
         else if (x) {
             x->parent = y;
-            //replace z by its successor y
-            // and gives z's left child to y
-            // which had no left child
-            this->transplant_node(z, y);
-            y->left = z.left;
-            y->left->parent = y;
-            y->color = z->color;
         }
+        //replace z by its successor y
+        // and gives z's left child to y
+        // which had no left child
+        this->transplant_node(z, y);
+        y->left = z->left;
+        y->left->parent = y;
+        y->color = z->color;
     }
     if (y_original_color == 'B') {
-        this->delete_fixup(x);
+        // this->delete_fixup(x);
+        std::cout << std::endl;
     }
+    // delete x;
 }
 
 template<typename T>
@@ -133,6 +147,20 @@ ft::node<T> *ft::red_black_tree<T>::search_node_aux(ft::node<T> *x, T key) {
     } else {
         return (this->search_node_aux(x->right, key));
     }
+}
+
+template<typename T>
+ft::node<T> *ft::red_black_tree<T>::minimum_node(ft::node<T> *x) {
+    while (x->left != NULL)
+        x = x->left;
+    return (x);
+}
+
+template<typename T>
+ft::node<T> *ft::red_black_tree<T>::maximum_node(ft::node<T> *x) {
+    while (x->right != NULL)
+        x = x->right;
+    return (x);
 }
 
 template<typename T>
@@ -268,7 +296,8 @@ void ft::red_black_tree<T>::transplant_node(ft::node<T> *u, ft::node<T> *v) {
     } else {
         u->parent->right = v;
     }
-    v->parent = u->parent;
+    if (v)
+        v->parent = u->parent;
 }
 
 template<typename T>
