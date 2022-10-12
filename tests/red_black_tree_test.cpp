@@ -17,7 +17,7 @@ int main(void) {
     rb.print_tree_debug();
 
     std::cout << std::endl;
-    rb.delete_node(7);
+    rb.delete_node(2);
     rb.print_tree_debug();
     return (0);
 }

@@ -43,17 +43,17 @@ void ft::red_black_tree<T>::insert_node(T key) {
     // attatch the z to the leaf found
     z->parent = y;
 
-    // if y is NULL, the tree is empty (loop above won't start) 
+    // if y is NULL, the tree is empty (loop above won't start)
     // z bocomes the root
     if (y == NULL) {
         this->root = z;
     } 
-    // if z->key is less than y->key (y is z's parent), 
+    // if z->key is less than y->key (y is z's parent),
     // then z will go the left leaf
     else if (z->key < y->key) {
          y->left = z;
     }
-    // if z->key is not less than y->key (y is z's parent), 
+    // if z->key is not less than y->key (y is z's parent),
     // then z will go the right leaf
     else {
         y->right = z;
@@ -127,10 +127,91 @@ void ft::red_black_tree<T>::delete_node(T key) {
         y->color = z->color;
     }
     if (y_original_color == 'B') {
-        // this->delete_fixup(x);
-        std::cout << std::endl;
+        this->delete_node_fixup(x);
     }
     // delete x;
+}
+
+template<typename T>
+void ft::red_black_tree<T>::delete_node_fixup(ft::node<T> *x) {
+    ft::node<T> *w;
+    while (x != this->root && x->color == 'B') {
+        // if x is a left child
+        // w is x's sibling
+        if (x == x->parent->left) {
+            w = x->parent->right;
+
+            // case 1
+            if (w->color == 'R') {
+                w->color = 'B';
+                x->parent->color = 'R';
+                this->left_rotate(x->parent);
+                w = x->parent->right;
+            }
+
+            // case 2
+            if (w->left && w->right &&
+                w->left->color == 'B' && w->right->color == 'B') {
+                    w->color = 'R';
+                    x = x->parent;
+            }
+
+            else {
+                // case 3
+                if (w->right && w->right->color == 'B') {
+                    if (w->left)
+                        w->left->color = 'B';
+                    w->color = 'R';
+                    this->right_rotate(w);
+                    w = x->parent->right;
+                }
+
+                // case 4
+                w->color = x->parent->color;
+                x->parent->color = 'B';
+                w->right->color = 'B';
+                this->left_rotate(x->parent);
+                x = this->root;
+            }
+        }
+        else {
+            w = x->parent->left;
+
+            // case 1
+            if (w->color == 'R') {
+                w->color = 'B';
+                x->parent->color = 'R';
+                this->right_rotate(x->parent);
+                w = x->parent->left;
+            }
+
+            // case 2
+            if (w->right && w->left &&
+                w->right->color == 'B' && w->left->color == 'B') {
+                    w->color = 'R';
+                    x = x->parent;
+            }
+
+            else {
+                // case 3
+                if (w->left && w->left->color == 'B') {
+                    if (w->right)
+                        w->right->color = 'B';
+                    w->color = 'R';
+                    this->left_rotate(w);
+                    w = x->parent->left;
+                }
+
+                // case 4
+                w->color = x->parent->color;
+                x->parent->color = 'B';
+                w->left->color = 'B';
+                this->right_rotate(x->parent);
+                x = this->root;
+            }
+        }
+    }
+    x->color = 'B';
 }
 
 template<typename T>

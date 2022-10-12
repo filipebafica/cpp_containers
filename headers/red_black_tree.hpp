@@ -39,6 +39,7 @@ class red_black_tree {
     void transplant_node(ft::node<T> *u, ft::node<T> *v);
     ft::node<T> *search_node_aux(ft::node<T> *x, T key);
     void print_tree_debug_aux(ft::node<T> *node);
+    void delete_node_fixup(ft::node<T> *x);
 };
 }  // namespace ft
 
