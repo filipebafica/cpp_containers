@@ -106,6 +106,7 @@ void ft::red_black_tree<T>::delete_node(T key) {
     else {
         y = this->minimum_node(z->right);
         y_original_color = y->color;
+        // at end x will be at y's original position
         x = y->right;
         // if y is z's right child
         if (y != z->right) {
@@ -126,7 +127,7 @@ void ft::red_black_tree<T>::delete_node(T key) {
         y->left->parent = y;
         y->color = z->color;
     }
-    if (y_original_color == 'B') {
+    if (y_original_color == 'B' && x) {
         this->delete_node_fixup(x);
     }
     // delete x;
