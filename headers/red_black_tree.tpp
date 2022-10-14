@@ -2,6 +2,10 @@
 
 #include "./red_black_tree.hpp"
 
+#define RESET "\033[0m"
+#define BOLDRED "\033[1m\033[31m"   /* Bold Red */
+#define BOLDBLACK "\033[1m\033[30m" /* Bold Black */
+
 template<typename T>
 ft::red_black_tree<T>::red_black_tree(void) {
     this->root = NULL;
@@ -170,7 +174,8 @@ void ft::red_black_tree<T>::delete_node_fixup(ft::node<T> *x) {
                 // case 4
                 w->color = x->parent->color;
                 x->parent->color = 'B';
-                w->right->color = 'B';
+                if (w->right)
+                    w->right->color = 'B';
                 this->left_rotate(x->parent);
                 x = this->root;
             }
@@ -206,7 +211,8 @@ void ft::red_black_tree<T>::delete_node_fixup(ft::node<T> *x) {
                 // case 4
                 w->color = x->parent->color;
                 x->parent->color = 'B';
-                w->left->color = 'B';
+                if (w->left)
+                    w->left->color = 'B';
                 this->right_rotate(x->parent);
                 x = this->root;
             }
@@ -384,19 +390,46 @@ void ft::red_black_tree<T>::transplant_node(ft::node<T> *u, ft::node<T> *v) {
 
 template<typename T>
 void ft::red_black_tree<T>::print_tree_debug(void) {
-    print_tree_debug_aux(this->root);
+    if (this->root) {
+        print_tree_debug_aux(this->root, "", true);
+    }
 }
 
 template<typename T>
-void ft::red_black_tree<T>::print_tree_debug_aux(ft::node<T> *node) {
+void ft::red_black_tree<T>::print_tree_debug_aux(ft::node<T> *root, std::string indent, bool last) {
+    if (root != NULL) {
+        std::cout << indent;
+        if (last) {
+            std::cout << "R----";
+            indent += "     ";
+        } else {
+            std::cout << "L----";
+            indent += "|    ";
+        }
+
+        std::string sColor = root->color == 'R' ? BOLDRED "RED" RESET
+                                         : BOLDBLACK "BLACK" RESET;
+        std::cout << root->key << "(" << sColor << ")" << std::endl;
+        print_tree_debug_aux(root->left, indent, false);
+        print_tree_debug_aux(root->right, indent, true);
+    }
+}
+
+template<typename T>
+void ft::red_black_tree<T>::print_sorted_tree_debug(void) {
+    print_sorted_tree_debug_aux(this->root);
+}
+
+template<typename T>
+void ft::red_black_tree<T>::print_sorted_tree_debug_aux(ft::node<T> *node) {
     if (node != NULL) {
-        print_tree_debug_aux(node->left);
+        print_sorted_tree_debug_aux(node->left);
         std::cout << "k: " << (node ? node->key : 0)
                   << " | p: " << (node->parent ? node->parent->key : 0)
                   << " | l: " << (node->left ? node->left->key : 0)
                   << " | r: " << (node->right ? node->right->key : 0)
                   << " | c: " << (node->color ? node->color : ' ')
                   << std::endl;
-        print_tree_debug_aux(node->right);
+        print_sorted_tree_debug_aux(node->right);
     }
 }

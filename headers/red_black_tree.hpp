@@ -4,6 +4,7 @@
 
 #include <cstddef>
 #include <iostream>
+#include <string>
 
 namespace ft {
 template<typename T>
@@ -24,6 +25,7 @@ class red_black_tree {
     ~red_black_tree(void);
 
     void print_tree_debug(void);
+    void print_sorted_tree_debug(void);
 
     void insert_node(T key);
     void delete_node(T key);
@@ -38,7 +40,10 @@ class red_black_tree {
     void right_rotate(ft::node<T> *y);
     void transplant_node(ft::node<T> *u, ft::node<T> *v);
     ft::node<T> *search_node_aux(ft::node<T> *x, T key);
-    void print_tree_debug_aux(ft::node<T> *node);
+    void print_tree_debug_aux(ft::node<T> *root, std::string indent, bool last);
+    void print_sorted_tree_debug_aux(ft::node<T> *node);
+
+ public:
     void delete_node_fixup(ft::node<T> *x);
 };
 }  // namespace ft

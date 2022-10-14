@@ -14,10 +14,13 @@ int main(void) {
     rb.insert_node(5);
     rb.insert_node(8);
     rb.insert_node(4);
+    rb.insert_node(21);
+    rb.insert_node(17);
+
     rb.print_tree_debug();
 
-    std::cout << std::endl;
-    rb.delete_node(2);
-    rb.print_tree_debug();
+    // rb.delete_node(2);
+    // rb.print_sorted_tree_debug();
+
     return (0);
 }
