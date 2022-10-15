@@ -1,26 +1,40 @@
 // Copyright (c) 2022 Filipe Báfica, Licensed under the MIT License.
 
+#include <cstdlib>
 #include "../headers/red_black_tree.hpp"
+#include "../headers/vector.hpp"
+
+int num_elemet = 1000000;
+int max_del = num_elemet - 10;
+ft::vector<int> base_elements;
+ft::red_black_tree<int> rb;
+
+void delete_test(void) {
+    for (int i = 0; i < max_del; i++) {
+        rb.delete_node(base_elements[i]);
+    }
+}
+
+void insert_test(void) {
+    for (int i = 0; i < num_elemet; i++) {
+        rb.insert_node(base_elements[i]);
+    }
+}
 
 int main(void) {
-    ft::red_black_tree<int> rb;
+    base_elements.reserve(num_elemet);
+    srand(42);
+    for (int i = 0; i < num_elemet; i++) {
+        base_elements.insert(base_elements.end(), (std::rand() % (num_elemet * 1000) + 1));
+    }
 
-    rb.insert_node(11);
-    rb.insert_node(2);
-    rb.insert_node(14);
-    rb.insert_node(1);
-    rb.insert_node(15);
-    rb.insert_node(7);
-    rb.insert_node(5);
-    rb.insert_node(8);
-    rb.insert_node(4);
-    rb.insert_node(21);
-    rb.insert_node(17);
+    insert_test();
 
     rb.print_tree_debug();
 
-    // rb.delete_node(2);
-    // rb.print_sorted_tree_debug();
+    delete_test();
+
+    rb.print_tree_debug();
 
     return (0);
 }

@@ -9,6 +9,7 @@
 template<typename T>
 ft::red_black_tree<T>::red_black_tree(void) {
     this->root = NULL;
+    this->sentinel = create_node(0);
 }
 
 template<typename T>
@@ -35,7 +36,8 @@ void ft::red_black_tree<T>::insert_node(T key) {
     ft::node<T> *y = NULL;
 
     // descend until reaching a leaf
-    while (x != NULL) {
+    // if tree is empty (x == NULL) loop won't start
+    while (x != NULL && x != this->sentinel) {
         y = x;
         if (z->key < x->key) {
             x = x->left;
@@ -62,193 +64,10 @@ void ft::red_black_tree<T>::insert_node(T key) {
     else {
         y->right = z;
     }
-    z->left = NULL;
-    z->right = NULL;
+    z->left = this->sentinel;
+    z->right = this->sentinel;
     z->color = 'R';
     this->insert_node_fixup(z);
-}
-
-template<typename T>
-void ft::red_black_tree<T>::delete_node(T key) {
-    ft::node<T> *z = this->search_node(key);
-    if (z == NULL) {
-        return;
-    }
-
-    // z doesn't have any child
-    if (z->left == NULL && z->right == NULL) {
-        if (z == z->parent->left) {
-            z->parent->left = NULL;
-        } else {
-            z->parent->right = NULL;
-        }
-        delete z;
-        return;
-    }
-
-    ft::node<T> *y = z;
-    ft::node<T> *x = NULL;
-    char y_original_color = y->color;
-
-    // if z doesn't have a left child
-    // replace z by its right child
-    if (z->left == NULL && z->right) {
-        x = z->right;
-        this->transplant_node(z, z->right);
-    }
-    // if z doesn't have a right child
-    // replace z by its left child
-    else if (z->right == NULL && z->left) {
-        x = z->left;
-        this->transplant_node(z, z->left);
-    }
-    // if z has two children
-    // y is z's successor
-    // y = minimum starting from z->right
-    // the successor must be >= than z (that's why get from right)
-    // and will get a node without a child
-    else {
-        y = this->minimum_node(z->right);
-        y_original_color = y->color;
-        // at end x will be at y's original position
-        x = y->right;
-        // if y is z's right child
-        if (y != z->right) {
-            // replace y by its right child
-            this->transplant_node(y, y->right);
-            // z's right child becomes y's right child
-            y->right = z->right;
-            y->right->parent = y;
-        }
-        else if (x) {
-            x->parent = y;
-        }
-        //replace z by its successor y
-        // and gives z's left child to y
-        // which had no left child
-        this->transplant_node(z, y);
-        y->left = z->left;
-        y->left->parent = y;
-        y->color = z->color;
-    }
-    if (y_original_color == 'B' && x) {
-        this->delete_node_fixup(x);
-    }
-    // delete x;
-}
-
-template<typename T>
-void ft::red_black_tree<T>::delete_node_fixup(ft::node<T> *x) {
-    ft::node<T> *w;
-    while (x != this->root && x->color == 'B') {
-        // if x is a left child
-        // w is x's sibling
-        if (x == x->parent->left) {
-            w = x->parent->right;
-
-            // case 1
-            if (w->color == 'R') {
-                w->color = 'B';
-                x->parent->color = 'R';
-                this->left_rotate(x->parent);
-                w = x->parent->right;
-            }
-
-            // case 2
-            if (w->left && w->right &&
-                w->left->color == 'B' && w->right->color == 'B') {
-                    w->color = 'R';
-                    x = x->parent;
-            }
-
-            else {
-                // case 3
-                if (w->right && w->right->color == 'B') {
-                    if (w->left)
-                        w->left->color = 'B';
-                    w->color = 'R';
-                    this->right_rotate(w);
-                    w = x->parent->right;
-                }
-
-                // case 4
-                w->color = x->parent->color;
-                x->parent->color = 'B';
-                if (w->right)
-                    w->right->color = 'B';
-                this->left_rotate(x->parent);
-                x = this->root;
-            }
-        }
-        else {
-            w = x->parent->left;
-
-            // case 1
-            if (w->color == 'R') {
-                w->color = 'B';
-                x->parent->color = 'R';
-                this->right_rotate(x->parent);
-                w = x->parent->left;
-            }
-
-            // case 2
-            if (w->right && w->left &&
-                w->right->color == 'B' && w->left->color == 'B') {
-                    w->color = 'R';
-                    x = x->parent;
-            }
-
-            else {
-                // case 3
-                if (w->left && w->left->color == 'B') {
-                    if (w->right)
-                        w->right->color = 'B';
-                    w->color = 'R';
-                    this->left_rotate(w);
-                    w = x->parent->left;
-                }
-
-                // case 4
-                w->color = x->parent->color;
-                x->parent->color = 'B';
-                if (w->left)
-                    w->left->color = 'B';
-                this->right_rotate(x->parent);
-                x = this->root;
-            }
-        }
-    }
-    x->color = 'B';
-}
-
-template<typename T>
-ft::node<T> *ft::red_black_tree<T>::search_node(T key) {
-    return(search_node_aux(this->root, key));
-}
-
-template<typename T>
-ft::node<T> *ft::red_black_tree<T>::search_node_aux(ft::node<T> *x, T key) {
-    if (x == NULL || key == x->key) {
-        return (x);
-    } else if (key < x->key) {
-        return (this->search_node_aux(x->left, key));
-    } else {
-        return (this->search_node_aux(x->right, key));
-    }
-}
-
-template<typename T>
-ft::node<T> *ft::red_black_tree<T>::minimum_node(ft::node<T> *x) {
-    while (x->left != NULL)
-        x = x->left;
-    return (x);
-}
-
-template<typename T>
-ft::node<T> *ft::red_black_tree<T>::maximum_node(ft::node<T> *x) {
-    while (x->right != NULL)
-        x = x->right;
-    return (x);
 }
 
 template<typename T>
@@ -309,13 +128,230 @@ void ft::red_black_tree<T>::insert_node_fixup(ft::node<T> *z) {
 }
 
 template<typename T>
+void ft::red_black_tree<T>::delete_node(T key) {
+    ft::node<T> *z = this->search_node(key);
+    if (z == NULL) {
+        return;
+    }
+
+    ft::node<T> *y = z;
+    ft::node<T> *x = NULL;
+    char y_original_color = y->color;
+
+    // if z doesn't have a left child
+    // replace z by its right child
+    if (z->left == this->sentinel) {
+        x = z->right;
+        this->transplant_node(z, z->right);
+    }
+    // if z doesn't have a right child
+    // replace z by its left child
+    else if (z->right == this->sentinel) {
+        x = z->left;
+        this->transplant_node(z, z->left);
+    }
+    // if z has two children
+    // y is z's successor
+    // y = minimum starting from z->right
+    // the successor must be >= than z (that's why get from right)
+    // and will get a node without a child
+    else {
+        y = this->minimum_node(z->right);
+        y_original_color = y->color;
+        // at end x will be at y's original position
+        x = y->right;
+        // if y is not z's right child
+        if (y != z->right) {
+            // replace y by its right child
+            this->transplant_node(y, y->right);
+            // z's right child becomes y's right child
+            y->right = z->right;
+            y->right->parent = y;
+        }
+        else {
+            x->parent = y;
+        }
+        //replace z by its successor y
+        // and gives z's left child to y
+        // which had no left child
+        this->transplant_node(z, y);
+        y->left = z->left;
+        y->left->parent = y;
+        y->color = z->color;
+    }
+    if (y_original_color == 'B') {
+        this->delete_node_fixup(x);
+    }
+    // delete x;
+}
+
+template<typename T>
+void ft::red_black_tree<T>::delete_node_fixup(ft::node<T> *x) {
+    ft::node<T> *w;
+    while (x != this->root && x->color == 'B') {
+        // if x is a left child
+        // w is x's sibling
+        if (x == x->parent->left) {
+            w = x->parent->right;
+
+            // case 1
+            // w (x's sibling) is red
+            // ensures that w and its parent will not be RED-RED
+            if (w && w->color == 'R') {
+                w->color = 'B';
+                x->parent->color = 'R';
+                this->left_rotate(x->parent);
+                w = x->parent->right;
+            }
+
+            // case 2
+            if (w && w->left && w->right &&
+                w->left->color == 'B' && w->right->color == 'B') {
+                    w->color = 'R';
+                    x = x->parent;
+            }
+
+            else {
+                // case 3
+                if (w && w->right && w->right->color == 'B') {
+                    if (w->left)
+                        w->left->color = 'B';
+                    w->color = 'R';
+                    this->right_rotate(w);
+                    w = x->parent->right;
+                }
+
+                // case 4
+                if (w && x->parent) { 
+                    w->color = x->parent->color;
+                    x->parent->color = 'B';
+                }
+                if (w && w->right) {
+                    w->right->color = 'B';
+                }
+                this->left_rotate(x->parent);
+                x = this->root;
+            }
+        }
+        else {
+            w = x->parent->left;
+
+            // case 1
+            if (w && w->color == 'R') {
+                w->color = 'B';
+                x->parent->color = 'R';
+                this->right_rotate(x->parent);
+                w = x->parent->left;
+            }
+
+            // case 2
+            if (w && w->right && w->left &&
+                w->right->color == 'B' && w->left->color == 'B') {
+                    w->color = 'R';
+                    x = x->parent;
+            }
+
+            else {
+                // case 3
+                if (w && w->left && w->left->color == 'B') {
+                    if (w->right)
+                        w->right->color = 'B';
+                    w->color = 'R';
+                    this->left_rotate(w);
+                    w = x->parent->left;
+                }
+
+                // case 4
+                if (w && x->parent) {
+                    w->color = x->parent->color;
+                    x->parent->color = 'B';
+                }
+                if (w && w->left) {
+                    w->left->color = 'B';
+                }
+                this->right_rotate(x->parent);
+                x = this->root;
+            }
+        }
+    }
+    x->color = 'B';
+}
+
+template<typename T>
+ft::node<T> *ft::red_black_tree<T>::search_node(T key) {
+    return(search_node_aux(this->root, key));
+}
+
+template<typename T>
+ft::node<T> *ft::red_black_tree<T>::search_node_aux(ft::node<T> *x, T key) {
+    if (x == NULL || key == x->key) {
+        return (x);
+    } else if (key < x->key) {
+        return (this->search_node_aux(x->left, key));
+    } else {
+        return (this->search_node_aux(x->right, key));
+    }
+}
+
+template<typename T>
+ft::node<T> *ft::red_black_tree<T>::minimum_node(ft::node<T> *x) {
+    while (x->left != this->sentinel)
+        x = x->left;
+    return (x);
+}
+
+template<typename T>
+ft::node<T> *ft::red_black_tree<T>::maximum_node(ft::node<T> *x) {
+    while (x->right != this->sentinel)
+        x = x->right;
+    return (x);
+}
+
+template<typename T>
+ft::node<T> *ft::red_black_tree<T>::successor_node(ft::node<T> *x) {
+    if (x->right != this->sentinel) {
+        // leftmost node in right subtree
+        return (this->minimum_node(x->right));
+    }
+    // find the lowest x's ancestor
+    // whose left child is an x's ancestor
+    ft::node<T> *y = x->parent;
+    while (y != this->sentinel && x == y->right) {
+        x = y;
+        y = y->parent;
+    }
+    return (y);
+}
+
+template<typename T>
+ft::node<T> *ft::red_black_tree<T>::predecessor_node(ft::node<T> *x) {
+    if (x->left != this->sentinel) {
+        // rightmost node in left subtree
+        return (this->maximum_node(x->left));
+    }
+    // find the lowest x's ancestor
+    // whose left child is an x's ancestor
+    ft::node<T> *y = x->parent;
+    while (y != this->sentinel && x == y->left) {
+        x = y;
+        y = y->parent;
+    }
+    return (y);
+}
+
+template<typename T>
 void ft::red_black_tree<T>::left_rotate(ft::node<T> *x) {
     // y becomes the x's right child (since it is a left rotate, right goes up)
     ft::node<T> *y = x->right;
+
+    // checks if y is valid
+    if (!y)
+        return;
+
     // turn y's (x->right) left subtree into x's right subtree
     x->right = y->left;
     // x becomes y's left parent
-    if (y->left != NULL) {
+    if (y->left != this->sentinel) {
         y->left->parent = x;
     }
 
@@ -346,10 +382,14 @@ void ft::red_black_tree<T>::right_rotate(ft::node<T> *x) {
     // y becomes the x's left child (since it is a right rotate, left goes up)
     ft::node<T> *y = x->left;
 
+    // checks if y is valid
+    if (!y)
+        return;
+
     // get the (x's closest less than value) to be at its left
     x->left = y->right;
     // x becomes y's left parent
-    if (y->right != NULL) {
+    if (y->right != this->sentinel) {
         y->right->parent = x;
     }
 

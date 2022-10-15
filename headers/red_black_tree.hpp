@@ -20,6 +20,7 @@ template<typename T>
 class red_black_tree {
  public:
     ft::node<T> *root;
+    ft::node<T> *sentinel;
 
     red_black_tree(void);
     ~red_black_tree(void);
@@ -32,12 +33,14 @@ class red_black_tree {
     ft::node<T> *search_node(T key);
     ft::node<T> *minimum_node(ft::node<T> *x);
     ft::node<T> *maximum_node(ft::node<T> *x);
+    ft::node<T> *successor_node(ft::node<T> *x);
+    ft::node<T> *predecessor_node(ft::node<T> *x);
 
  private:
     ft::node<T> *create_node(T key);
     void insert_node_fixup(ft::node<T> *z);
     void left_rotate(ft::node<T> *x);
-    void right_rotate(ft::node<T> *y);
+
     void transplant_node(ft::node<T> *u, ft::node<T> *v);
     ft::node<T> *search_node_aux(ft::node<T> *x, T key);
     void print_tree_debug_aux(ft::node<T> *root, std::string indent, bool last);
@@ -45,6 +48,7 @@ class red_black_tree {
 
  public:
     void delete_node_fixup(ft::node<T> *x);
+    void right_rotate(ft::node<T> *x);
 };
 }  // namespace ft
 
