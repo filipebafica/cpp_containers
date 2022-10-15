@@ -4,7 +4,7 @@
 #include "../headers/red_black_tree.hpp"
 #include "../headers/vector.hpp"
 
-int num_elemet = 1000000;
+int num_elemet = 10000000;
 int max_del = num_elemet - 10;
 ft::vector<int> base_elements;
 ft::red_black_tree<int> rb;
@@ -29,11 +29,7 @@ int main(void) {
     }
 
     insert_test();
-
-    rb.print_tree_debug();
-
     delete_test();
-
     rb.print_tree_debug();
 
     return (0);

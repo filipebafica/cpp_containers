@@ -20,7 +20,7 @@ template<typename T>
 class red_black_tree {
  public:
     ft::node<T> *root;
-    ft::node<T> *sentinel;
+    ft::node<T> *nil;
 
     red_black_tree(void);
     ~red_black_tree(void);
