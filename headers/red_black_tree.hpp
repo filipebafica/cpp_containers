@@ -45,8 +45,6 @@ class red_black_tree {
     ft::node<T> *search_node_aux(ft::node<T> *x, T key);
     void print_tree_debug_aux(ft::node<T> *root, std::string indent, bool last);
     void print_sorted_tree_debug_aux(ft::node<T> *node);
-
- public:
     void delete_node_fixup(ft::node<T> *x);
     void right_rotate(ft::node<T> *x);
 };
