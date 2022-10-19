@@ -7,6 +7,16 @@
 #include "./pair.hpp"
 #include "./red_black_tree.hpp"
 
+#define MAP_TEMPLATE typename Key, \
+                     typename T, \
+                     typename Compare, \
+                     typename Alloc
+
+#define MAP_TYPES   Key, \
+                    T, \
+                    Compare, \
+                    Alloc
+
 namespace ft {
 template<typename Key, typename T, typename Compare = std::less<Key>,
          typename Alloc = std::allocator<ft::pair<const Key, T> > >
@@ -30,9 +40,8 @@ class map {
     };
 
  private:
-    typedef ft::red_black_tree<key_type, value_type,
-                                key_compare, Alloc>   RB_type;
-    RB_type                                            memory_tree;
+    typedef ft::red_black_tree<key_type, value_type, key_compare, Alloc> RB_type;
+    RB_type                                                              memory_tree;
 
  public:
     typedef typename Alloc::pointer                    pointer;
@@ -40,12 +49,12 @@ class map {
     typedef typename Alloc::reference                  reference;
     typedef typename Alloc::const_reference            const_reference;
     typedef typename RB_type::allocator_type           allocator_type;
-    typedef typename RB_type::iterator                 iterator;
-    typedef typename RB_type::const_iterator           const_iterator;
+    // typedef typename RB_type::iterator                 iterator;
+    // typedef typename RB_type::const_iterator           const_iterator;
+    // typedef typename RB_type::reverse_iterator         reverse_iterator;
+    // typedef typename RB_type::const_reverse_iterator   const_reverse_iterator;
     typedef typename RB_type::size_type                size_type;
     typedef typename RB_type::difference_type          difference_type;
-    typedef typename RB_type::reverse_iterator         reverse_iterator;
-    typedef typename RB_type::const_reverse_iterator   const_reverse_iterator;
 
     /******************** CONSTRUCTORS ********************/
     map(void);

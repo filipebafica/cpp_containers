@@ -6,21 +6,28 @@
 #define BOLDRED "\033[1m\033[31m"   /* Bold Red */
 #define BOLDBLACK "\033[1m\033[30m" /* Bold Black */
 
-template<typename T>
-ft::red_black_tree<T>::red_black_tree(void) {
+template<RB_TREE_TEMPLATE>
+ft::red_black_tree<RB_TREE_TYPES>::red_black_tree(void) {
+}
+
+template<RB_TREE_TEMPLATE>
+ft::red_black_tree<RB_TREE_TYPES>::red_black_tree(const key_compare& key_comp, const allocator_type& node_alloc) {
+
+    this->key_comp = key_comp;
+    this->node_alloc = node_alloc;
     this->root = NULL;
     this->nil = create_node(0);
 }
 
-template<typename T>
-ft::red_black_tree<T>::~red_black_tree(void) {
+template<RB_TREE_TEMPLATE>
+ft::red_black_tree<RB_TREE_TYPES>::~red_black_tree(void) {
     if (this->root)
         delete this->root;
 }
 
-template<typename T>
-ft::node<T> *ft::red_black_tree<T>::create_node(T key) {
-    ft::node<T> *z = new ft::node<T>;
+template<RB_TREE_TEMPLATE>
+ft::node<NODE_TYPES> *ft::red_black_tree<RB_TREE_TYPES>::create_node(key_type key) {
+    ft::node<NODE_TYPES> *z = this->node_alloc.allocate(1);
     z->color = 'B';
     z->key = key;
     z->parent = NULL;
@@ -29,11 +36,11 @@ ft::node<T> *ft::red_black_tree<T>::create_node(T key) {
     return (z);
 }
 
-template<typename T>
-void ft::red_black_tree<T>::insert_node(T key) {
-    ft::node<T> *z = this->create_node(key);
-    ft::node<T> *x = this->root;
-    ft::node<T> *y = NULL;
+template<RB_TREE_TEMPLATE>
+void ft::red_black_tree<RB_TREE_TYPES>::insert_node(key_type key) {
+    ft::node<NODE_TYPES> *z = this->create_node(key);
+    ft::node<NODE_TYPES> *x = this->root;
+    ft::node<NODE_TYPES> *y = NULL;
 
     // descend until reaching a leaf
     // if tree is empty (x == NULL) loop won't start
@@ -70,9 +77,9 @@ void ft::red_black_tree<T>::insert_node(T key) {
     this->insert_node_fixup(z);
 }
 
-template<typename T>
-void ft::red_black_tree<T>::insert_node_fixup(ft::node<T> *z) {
-    ft::node<T> *y;
+template<RB_TREE_TEMPLATE>
+void ft::red_black_tree<RB_TREE_TYPES>::insert_node_fixup(ft::node<NODE_TYPES> *z) {
+    ft::node<NODE_TYPES> *y;
     while (z->parent && z->parent->color == 'R') {
         // if z's parent is a left child
         // y becomes z's uncle
@@ -127,15 +134,15 @@ void ft::red_black_tree<T>::insert_node_fixup(ft::node<T> *z) {
     this->root->color = 'B';
 }
 
-template<typename T>
-void ft::red_black_tree<T>::delete_node(T key) {
-    ft::node<T> *z = this->search_node(key);
+template<RB_TREE_TEMPLATE>
+void ft::red_black_tree<RB_TREE_TYPES>::delete_node(key_type key) {
+    ft::node<NODE_TYPES> *z = this->search_node(key);
     if (z == NULL) {
         return;
     }
 
-    ft::node<T> *y = z;
-    ft::node<T> *x = NULL;
+    ft::node<NODE_TYPES> *y = z;
+    ft::node<NODE_TYPES> *x = NULL;
     char y_original_color = y->color;
 
     // if z doesn't have a left child
@@ -185,9 +192,9 @@ void ft::red_black_tree<T>::delete_node(T key) {
     // delete x;
 }
 
-template<typename T>
-void ft::red_black_tree<T>::delete_node_fixup(ft::node<T> *x) {
-    ft::node<T> *w;
+template<RB_TREE_TEMPLATE>
+void ft::red_black_tree<RB_TREE_TYPES>::delete_node_fixup(ft::node<NODE_TYPES> *x) {
+    ft::node<NODE_TYPES> *w;
     while (x != this->root && x->color == 'B') {
         // if x is a left child
         // w is x's right sibling
@@ -279,13 +286,13 @@ void ft::red_black_tree<T>::delete_node_fixup(ft::node<T> *x) {
     x->color = 'B';
 }
 
-template<typename T>
-ft::node<T> *ft::red_black_tree<T>::search_node(T key) {
+template<RB_TREE_TEMPLATE>
+ft::node<NODE_TYPES> *ft::red_black_tree<RB_TREE_TYPES>::search_node(key_type key) {
     return(search_node_aux(this->root, key));
 }
 
-template<typename T>
-ft::node<T> *ft::red_black_tree<T>::search_node_aux(ft::node<T> *x, T key) {
+template<RB_TREE_TEMPLATE>
+ft::node<NODE_TYPES> *ft::red_black_tree<RB_TREE_TYPES>::search_node_aux(ft::node<NODE_TYPES> *x, key_type key) {
     if (x == NULL || key == x->key) {
         return (x);
     } else if (key < x->key) {
@@ -295,29 +302,29 @@ ft::node<T> *ft::red_black_tree<T>::search_node_aux(ft::node<T> *x, T key) {
     }
 }
 
-template<typename T>
-ft::node<T> *ft::red_black_tree<T>::minimum_node(ft::node<T> *x) {
+template<RB_TREE_TEMPLATE>
+ft::node<NODE_TYPES> *ft::red_black_tree<RB_TREE_TYPES>::minimum_node(ft::node<NODE_TYPES> *x) {
     while (x->left != this->nil)
         x = x->left;
     return (x);
 }
 
-template<typename T>
-ft::node<T> *ft::red_black_tree<T>::maximum_node(ft::node<T> *x) {
+template<RB_TREE_TEMPLATE>
+ft::node<NODE_TYPES> *ft::red_black_tree<RB_TREE_TYPES>::maximum_node(ft::node<NODE_TYPES> *x) {
     while (x->right != this->nil)
         x = x->right;
     return (x);
 }
 
-template<typename T>
-ft::node<T> *ft::red_black_tree<T>::successor_node(ft::node<T> *x) {
+template<RB_TREE_TEMPLATE>
+ft::node<NODE_TYPES> *ft::red_black_tree<RB_TREE_TYPES>::successor_node(ft::node<NODE_TYPES> *x) {
     if (x->right != this->nil) {
         // leftmost node in right subtree
         return (this->minimum_node(x->right));
     }
     // find the lowest x's ancestor
     // whose left child is an x's ancestor
-    ft::node<T> *y = x->parent;
+    ft::node<NODE_TYPES> *y = x->parent;
     while (y != this->nil && x == y->right) {
         x = y;
         y = y->parent;
@@ -325,15 +332,15 @@ ft::node<T> *ft::red_black_tree<T>::successor_node(ft::node<T> *x) {
     return (y);
 }
 
-template<typename T>
-ft::node<T> *ft::red_black_tree<T>::predecessor_node(ft::node<T> *x) {
+template<RB_TREE_TEMPLATE>
+ft::node<NODE_TYPES> *ft::red_black_tree<RB_TREE_TYPES>::predecessor_node(ft::node<NODE_TYPES> *x) {
     if (x->left != this->nil) {
         // rightmost node in left subtree
         return (this->maximum_node(x->left));
     }
     // find the lowest x's ancestor
     // whose left child is an x's ancestor
-    ft::node<T> *y = x->parent;
+    ft::node<NODE_TYPES> *y = x->parent;
     while (y != this->nil && x == y->left) {
         x = y;
         y = y->parent;
@@ -341,10 +348,10 @@ ft::node<T> *ft::red_black_tree<T>::predecessor_node(ft::node<T> *x) {
     return (y);
 }
 
-template<typename T>
-void ft::red_black_tree<T>::left_rotate(ft::node<T> *x) {
+template<RB_TREE_TEMPLATE>
+void ft::red_black_tree<RB_TREE_TYPES>::left_rotate(ft::node<NODE_TYPES> *x) {
     // y becomes the x's right child (since it is a left rotate, right goes up)
-    ft::node<T> *y = x->right;
+    ft::node<NODE_TYPES> *y = x->right;
 
     // checks if y is valid
     if (!y)
@@ -379,10 +386,10 @@ void ft::red_black_tree<T>::left_rotate(ft::node<T> *x) {
     x->parent = y;
 }
 
-template<typename T>
-void ft::red_black_tree<T>::right_rotate(ft::node<T> *x) {
+template<RB_TREE_TEMPLATE>
+void ft::red_black_tree<RB_TREE_TYPES>::right_rotate(ft::node<NODE_TYPES> *x) {
     // y becomes the x's left child (since it is a right rotate, left goes up)
-    ft::node<T> *y = x->left;
+    ft::node<NODE_TYPES> *y = x->left;
 
     // checks if y is valid
     if (!y)
@@ -417,8 +424,8 @@ void ft::red_black_tree<T>::right_rotate(ft::node<T> *x) {
     x->parent = y;
 }
 
-template<typename T>
-void ft::red_black_tree<T>::transplant_node(ft::node<T> *u, ft::node<T> *v) {
+template<RB_TREE_TEMPLATE>
+void ft::red_black_tree<RB_TREE_TYPES>::transplant_node(ft::node<NODE_TYPES> *u, ft::node<NODE_TYPES> *v) {
     if (u->parent == NULL) {
         this->root = v;
     } else if (u == u->parent->left) {
@@ -430,15 +437,15 @@ void ft::red_black_tree<T>::transplant_node(ft::node<T> *u, ft::node<T> *v) {
         v->parent = u->parent;
 }
 
-template<typename T>
-void ft::red_black_tree<T>::print_tree_debug(void) {
+template<RB_TREE_TEMPLATE>
+void ft::red_black_tree<RB_TREE_TYPES>::print_tree_debug(void) {
     if (this->root) {
         print_tree_debug_aux(this->root, "", true);
     }
 }
 
-template<typename T>
-void ft::red_black_tree<T>::print_tree_debug_aux(ft::node<T> *root, std::string indent, bool last) {
+template<RB_TREE_TEMPLATE>
+void ft::red_black_tree<RB_TREE_TYPES>::print_tree_debug_aux(ft::node<NODE_TYPES> *root, std::string indent, bool last) {
     if (root != this->nil) {
         std::cout << indent;
         if (last) {
@@ -457,13 +464,13 @@ void ft::red_black_tree<T>::print_tree_debug_aux(ft::node<T> *root, std::string 
     }
 }
 
-template<typename T>
-void ft::red_black_tree<T>::print_sorted_tree_debug(void) {
+template<RB_TREE_TEMPLATE>
+void ft::red_black_tree<RB_TREE_TYPES>::print_sorted_tree_debug(void) {
     print_sorted_tree_debug_aux(this->root);
 }
 
-template<typename T>
-void ft::red_black_tree<T>::print_sorted_tree_debug_aux(ft::node<T> *node) {
+template<RB_TREE_TEMPLATE>
+void ft::red_black_tree<RB_TREE_TYPES>::print_sorted_tree_debug_aux(ft::node<NODE_TYPES> *node) {
     if (node != NULL) {
         print_sorted_tree_debug_aux(node->left);
         std::cout << "k: " << (node ? node->key : 0)

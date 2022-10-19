@@ -2,13 +2,13 @@
 
 #include "./map.hpp"
 
-template<typename Key, typename T, typename Compare, typename Alloc>
-ft::map<Key, T, Compare, Alloc>::value_compare::value_compare(Compare c) : comp(c) {}
+template<MAP_TEMPLATE>
+ft::map<MAP_TYPES>::value_compare::value_compare(Compare c) : comp(c) {}
 
-template<typename Key, typename T, typename Compare, typename Alloc>
-bool ft::map<Key, T, Compare, Alloc>::value_compare::operator()(const value_type& x, const value_type& y) const {
+template<MAP_TEMPLATE>
+bool ft::map<MAP_TYPES>::value_compare::operator()(const value_type& x, const value_type& y) const {
     return (comp(x.first, y.first));
 }
 
-template<typename Key, typename T, typename Compare, typename Alloc>
-ft::map<Key, T, Compare, Alloc>::map(void) : memory_tree(Compare(), Alloc()) {}
+template<MAP_TEMPLATE>
+ft::map<MAP_TYPES>::map(void) : memory_tree(Compare(), Alloc()) {}
