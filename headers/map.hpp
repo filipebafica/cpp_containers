@@ -22,7 +22,7 @@ template<typename Key, typename T, typename Compare = std::less<Key>,
          typename Alloc = std::allocator<ft::pair<const Key, T> > >
 class map {
  public:
-    /******************** MEMBER TYPES ********************/
+    /***************************** MEMBER TYPES *****************************/
     typedef Key                                            key_type;
     typedef T                                              mapped_type;
     typedef ft::pair<const Key, T>                         value_type;
@@ -56,7 +56,7 @@ class map {
     typedef typename RB_type::size_type                size_type;
     typedef typename RB_type::difference_type          difference_type;
 
-    /******************** CONSTRUCTORS ********************/
+    /***************************** CONSTRUCTORS *****************************/
     map(void);
 };
 }  // namespace ft

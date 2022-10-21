@@ -6,6 +6,21 @@
 #define BOLDRED "\033[1m\033[31m"   /* Bold Red */
 #define BOLDBLACK "\033[1m\033[30m" /* Bold Black */
 
+template<RB_NODE_TEMPLATE>
+ft::rb_node<RB_NODE_TYPES>::rb_node(
+                                    const value_type& data,
+                                    char color,
+                                    rb_node *parent,
+                                    rb_node *left,
+                                    rb_node *right
+                                )
+                                :
+                                    data(data),
+                                    color(color),
+                                    parent(parent),
+                                    left(left),
+                                    right(right) {}
+
 template<RB_TREE_TEMPLATE>
 ft::red_black_tree<RB_TREE_TYPES>::red_black_tree(void) {
 }
@@ -14,9 +29,15 @@ template<RB_TREE_TEMPLATE>
 ft::red_black_tree<RB_TREE_TYPES>::red_black_tree(const key_compare& key_comp, const allocator_type& node_alloc) {
 
     this->key_comp = key_comp;
-    this->node_alloc = node_alloc;
+    this->rb_node_alloc = node_alloc;
     this->root = NULL;
-    this->nil = create_node(0);
+    this->nil = create_rb_node(ft::pair<
+                                        typename value_type::first_type,
+                                        typename value_type::second_type
+                                    >(
+                                        typename value_type::first_type(),
+                                        typename value_type::second_type())
+                                    );
 }
 
 template<RB_TREE_TEMPLATE>
@@ -26,21 +47,23 @@ ft::red_black_tree<RB_TREE_TYPES>::~red_black_tree(void) {
 }
 
 template<RB_TREE_TEMPLATE>
-ft::node<NODE_TYPES> *ft::red_black_tree<RB_TREE_TYPES>::create_node(key_type key) {
-    ft::node<NODE_TYPES> *z = this->node_alloc.allocate(1);
-    z->color = 'B';
-    z->key = key;
-    z->parent = NULL;
-    z->left = NULL;
-    z->right = NULL;
+ft::rb_node<RB_NODE_TYPES> *ft::red_black_tree<RB_TREE_TYPES>::create_rb_node(const value_type& data) {
+   ft::rb_node<RB_NODE_TYPES> *z = this->rb_node_alloc.allocate(1);
+   this->rb_node_alloc.construct(z, ft::rb_node<RB_NODE_TYPES>(
+                                                                data,
+                                                                'B',
+                                                                NULL,
+                                                                NULL,
+                                                                NULL
+                                                            ));
     return (z);
 }
 
 template<RB_TREE_TEMPLATE>
-void ft::red_black_tree<RB_TREE_TYPES>::insert_node(key_type key) {
-    ft::node<NODE_TYPES> *z = this->create_node(key);
-    ft::node<NODE_TYPES> *x = this->root;
-    ft::node<NODE_TYPES> *y = NULL;
+void ft::red_black_tree<RB_TREE_TYPES>::insert_rb_node(key_type key) {
+   ft::rb_node<RB_NODE_TYPES> *z = this->create_rb_node(key);
+   ft::rb_node<RB_NODE_TYPES> *x = this->root;
+   ft::rb_node<RB_NODE_TYPES> *y = NULL;
 
     // descend until reaching a leaf
     // if tree is empty (x == NULL) loop won't start
@@ -74,12 +97,12 @@ void ft::red_black_tree<RB_TREE_TYPES>::insert_node(key_type key) {
     z->left = this->nil;
     z->right = this->nil;
     z->color = 'R';
-    this->insert_node_fixup(z);
+    this->insert_rb_node_fixup(z);
 }
 
 template<RB_TREE_TEMPLATE>
-void ft::red_black_tree<RB_TREE_TYPES>::insert_node_fixup(ft::node<NODE_TYPES> *z) {
-    ft::node<NODE_TYPES> *y;
+void ft::red_black_tree<RB_TREE_TYPES>::insert_rb_node_fixup(ft::rb_node<RB_NODE_TYPES> *z) {
+   ft::rb_node<RB_NODE_TYPES> *y;
     while (z->parent && z->parent->color == 'R') {
         // if z's parent is a left child
         // y becomes z's uncle
@@ -135,27 +158,27 @@ void ft::red_black_tree<RB_TREE_TYPES>::insert_node_fixup(ft::node<NODE_TYPES> *
 }
 
 template<RB_TREE_TEMPLATE>
-void ft::red_black_tree<RB_TREE_TYPES>::delete_node(key_type key) {
-    ft::node<NODE_TYPES> *z = this->search_node(key);
+void ft::red_black_tree<RB_TREE_TYPES>::delete_rb_node(key_type key) {
+   ft::rb_node<RB_NODE_TYPES> *z = this->search_rb_node(key);
     if (z == NULL) {
         return;
     }
 
-    ft::node<NODE_TYPES> *y = z;
-    ft::node<NODE_TYPES> *x = NULL;
+   ft::rb_node<RB_NODE_TYPES> *y = z;
+   ft::rb_node<RB_NODE_TYPES> *x = NULL;
     char y_original_color = y->color;
 
     // if z doesn't have a left child
     // replace z by its right child
     if (z->left == this->nil) {
         x = z->right;
-        this->transplant_node(z, z->right);
+        this->transplant_rb_node(z, z->right);
     }
     // if z doesn't have a right child
     // replace z by its left child
     else if (z->right == this->nil) {
         x = z->left;
-        this->transplant_node(z, z->left);
+        this->transplant_rb_node(z, z->left);
     }
     // if z has two children
     // y is z's successor
@@ -163,14 +186,14 @@ void ft::red_black_tree<RB_TREE_TYPES>::delete_node(key_type key) {
     // the successor must be >= than z (that's why get from right)
     // and will get a node without a child
     else {
-        y = this->minimum_node(z->right);
+        y = this->minimum_rb_node(z->right);
         y_original_color = y->color;
         // at end x will be at y's original position
         x = y->right;
         // if y is not z's right child
         if (y != z->right) {
             // replace y by its right child
-            this->transplant_node(y, y->right);
+            this->transplant_rb_node(y, y->right);
             // z's right child becomes y's right child
             y->right = z->right;
             y->right->parent = y;
@@ -181,20 +204,20 @@ void ft::red_black_tree<RB_TREE_TYPES>::delete_node(key_type key) {
         //replace z by its successor y
         // and gives z's left child to y
         // which had no left child
-        this->transplant_node(z, y);
+        this->transplant_rb_node(z, y);
         y->left = z->left;
         y->left->parent = y;
         y->color = z->color;
     }
     if (y_original_color == 'B') {
-        this->delete_node_fixup(x);
+        this->delete_rb_node_fixup(x);
     }
     // delete x;
 }
 
 template<RB_TREE_TEMPLATE>
-void ft::red_black_tree<RB_TREE_TYPES>::delete_node_fixup(ft::node<NODE_TYPES> *x) {
-    ft::node<NODE_TYPES> *w;
+void ft::red_black_tree<RB_TREE_TYPES>::delete_rb_node_fixup(ft::rb_node<RB_NODE_TYPES> *x) {
+   ft::rb_node<RB_NODE_TYPES> *w;
     while (x != this->root && x->color == 'B') {
         // if x is a left child
         // w is x's right sibling
@@ -287,44 +310,44 @@ void ft::red_black_tree<RB_TREE_TYPES>::delete_node_fixup(ft::node<NODE_TYPES> *
 }
 
 template<RB_TREE_TEMPLATE>
-ft::node<NODE_TYPES> *ft::red_black_tree<RB_TREE_TYPES>::search_node(key_type key) {
-    return(search_node_aux(this->root, key));
+ft::rb_node<RB_NODE_TYPES> *ft::red_black_tree<RB_TREE_TYPES>::search_rb_node(key_type key) {
+    return(search_rb_node_aux(this->root, key));
 }
 
 template<RB_TREE_TEMPLATE>
-ft::node<NODE_TYPES> *ft::red_black_tree<RB_TREE_TYPES>::search_node_aux(ft::node<NODE_TYPES> *x, key_type key) {
+ft::rb_node<RB_NODE_TYPES> *ft::red_black_tree<RB_TREE_TYPES>::search_rb_node_aux(ft::rb_node<RB_NODE_TYPES> *x, key_type key) {
     if (x == NULL || key == x->key) {
         return (x);
     } else if (key < x->key) {
-        return (this->search_node_aux(x->left, key));
+        return (this->search_rb_node_aux(x->left, key));
     } else {
-        return (this->search_node_aux(x->right, key));
+        return (this->search_rb_node_aux(x->right, key));
     }
 }
 
 template<RB_TREE_TEMPLATE>
-ft::node<NODE_TYPES> *ft::red_black_tree<RB_TREE_TYPES>::minimum_node(ft::node<NODE_TYPES> *x) {
+ft::rb_node<RB_NODE_TYPES> *ft::red_black_tree<RB_TREE_TYPES>::minimum_rb_node(ft::rb_node<RB_NODE_TYPES> *x) {
     while (x->left != this->nil)
         x = x->left;
     return (x);
 }
 
 template<RB_TREE_TEMPLATE>
-ft::node<NODE_TYPES> *ft::red_black_tree<RB_TREE_TYPES>::maximum_node(ft::node<NODE_TYPES> *x) {
+ft::rb_node<RB_NODE_TYPES> *ft::red_black_tree<RB_TREE_TYPES>::maximum_rb_node(ft::rb_node<RB_NODE_TYPES> *x) {
     while (x->right != this->nil)
         x = x->right;
     return (x);
 }
 
 template<RB_TREE_TEMPLATE>
-ft::node<NODE_TYPES> *ft::red_black_tree<RB_TREE_TYPES>::successor_node(ft::node<NODE_TYPES> *x) {
+ft::rb_node<RB_NODE_TYPES> *ft::red_black_tree<RB_TREE_TYPES>::successor_rb_node(ft::rb_node<RB_NODE_TYPES> *x) {
     if (x->right != this->nil) {
         // leftmost node in right subtree
-        return (this->minimum_node(x->right));
+        return (this->minimum_rb_node(x->right));
     }
     // find the lowest x's ancestor
     // whose left child is an x's ancestor
-    ft::node<NODE_TYPES> *y = x->parent;
+   ft::rb_node<RB_NODE_TYPES> *y = x->parent;
     while (y != this->nil && x == y->right) {
         x = y;
         y = y->parent;
@@ -333,14 +356,14 @@ ft::node<NODE_TYPES> *ft::red_black_tree<RB_TREE_TYPES>::successor_node(ft::node
 }
 
 template<RB_TREE_TEMPLATE>
-ft::node<NODE_TYPES> *ft::red_black_tree<RB_TREE_TYPES>::predecessor_node(ft::node<NODE_TYPES> *x) {
+ft::rb_node<RB_NODE_TYPES> *ft::red_black_tree<RB_TREE_TYPES>::predecessor_rb_node(ft::rb_node<RB_NODE_TYPES> *x) {
     if (x->left != this->nil) {
         // rightmost node in left subtree
-        return (this->maximum_node(x->left));
+        return (this->maximum_rb_node(x->left));
     }
     // find the lowest x's ancestor
     // whose left child is an x's ancestor
-    ft::node<NODE_TYPES> *y = x->parent;
+   ft::rb_node<RB_NODE_TYPES> *y = x->parent;
     while (y != this->nil && x == y->left) {
         x = y;
         y = y->parent;
@@ -349,9 +372,9 @@ ft::node<NODE_TYPES> *ft::red_black_tree<RB_TREE_TYPES>::predecessor_node(ft::no
 }
 
 template<RB_TREE_TEMPLATE>
-void ft::red_black_tree<RB_TREE_TYPES>::left_rotate(ft::node<NODE_TYPES> *x) {
+void ft::red_black_tree<RB_TREE_TYPES>::left_rotate(ft::rb_node<RB_NODE_TYPES> *x) {
     // y becomes the x's right child (since it is a left rotate, right goes up)
-    ft::node<NODE_TYPES> *y = x->right;
+   ft::rb_node<RB_NODE_TYPES> *y = x->right;
 
     // checks if y is valid
     if (!y)
@@ -387,9 +410,9 @@ void ft::red_black_tree<RB_TREE_TYPES>::left_rotate(ft::node<NODE_TYPES> *x) {
 }
 
 template<RB_TREE_TEMPLATE>
-void ft::red_black_tree<RB_TREE_TYPES>::right_rotate(ft::node<NODE_TYPES> *x) {
+void ft::red_black_tree<RB_TREE_TYPES>::right_rotate(ft::rb_node<RB_NODE_TYPES> *x) {
     // y becomes the x's left child (since it is a right rotate, left goes up)
-    ft::node<NODE_TYPES> *y = x->left;
+   ft::rb_node<RB_NODE_TYPES> *y = x->left;
 
     // checks if y is valid
     if (!y)
@@ -425,7 +448,7 @@ void ft::red_black_tree<RB_TREE_TYPES>::right_rotate(ft::node<NODE_TYPES> *x) {
 }
 
 template<RB_TREE_TEMPLATE>
-void ft::red_black_tree<RB_TREE_TYPES>::transplant_node(ft::node<NODE_TYPES> *u, ft::node<NODE_TYPES> *v) {
+void ft::red_black_tree<RB_TREE_TYPES>::transplant_rb_node(ft::rb_node<RB_NODE_TYPES> *u,ft::rb_node<RB_NODE_TYPES> *v) {
     if (u->parent == NULL) {
         this->root = v;
     } else if (u == u->parent->left) {
@@ -445,7 +468,7 @@ void ft::red_black_tree<RB_TREE_TYPES>::print_tree_debug(void) {
 }
 
 template<RB_TREE_TEMPLATE>
-void ft::red_black_tree<RB_TREE_TYPES>::print_tree_debug_aux(ft::node<NODE_TYPES> *root, std::string indent, bool last) {
+void ft::red_black_tree<RB_TREE_TYPES>::print_tree_debug_aux(ft::rb_node<RB_NODE_TYPES> *root, std::string indent, bool last) {
     if (root != this->nil) {
         std::cout << indent;
         if (last) {
@@ -470,7 +493,7 @@ void ft::red_black_tree<RB_TREE_TYPES>::print_sorted_tree_debug(void) {
 }
 
 template<RB_TREE_TEMPLATE>
-void ft::red_black_tree<RB_TREE_TYPES>::print_sorted_tree_debug_aux(ft::node<NODE_TYPES> *node) {
+void ft::red_black_tree<RB_TREE_TYPES>::print_sorted_tree_debug_aux(ft::rb_node<RB_NODE_TYPES> *node) {
     if (node != NULL) {
         print_sorted_tree_debug_aux(node->left);
         std::cout << "k: " << (node ? node->key : 0)

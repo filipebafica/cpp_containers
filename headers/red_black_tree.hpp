@@ -16,23 +16,28 @@
                         Key_compare, \
                         Alloc
 
-#define NODE_TYPES Key_type
+#define RB_NODE_TEMPLATE   typename Value_type
+
+#define RB_NODE_TYPES Value_type
 
 namespace ft {
-template<typename T>
-struct node {
-    char              color;
-    T                 pair;
-    node              *parent;
-    node              *left;
-    node              *right;
+template<typename Value_type>
+struct rb_node {
+    typedef Value_type   value_type;
+
+    value_type           data;
+    char                 color;
+    rb_node              *parent;
+    rb_node              *left;
+    rb_node              *right;
+    rb_node(const value_type& data, char color, rb_node *parent, rb_node *left, rb_node *right);
 };
 
 template<typename Key_type, typename Value_type, typename Key_compare, typename Alloc>
 class red_black_tree {
  public:
-    /******************** MEMBER TYPES ********************/
-    typedef typename Alloc::template rebind<ft::node<NODE_TYPES> >::other  allocator_type;
+    /**************************************** MEMBER TYPES ****************************************/
+    typedef typename Alloc::template rebind<ft::rb_node<RB_NODE_TYPES> >::other  allocator_type;
     typedef typename allocator_type::pointer                             pointer;
     typedef typename allocator_type::const_pointer                       const_pointer;
     // typedef typename ft::rb_iterator<pointer, red_black_tree>         iterator;
@@ -47,39 +52,38 @@ class red_black_tree {
 
 
 
-    /******************** MEMBER ATRIBUTES ********************/
-    key_compare                                              key_comp;
-    allocator_type                                           node_alloc;
-    ft::node<NODE_TYPES>                                     *root;
-    ft::node<NODE_TYPES>                                     *nil;
+    /**************************************** MEMBER ATRIBUTES ****************************************/
+    key_compare                                                   key_comp;
+    allocator_type                                                rb_node_alloc;
+    ft::rb_node<RB_NODE_TYPES>                                    *root;
+    ft::rb_node<RB_NODE_TYPES>                                    *nil;
 
-    /******************** CONSTRUCTORS / DESTRUCTORS ********************/
+    /**************************************** CONSTRUCTORS / DESTRUCTORS ****************************************/
     red_black_tree(void);
-    red_black_tree(const key_compare& key_comp, const allocator_type& node_alloc);
+    red_black_tree(const key_compare& key_comp, const allocator_type& rb_node_alloc);
     ~red_black_tree(void);
 
-    /******************** MEMBER FUNCTIONS ********************/
+    /**************************************** MEMBER FUNCTIONS ****************************************/
     void print_tree_debug(void);
     void print_sorted_tree_debug(void);
-    void insert_node(key_type key);
-    void delete_node(key_type key);
-    ft::node<NODE_TYPES> *search_node(key_type key);
-    ft::node<NODE_TYPES> *minimum_node(ft::node<NODE_TYPES> *x);
-    ft::node<NODE_TYPES> *maximum_node(ft::node<NODE_TYPES> *x);
-    ft::node<NODE_TYPES> *successor_node(ft::node<NODE_TYPES> *x);
-    ft::node<NODE_TYPES> *predecessor_node(ft::node<NODE_TYPES> *x);
+    void insert_rb_node(key_type key);
+    void delete_rb_node(key_type key);
+   ft::rb_node<RB_NODE_TYPES> *search_rb_node(key_type key);
+   ft::rb_node<RB_NODE_TYPES> *minimum_rb_node(ft::rb_node<RB_NODE_TYPES> *x);
+   ft::rb_node<RB_NODE_TYPES> *maximum_rb_node(ft::rb_node<RB_NODE_TYPES> *x);
+   ft::rb_node<RB_NODE_TYPES> *successor_rb_node(ft::rb_node<RB_NODE_TYPES> *x);
+   ft::rb_node<RB_NODE_TYPES> *predecessor_rb_node(ft::rb_node<RB_NODE_TYPES> *x);
 
  private:
-    ft::node<NODE_TYPES> *create_node(key_type key);
-    void insert_node_fixup(ft::node<NODE_TYPES> *z);
-    void left_rotate(ft::node<NODE_TYPES> *x);
-    void right_rotate(ft::node<NODE_TYPES> *x);
-    void transplant_node(ft::node<NODE_TYPES> *u, ft::node<NODE_TYPES> *v);
-    ft::node<NODE_TYPES> *search_node_aux(ft::node<NODE_TYPES> *x, key_type key);
-    void print_tree_debug_aux(ft::node<NODE_TYPES> *root, std::string indent, bool last);
-    void print_sorted_tree_debug_aux(ft::node<NODE_TYPES> *node);
-    void delete_node_fixup(ft::node<NODE_TYPES> *x);
-
+   ft::rb_node<RB_NODE_TYPES> *create_rb_node(const value_type& data);
+    void insert_rb_node_fixup(ft::rb_node<RB_NODE_TYPES> *z);
+    void left_rotate(ft::rb_node<RB_NODE_TYPES> *x);
+    void right_rotate(ft::rb_node<RB_NODE_TYPES> *x);
+    void transplant_rb_node(ft::rb_node<RB_NODE_TYPES> *u,ft::rb_node<RB_NODE_TYPES> *v);
+   ft::rb_node<RB_NODE_TYPES> *search_rb_node_aux(ft::rb_node<RB_NODE_TYPES> *x, key_type key);
+    void print_tree_debug_aux(ft::rb_node<RB_NODE_TYPES> *root, std::string indent, bool last);
+    void print_sorted_tree_debug_aux(ft::rb_node<RB_NODE_TYPES> *node);
+    void delete_rb_node_fixup(ft::rb_node<RB_NODE_TYPES> *x);
 };
 }  // namespace ft
 
