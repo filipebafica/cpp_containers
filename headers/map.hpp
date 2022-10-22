@@ -58,6 +58,57 @@ class map {
 
     /***************************** CONSTRUCTORS *****************************/
     map(void);
+    // map(iterator first, iterator last,
+    //     const key_compare& comp = key_compare(),
+    //     const allocator_type& alloc = allocator_type());
+    // map(const map& src);
+    // map& operator=(const map& rhs);
+
+    /***************************** DESTRUCTORS *****************************/
+    // ~map(void);
+
+    /******************** MEMBER FUNCTIONS ********************/
+    // // element access
+    // reference operator[](size_type n);
+    // const_reference operator[](size_type n) const;
+    // reference at(size_type n);
+    // const_reference at(size_type n) const;
+
+    // // iterators
+    // iterator begin(void);
+    // const_iterator begin(void) const;
+    // iterator end(void);
+    // const_iterator end(void) const;
+    // reverse_iterator rbegin(void);
+    // const_reverse_iterator rbegin(void) const;
+    // reverse_iterator rend(void);
+    // const_reverse_iterator rend(void) const;
+
+    // // capacity
+    // bool empty(void) const;
+    // size_type size(void) const;
+    // size_type max_size(void) const;
+
+    // // modifiers
+    // void clear(void);
+    // ft::pair<iterator, bool> insert(const value_type& value);
+    // iterator insert(iterator position, const value_type& value);
+    // void insert(iterator position, iterator first, iterator last);
+    // void erase(iterator position);
+    // size_type erase(const key_type& k);
+    // void erase(iterator first, iterator last);
+    // void swap(map& x);
+
+    // // operations
+    // iterator find(const key_type& k);
+    // const_iterator find(const key_type& k) const;
+    // size_type count(const key_type& k) const;
+    // ft::pair<iterator, iterator> equal_range(const key_type& k);
+    // ft::pair<const_iterator, const_iterator> equal_range(const key_type& k) const;
+    // iterator lower_bound(const key_type& k);
+    // const_iterator lower_bound(const key_type& k) const;
+    // iterator upper_bound(const key_type& k);
+    // const_iterator upper_bound(const key_type& k) const;
 };
 }  // namespace ft
 
