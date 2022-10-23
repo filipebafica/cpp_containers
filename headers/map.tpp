@@ -12,3 +12,8 @@ bool ft::map<MAP_TYPES>::value_compare::operator()(const value_type& x, const va
 
 template<MAP_TEMPLATE>
 ft::map<MAP_TYPES>::map(void) : memory_tree(Compare(), Alloc()) {}
+
+template<MAP_TEMPLATE>
+ft::map<MAP_TYPES>::map(iterator first, iterator last, const key_compare& comp, const allocator_type& alloc) {
+    
+}

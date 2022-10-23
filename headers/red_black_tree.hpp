@@ -5,6 +5,7 @@
 #include <cstddef>
 #include <iostream>
 #include <string>
+#include "./rb_iterator.hpp"
 
 #define RB_TREE_TEMPLATE typename Key_type, \
                          typename Value_type, \
@@ -30,33 +31,32 @@ struct rb_node {
     rb_node              *parent;
     rb_node              *left;
     rb_node              *right;
-    rb_node(const value_type& data, char color, rb_node *parent, rb_node *left, rb_node *right);
+    rb_node(void);
+    rb_node(const value_type& data);
 };
 
 template<typename Key_type, typename Value_type, typename Key_compare, typename Alloc>
 class red_black_tree {
  public:
     /**************************************** MEMBER TYPES ****************************************/
-    typedef typename Alloc::template rebind<ft::rb_node<RB_NODE_TYPES> >::other  allocator_type;
-    typedef typename allocator_type::pointer                             pointer;
-    typedef typename allocator_type::const_pointer                       const_pointer;
-    // typedef typename ft::rb_iterator<pointer, red_black_tree>         iterator;
-    // typedef typename ft::rb_iterator<const_pointer, red_black_tree>   const_iterator;
-    // typedef typename ft::rb_reverse_iterator<iterator>                reverse_iterator;
-    // typedef typename ft::rb_reverse_iterator<const_iterator>          const_reverse_iterator;
-    typedef ptrdiff_t                                                    difference_type;
-    typedef size_t                                                       size_type;
-    typedef Key_type                                                     key_type;
-    typedef Value_type                                                   value_type;
-    typedef Key_compare                                                  key_compare;
-
-
+    typedef typename Alloc::template rebind<ft::rb_node<RB_NODE_TYPES> >::other allocator_type;
+    typedef typename allocator_type::pointer                                    pointer;
+    typedef typename allocator_type::const_pointer                              const_pointer;
+    typedef typename ft::rb_iterator<pointer, red_black_tree>                   iterator;
+    typedef typename ft::rb_iterator<const_pointer, red_black_tree>             const_iterator;
+    // typedef typename ft::rb_reverse_iterator<iterator>                          reverse_iterator;
+    // typedef typename ft::rb_reverse_iterator<const_iterator>                    const_reverse_iterator;
+    typedef ptrdiff_t                                                           difference_type;
+    typedef size_t                                                              size_type;
+    typedef Key_type                                                            key_type;
+    typedef Value_type                                                          value_type;
+    typedef Key_compare                                                         key_compare;
 
     /**************************************** MEMBER ATRIBUTES ****************************************/
-    key_compare                                                   key_comp;
-    allocator_type                                                rb_node_alloc;
-    ft::rb_node<RB_NODE_TYPES>                                    *root;
-    ft::rb_node<RB_NODE_TYPES>                                    *nil;
+    key_compare                                                                 key_comp;
+    allocator_type                                                              rb_node_alloc;
+    ft::rb_node<RB_NODE_TYPES>                                                  *root;
+    static ft::rb_node<RB_NODE_TYPES>                                           *nil;
 
     /**************************************** CONSTRUCTORS / DESTRUCTORS ****************************************/
     red_black_tree(void);
@@ -66,12 +66,14 @@ class red_black_tree {
     /**************************************** MEMBER FUNCTIONS ****************************************/
     void print_tree_debug(void);
     void print_sorted_tree_debug(void);
+    void insert_unique_rb_node(iterator first, iterator last);
     void insert_rb_node(key_type key);
     void delete_rb_node(key_type key);
+
    ft::rb_node<RB_NODE_TYPES> *search_rb_node(key_type key);
-   ft::rb_node<RB_NODE_TYPES> *minimum_rb_node(ft::rb_node<RB_NODE_TYPES> *x);
+   static ft::rb_node<RB_NODE_TYPES> *minimum_rb_node(ft::rb_node<RB_NODE_TYPES> *x);
    ft::rb_node<RB_NODE_TYPES> *maximum_rb_node(ft::rb_node<RB_NODE_TYPES> *x);
-   ft::rb_node<RB_NODE_TYPES> *successor_rb_node(ft::rb_node<RB_NODE_TYPES> *x);
+   static ft::rb_node<RB_NODE_TYPES> *successor_rb_node(ft::rb_node<RB_NODE_TYPES> *x);
    ft::rb_node<RB_NODE_TYPES> *predecessor_rb_node(ft::rb_node<RB_NODE_TYPES> *x);
 
  private:

@@ -49,7 +49,7 @@ class map {
     typedef typename Alloc::reference                  reference;
     typedef typename Alloc::const_reference            const_reference;
     typedef typename RB_type::allocator_type           allocator_type;
-    // typedef typename RB_type::iterator                 iterator;
+    typedef typename RB_type::iterator                 iterator;
     // typedef typename RB_type::const_iterator           const_iterator;
     // typedef typename RB_type::reverse_iterator         reverse_iterator;
     // typedef typename RB_type::const_reverse_iterator   const_reverse_iterator;
@@ -58,9 +58,9 @@ class map {
 
     /***************************** CONSTRUCTORS *****************************/
     map(void);
-    // map(iterator first, iterator last,
-    //     const key_compare& comp = key_compare(),
-    //     const allocator_type& alloc = allocator_type());
+    map(iterator first, iterator last,
+        const key_compare& comp = key_compare(),
+        const allocator_type& alloc = allocator_type());
     // map(const map& src);
     // map& operator=(const map& rhs);
 
