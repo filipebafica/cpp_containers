@@ -29,7 +29,8 @@ typename ft::rb_iterator<Iterator, Container>::reference ft::rb_iterator<Iterato
 
 template<typename Iterator, typename Container>
 typename ft::rb_iterator<Iterator, Container>::pointer ft::rb_iterator<Iterator, Container>::operator->(void) const {
-    return (this->memory_current);
+    // return (this->memory_current);
+    return (&(this->memory_current->data));
 }
 
 template<typename Iterator, typename Container>

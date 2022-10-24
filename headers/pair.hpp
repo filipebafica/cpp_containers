@@ -14,7 +14,7 @@ class pair {
     pair(void);
     pair(const T1& a, const T2& b);
     template<typename U1, typename U2>
-    explicit pair(const pair<U1, U2>& p);
+    pair(const pair<U1, U2>& p);
     pair& operator=(const pair& rhs);
     ~pair(void);
 };

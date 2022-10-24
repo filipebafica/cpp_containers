@@ -66,8 +66,8 @@ class red_black_tree {
     /**************************************** MEMBER FUNCTIONS ****************************************/
     void print_tree_debug(void);
     void print_sorted_tree_debug(void);
+    ft::pair<iterator, bool> insert_unique_rb_node(const value_type& value);
     void insert_unique_rb_node(iterator first, iterator last);
-    void insert_rb_node(key_type key);
     void delete_rb_node(key_type key);
 
    ft::rb_node<RB_NODE_TYPES> *search_rb_node(key_type key);
@@ -77,7 +77,8 @@ class red_black_tree {
    ft::rb_node<RB_NODE_TYPES> *predecessor_rb_node(ft::rb_node<RB_NODE_TYPES> *x);
 
  private:
-   ft::rb_node<RB_NODE_TYPES> *create_rb_node(const value_type& data);
+    ft::rb_node<RB_NODE_TYPES> *create_rb_node(const value_type& value);
+    ft::rb_node<RB_NODE_TYPES> *insert_rb_node(const value_type& value);
     void insert_rb_node_fixup(ft::rb_node<RB_NODE_TYPES> *z);
     void left_rotate(ft::rb_node<RB_NODE_TYPES> *x);
     void right_rotate(ft::rb_node<RB_NODE_TYPES> *x);

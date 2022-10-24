@@ -28,5 +28,5 @@ ft::map<MAP_TYPES>::map(iterator first,
 // modifiers
 template<MAP_TEMPLATE>
 ft::pair<typename ft::map<MAP_TYPES>::iterator, bool> ft::map<MAP_TYPES>::insert(const value_type& value) {
-    return (this->memory_tree.insert_unique(value));
+    return (this->memory_tree.insert_unique_rb_node(value));
 }

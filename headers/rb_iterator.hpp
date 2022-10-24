@@ -14,11 +14,17 @@ class rb_iterator {
  protected:
     Iterator memory_current;
  public:
-    typedef typename ft::iterator_traits<Iterator>::iterator_category    iterator_category;
-    typedef typename ft::iterator_traits<Iterator>::value_type           value_type;
-    typedef typename ft::iterator_traits<Iterator>::difference_type      difference_type;
-    typedef typename ft::iterator_traits<Iterator>::reference            reference;
-    typedef typename ft::iterator_traits<Iterator>::pointer              pointer;
+    // typedef typename ft::iterator_traits<Iterator>::iterator_category    iterator_category;
+    // typedef typename ft::iterator_traits<Iterator>::value_type           value_type;
+    // typedef typename ft::iterator_traits<Iterator>::difference_type      difference_type;
+    // typedef typename ft::iterator_traits<Iterator>::reference            reference;
+    // typedef typename ft::iterator_traits<Iterator>::pointer              pointer;
+    typedef typename Container::value_type          value_type;
+    typedef typename Container::value_type&         reference;
+    typedef typename Container::value_type*         pointer;
+    typedef std::bidirectional_iterator_tag         iterator_category;
+    typedef ptrdiff_t                               difference_type;
+
 
     rb_iterator(void);
     explicit rb_iterator(const Iterator& i);

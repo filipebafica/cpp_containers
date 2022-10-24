@@ -60,6 +60,22 @@ ft::rb_node<RB_NODE_TYPES> *ft::red_black_tree<RB_TREE_TYPES>::create_rb_node(co
 }
 
 template<RB_TREE_TEMPLATE>
+ft::pair<typename ft::red_black_tree<RB_TREE_TYPES>::iterator, bool> 
+ft::red_black_tree<RB_TREE_TYPES>::insert_unique_rb_node(const value_type& value) {
+    // checks if the element exists in the tree, if not, insertion is called
+        if (this->search_rb_node(value.first) == ft::red_black_tree<RB_TREE_TYPES>::nil) {
+            return (ft::pair<iterator, bool>(
+                iterator(&(this->insert_rb_node(value)->data)),
+                true
+            ));
+        }
+        return (ft::pair<iterator, bool>(
+            iterator(this->search_rb_node(value.first)->data),
+            false
+        ));
+}
+
+template<RB_TREE_TEMPLATE>
 void ft::red_black_tree<RB_TREE_TYPES>::insert_unique_rb_node(iterator first, iterator last) {
     // checks if the element exists in the tree, if not, insertion is called
     for (iterator it = first; it != last; it++) {
@@ -71,8 +87,8 @@ void ft::red_black_tree<RB_TREE_TYPES>::insert_unique_rb_node(iterator first, it
 }
 
 template<RB_TREE_TEMPLATE>
-void ft::red_black_tree<RB_TREE_TYPES>::insert_rb_node(key_type key) {
-   ft::rb_node<RB_NODE_TYPES> *z = this->create_rb_node(key);
+ft::rb_node<RB_NODE_TYPES> *ft::red_black_tree<RB_TREE_TYPES>::insert_rb_node(const value_type& value) {
+   ft::rb_node<RB_NODE_TYPES> *z = this->create_rb_node(value);
    ft::rb_node<RB_NODE_TYPES> *x = this->root;
    ft::rb_node<RB_NODE_TYPES> *y = NULL;
 
@@ -80,7 +96,7 @@ void ft::red_black_tree<RB_TREE_TYPES>::insert_rb_node(key_type key) {
     // if tree is empty (x == NULL) loop won't start
     while (x != NULL && x != ft::red_black_tree<RB_TREE_TYPES>::nil) {
         y = x;
-        if (z->key < x->key) {
+        if (this->key_comp(z->data.first, x->data.first)) {
             x = x->left;
         } else {
             x = x->right;
@@ -97,7 +113,7 @@ void ft::red_black_tree<RB_TREE_TYPES>::insert_rb_node(key_type key) {
     } 
     // if z->key is less than y->key (y is z's parent),
     // then z will go the left leaf
-    else if (z->key < y->key) {
+    else if (this->key_comp(z->data.first, y->data.first)) {
          y->left = z;
     }
     // if z->key is not less than y->key (y is z's parent),
@@ -109,6 +125,7 @@ void ft::red_black_tree<RB_TREE_TYPES>::insert_rb_node(key_type key) {
     z->right = ft::red_black_tree<RB_TREE_TYPES>::nil;
     z->color = 'R';
     this->insert_rb_node_fixup(z);
+    return (z);
 }
 
 template<RB_TREE_TEMPLATE>
@@ -327,9 +344,9 @@ ft::rb_node<RB_NODE_TYPES> *ft::red_black_tree<RB_TREE_TYPES>::search_rb_node(ke
 
 template<RB_TREE_TEMPLATE>
 ft::rb_node<RB_NODE_TYPES> *ft::red_black_tree<RB_TREE_TYPES>::search_rb_node_aux(ft::rb_node<RB_NODE_TYPES> *x, key_type key) {
-    if (x == ft::red_black_tree<RB_TREE_TYPES>::nil || key == x->key) {
+    if (!x || x == ft::red_black_tree<RB_TREE_TYPES>::nil || key == x->data.first) {
         return (x);
-    } else if (key < x->key) {
+    } else if (key < x->data.first) {
         return (this->search_rb_node_aux(x->left, key));
     } else {
         return (this->search_rb_node_aux(x->right, key));
