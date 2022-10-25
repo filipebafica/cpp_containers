@@ -8,24 +8,32 @@
 
 template<RB_NODE_TEMPLATE>
 ft::rb_node<RB_NODE_TYPES>::rb_node(void) :
-                                    data(ft::pair<void*, void*>(NULL, NULL)),
+                                    data(ft::pair<
+                                        typename RB_NODE_TYPES::first_type, 
+                                        typename RB_NODE_TYPES::second_type
+                                    >(  typename RB_NODE_TYPES::first_type(), 
+                                        typename RB_NODE_TYPES::second_type()
+                                    )),
                                     color('B'),
                                     parent(NULL),
                                     left(NULL),
-                                    right(NULL) {}
+                                    right(NULL),
+                                    root(NULL),
+                                    nil(NULL) {}
 
 template<RB_NODE_TEMPLATE>
-ft::rb_node<RB_NODE_TYPES>::rb_node(const value_type& data) :
+ft::rb_node<RB_NODE_TYPES>::rb_node(const value_type& data, 
+                                    ft::rb_node<RB_NODE_TYPES> *root,
+                                    ft::rb_node<RB_NODE_TYPES> *nil)
+                                :
                                     data(data),
                                     color('B'),
                                     parent(NULL),
                                     left(NULL),
-                                    right(NULL) {}
+                                    right(NULL),
+                                    root(root),
+                                    nil(nil) {}
 
-
-// defines static member nil
-template<RB_TREE_TEMPLATE>
-ft::rb_node<RB_NODE_TYPES>* ft::red_black_tree<RB_TREE_TYPES>::nil;
 
 template<RB_TREE_TEMPLATE>
 ft::red_black_tree<RB_TREE_TYPES>::red_black_tree(void) {
@@ -37,25 +45,21 @@ ft::red_black_tree<RB_TREE_TYPES>::red_black_tree(const key_compare& key_comp, c
     this->key_comp = key_comp;
     this->rb_node_alloc = node_alloc;
     this->root = NULL;
-    ft::red_black_tree<RB_TREE_TYPES>::nil = create_rb_node(ft::pair<
-                                        typename value_type::first_type,
-                                        typename value_type::second_type
-                                    >(
-                                        typename value_type::first_type(),
-                                        typename value_type::second_type())
-                                    );
+    this->nil = new ft::rb_node<RB_NODE_TYPES>();
 }
 
 template<RB_TREE_TEMPLATE>
 ft::red_black_tree<RB_TREE_TYPES>::~red_black_tree(void) {
     if (this->root)
         delete this->root;
+    if (this->nil)
+        delete this->nil;
 }
 
 template<RB_TREE_TEMPLATE>
 ft::rb_node<RB_NODE_TYPES> *ft::red_black_tree<RB_TREE_TYPES>::create_rb_node(const value_type& data) {
-   ft::rb_node<RB_NODE_TYPES> *z = this->rb_node_alloc.allocate(1);
-   this->rb_node_alloc.construct(z, ft::rb_node<RB_NODE_TYPES>(data));
+    ft::rb_node<RB_NODE_TYPES> *z = this->rb_node_alloc.allocate(1);
+    this->rb_node_alloc.construct(z, ft::rb_node<RB_NODE_TYPES>(data, this->root, this->nil));
     return (z);
 }
 
@@ -63,14 +67,14 @@ template<RB_TREE_TEMPLATE>
 ft::pair<typename ft::red_black_tree<RB_TREE_TYPES>::iterator, bool> 
 ft::red_black_tree<RB_TREE_TYPES>::insert_unique_rb_node(const value_type& value) {
     // checks if the element exists in the tree, if not, insertion is called
-        if (this->search_rb_node(value.first) == ft::red_black_tree<RB_TREE_TYPES>::nil) {
+        if (this->search_rb_node(value.first) == this->nil) {
             return (ft::pair<iterator, bool>(
-                iterator(&(this->insert_rb_node(value)->data)),
+                iterator(this->insert_rb_node(value)),
                 true
             ));
         }
         return (ft::pair<iterator, bool>(
-            iterator(this->search_rb_node(value.first)->data),
+            iterator(this->search_rb_node(value.first)),
             false
         ));
 }
@@ -79,7 +83,7 @@ template<RB_TREE_TEMPLATE>
 void ft::red_black_tree<RB_TREE_TYPES>::insert_unique_rb_node(iterator first, iterator last) {
     // checks if the element exists in the tree, if not, insertion is called
     for (iterator it = first; it != last; it++) {
-        if (this->search_rb_node(it->first) == ft::red_black_tree<RB_TREE_TYPES>::nil) {
+        if (this->search_rb_node(it->first) == this->nil) {
             this->insert_rb_node(it->first);
         }
         it++;
@@ -121,8 +125,8 @@ ft::rb_node<RB_NODE_TYPES> *ft::red_black_tree<RB_TREE_TYPES>::insert_rb_node(co
     else {
         y->right = z;
     }
-    z->left = ft::red_black_tree<RB_TREE_TYPES>::nil;
-    z->right = ft::red_black_tree<RB_TREE_TYPES>::nil;
+    z->left = this->nil;
+    z->right = this->nil;
     z->color = 'R';
     this->insert_rb_node_fixup(z);
     return (z);
@@ -198,13 +202,13 @@ void ft::red_black_tree<RB_TREE_TYPES>::delete_rb_node(key_type key) {
 
     // if z doesn't have a left child
     // replace z by its right child
-    if (z->left == ft::red_black_tree<RB_TREE_TYPES>::nil) {
+    if (z->left == this->nil) {
         x = z->right;
         this->transplant_rb_node(z, z->right);
     }
     // if z doesn't have a right child
     // replace z by its left child
-    else if (z->right == ft::red_black_tree<RB_TREE_TYPES>::nil) {
+    else if (z->right == this->nil) {
         x = z->left;
         this->transplant_rb_node(z, z->left);
     }
@@ -344,9 +348,14 @@ ft::rb_node<RB_NODE_TYPES> *ft::red_black_tree<RB_TREE_TYPES>::search_rb_node(ke
 
 template<RB_TREE_TEMPLATE>
 ft::rb_node<RB_NODE_TYPES> *ft::red_black_tree<RB_TREE_TYPES>::search_rb_node_aux(ft::rb_node<RB_NODE_TYPES> *x, key_type key) {
-    if (!x || x == ft::red_black_tree<RB_TREE_TYPES>::nil || key == x->data.first) {
+    // if x == null x will be the root and the tree is empty
+    // if x == nil the key was not found in the tree
+    if (!x || x == this->nil) {
+        return (this->nil);
+    } else if (key == x->data.first) {
         return (x);
-    } else if (key < x->data.first) {
+    }
+    else if (key < x->data.first) {
         return (this->search_rb_node_aux(x->left, key));
     } else {
         return (this->search_rb_node_aux(x->right, key));
@@ -355,28 +364,32 @@ ft::rb_node<RB_NODE_TYPES> *ft::red_black_tree<RB_TREE_TYPES>::search_rb_node_au
 
 template<RB_TREE_TEMPLATE>
 ft::rb_node<RB_NODE_TYPES> *ft::red_black_tree<RB_TREE_TYPES>::minimum_rb_node(ft::rb_node<RB_NODE_TYPES> *x) {
-    while (x->left != ft::red_black_tree<RB_TREE_TYPES>::nil)
+    while (x->left != x->nil)
         x = x->left;
     return (x);
 }
 
 template<RB_TREE_TEMPLATE>
 ft::rb_node<RB_NODE_TYPES> *ft::red_black_tree<RB_TREE_TYPES>::maximum_rb_node(ft::rb_node<RB_NODE_TYPES> *x) {
-    while (x->right != ft::red_black_tree<RB_TREE_TYPES>::nil)
+    while (x->right != x->nil)
         x = x->right;
     return (x);
 }
 
 template<RB_TREE_TEMPLATE>
 ft::rb_node<RB_NODE_TYPES> *ft::red_black_tree<RB_TREE_TYPES>::successor_rb_node(ft::rb_node<RB_NODE_TYPES> *x) {
-    if (x->right != ft::red_black_tree<RB_TREE_TYPES>::nil) {
-        // leftmost node in right subtree
+    // if pointer reached the end of the tree
+    if (x == x->nil) {
+        return (ft::red_black_tree<RB_TREE_TYPES>::maximum_rb_node(x->root));
+    }
+    // leftmost node in right subtree
+    if (x->right != x->nil) {
         return (ft::red_black_tree<RB_TREE_TYPES>::minimum_rb_node(x->right));
     }
     // find the lowest x's ancestor
     // whose left child is an x's ancestor
    ft::rb_node<RB_NODE_TYPES> *y = x->parent;
-    while (y != ft::red_black_tree<RB_TREE_TYPES>::nil && x == y->right) {
+    while (y && y != y->nil && x == y->right) {
         x = y;
         y = y->parent;
     }
@@ -385,14 +398,14 @@ ft::rb_node<RB_NODE_TYPES> *ft::red_black_tree<RB_TREE_TYPES>::successor_rb_node
 
 template<RB_TREE_TEMPLATE>
 ft::rb_node<RB_NODE_TYPES> *ft::red_black_tree<RB_TREE_TYPES>::predecessor_rb_node(ft::rb_node<RB_NODE_TYPES> *x) {
-    if (x->left != ft::red_black_tree<RB_TREE_TYPES>::nil) {
+    if (x->left != x->nil) {
         // rightmost node in left subtree
-        return (this->maximum_rb_node(x->left));
+        return (ft::red_black_tree<RB_TREE_TYPES>::maximum_rb_node(x->left));
     }
     // find the lowest x's ancestor
     // whose left child is an x's ancestor
    ft::rb_node<RB_NODE_TYPES> *y = x->parent;
-    while (y != ft::red_black_tree<RB_TREE_TYPES>::nil && x == y->left) {
+    while (y && y != y->nil && x == y->left) {
         x = y;
         y = y->parent;
     }
@@ -411,7 +424,7 @@ void ft::red_black_tree<RB_TREE_TYPES>::left_rotate(ft::rb_node<RB_NODE_TYPES> *
     // turn y's (x->right) left subtree into x's right subtree
     x->right = y->left;
     // x becomes y's left parent
-    if (y->left != ft::red_black_tree<RB_TREE_TYPES>::nil) {
+    if (y->left != this->nil) {
         y->left->parent = x;
     }
 

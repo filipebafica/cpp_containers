@@ -31,8 +31,10 @@ struct rb_node {
     rb_node              *parent;
     rb_node              *left;
     rb_node              *right;
-    rb_node(void);
-    rb_node(const value_type& data);
+    rb_node              *root;
+    rb_node              *nil;
+    explicit rb_node(void);
+    explicit rb_node(const value_type& data, ft::rb_node<RB_NODE_TYPES> *root, ft::rb_node<RB_NODE_TYPES> *nil);
 };
 
 template<typename Key_type, typename Value_type, typename Key_compare, typename Alloc>
@@ -56,7 +58,7 @@ class red_black_tree {
     key_compare                                                                 key_comp;
     allocator_type                                                              rb_node_alloc;
     ft::rb_node<RB_NODE_TYPES>                                                  *root;
-    static ft::rb_node<RB_NODE_TYPES>                                           *nil;
+    ft::rb_node<RB_NODE_TYPES>                                                  *nil;
 
     /**************************************** CONSTRUCTORS / DESTRUCTORS ****************************************/
     red_black_tree(void);
@@ -72,9 +74,9 @@ class red_black_tree {
 
    ft::rb_node<RB_NODE_TYPES> *search_rb_node(key_type key);
    static ft::rb_node<RB_NODE_TYPES> *minimum_rb_node(ft::rb_node<RB_NODE_TYPES> *x);
-   ft::rb_node<RB_NODE_TYPES> *maximum_rb_node(ft::rb_node<RB_NODE_TYPES> *x);
+   static ft::rb_node<RB_NODE_TYPES> *maximum_rb_node(ft::rb_node<RB_NODE_TYPES> *x);
    static ft::rb_node<RB_NODE_TYPES> *successor_rb_node(ft::rb_node<RB_NODE_TYPES> *x);
-   ft::rb_node<RB_NODE_TYPES> *predecessor_rb_node(ft::rb_node<RB_NODE_TYPES> *x);
+   static ft::rb_node<RB_NODE_TYPES> *predecessor_rb_node(ft::rb_node<RB_NODE_TYPES> *x);
 
  private:
     ft::rb_node<RB_NODE_TYPES> *create_rb_node(const value_type& value);

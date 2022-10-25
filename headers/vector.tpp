@@ -206,11 +206,13 @@ typename ft::vector<T, Alloc>::size_type ft::vector<T, Alloc>::capacity(void) co
 // modifiers
 template<class T, class Alloc>
 void ft::vector<T, Alloc>::assign(size_type n, const value_type& value) {
+    std::cout << "fill assign" << std::endl;
     this->memory_fill_assign(n, value);
 }
 
 template<class T, class Alloc>
 void ft::vector<T, Alloc>::assign(iterator first, iterator last) {
+    std::cout << "range assign" << std::endl;
     typedef typename ft::is_integral<iterator>::type integral;
     if (integral() == true_type())
         return ;
