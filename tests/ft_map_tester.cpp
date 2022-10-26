@@ -5,24 +5,32 @@
 #include "../headers/map.hpp"
 #include "../headers/vector.hpp"
 
+
+void range_constructor_test(void) {
+    ft::map<int, int> ft_1;
+    std::map<int, int> std_1;
+
+
+    ft::pair<ft::map<int, int>::iterator, bool> ft_first;
+    ft::pair<ft::map<int, int>::iterator, bool> ft_last;
+    std::pair<std::map<int, int>::iterator, bool> std_first;
+    std::pair<std::map<int, int>::iterator, bool> std_last;
+
+
+    ft_first = ft_1.insert(ft::pair<int, int>(0, 0));
+    std_first = std_1.insert(std::pair<int, int>(0, 0));
+
+    for (int i = 0; i < 10; i++) {
+        ft_last = ft_1.insert(ft::pair<int, int>(i, i));
+        std_last = std_1.insert(std::pair<int, int>(i, i));
+    }
+
+    ft::map<int, int> ft_2(ft_first.first, ft_last.first);
+    std::map<int, int> std_2(std_first.first, std_last.first);
+}
+
+
 int main(void) {
-    ft::map<char, int> x;
-    std::map<char, int> y;
-    std::map<char, int>::iterator z;
-    ft::pair<ft::map<char, int>::iterator, bool> i;
-    std::pair<std::map<char, int>::iterator, bool> j;
-
-    i = x.insert(ft::pair<char, int>('a', 1));
-    j = y.insert(std::pair<char, int>('a', 1));
-    // x.insert(ft::pair<char, int>('b', 2));
-    // y.insert(std::pair<char, int>('b', 2));
-
-    std::cout << (--i.first)->first << std::endl;
-    std::cout << (--j.first)->first << std::endl;
-
-    // z = j.first;
-    // z++;
-    // z++;
-    // std::cout << (++z)->first << std::endl;
+    range_constructor_test();
     return (0);
 }

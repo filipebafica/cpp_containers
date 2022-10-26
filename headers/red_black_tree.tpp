@@ -84,9 +84,8 @@ void ft::red_black_tree<RB_TREE_TYPES>::insert_unique_rb_node(iterator first, it
     // checks if the element exists in the tree, if not, insertion is called
     for (iterator it = first; it != last; it++) {
         if (this->search_rb_node(it->first) == this->nil) {
-            this->insert_rb_node(it->first);
+            this->insert_rb_node(*it);
         }
-        it++;
     }
 }
 

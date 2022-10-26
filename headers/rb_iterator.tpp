@@ -24,7 +24,7 @@ ft::rb_iterator<Iterator, Container>& ft::rb_iterator<Iterator, Container>::oper
 
 template<typename Iterator, typename Container>
 typename ft::rb_iterator<Iterator, Container>::reference ft::rb_iterator<Iterator, Container>::operator*(void) const {
-    return (*this->memory_current->data);
+    return (this->memory_current->data);
 }
 
 template<typename Iterator, typename Container>

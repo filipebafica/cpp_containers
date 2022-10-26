@@ -19,7 +19,7 @@ ft::map<MAP_TYPES>::map(iterator first,
                         const key_compare& comp,
                         const allocator_type& alloc
                     ) :
-                        memory_tree(key_compare(), allocator_type())
+                        memory_tree(comp, alloc)
 {
     this->memory_tree.insert_unique_rb_node(first, last);
 }
