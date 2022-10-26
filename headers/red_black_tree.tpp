@@ -398,6 +398,14 @@ ft::rb_node<RB_NODE_TYPES> *ft::red_black_tree<RB_TREE_TYPES>::successor_rb_node
 
 template<RB_TREE_TEMPLATE>
 ft::rb_node<RB_NODE_TYPES> *ft::red_black_tree<RB_TREE_TYPES>::predecessor_rb_node(ft::rb_node<RB_NODE_TYPES> *x) {
+    // if pointer is the root
+    if (x->parent == NULL) {
+        return (x);
+    }
+    // if pointer reached the end of the tree
+    if (x == x->nil) {
+        return (ft::red_black_tree<RB_TREE_TYPES>::maximum_rb_node(x->root));
+    }
     if (x->left != x->nil) {
         // rightmost node in left subtree
         return (ft::red_black_tree<RB_TREE_TYPES>::maximum_rb_node(x->left));

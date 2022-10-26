@@ -24,7 +24,7 @@ ft::rb_iterator<Iterator, Container>& ft::rb_iterator<Iterator, Container>::oper
 
 template<typename Iterator, typename Container>
 typename ft::rb_iterator<Iterator, Container>::reference ft::rb_iterator<Iterator, Container>::operator*(void) const {
-    return (*this->memory_current);
+    return (*this->memory_current->data);
 }
 
 template<typename Iterator, typename Container>
@@ -45,18 +45,37 @@ ft::rb_iterator<Iterator, Container>& ft::rb_iterator<Iterator, Container>::oper
 
 template<typename Iterator, typename Container>
 ft::rb_iterator<Iterator, Container> ft::rb_iterator<Iterator, Container>::operator++(int) {
-    return (ft::rb_iterator<Iterator, Container>(this->memory_current++));
+    rb_iterator old_iterator = *this;
+    this->memory_current = ft::red_black_tree<
+                                    typename Container::key_type,
+                                    typename Container::value_type,
+                                    typename Container::key_compare,
+                                    typename Container::allocator_type
+                                >::successor_rb_node(this->memory_current);
+    return (old_iterator);
 }
 
 template<typename Iterator, typename Container>
 ft::rb_iterator<Iterator, Container>& ft::rb_iterator<Iterator, Container>::operator--(void) {
-    --this->memory_current;
+    this->memory_current = ft::red_black_tree<
+                                    typename Container::key_type,
+                                    typename Container::value_type,
+                                    typename Container::key_compare,
+                                    typename Container::allocator_type
+                                >::predecessor_rb_node(this->memory_current);
     return (*this);
 }
 
 template<typename Iterator, typename Container>
 ft::rb_iterator<Iterator, Container> ft::rb_iterator<Iterator, Container>::operator--(int) {
-    return (ft::rb_iterator<Iterator, Container>(this->memory_current--));
+    rb_iterator old_iterator = *this;
+    this->memory_current = ft::red_black_tree<
+                                    typename Container::key_type,
+                                    typename Container::value_type,
+                                    typename Container::key_compare,
+                                    typename Container::allocator_type
+                                >::predecessor_rb_node(this->memory_current);
+    return (old_iterator);
 }
 
 template<typename Iterator, typename Container>
