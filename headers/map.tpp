@@ -20,6 +20,11 @@ ft::map<MAP_TYPES>::map(iterator first,
 template<MAP_TEMPLATE>
 ft::map<MAP_TYPES>::map(const map& src) : memory_tree(src.memory_tree) {}
 
+template<MAP_TEMPLATE>
+ft::map<MAP_TYPES>& ft::map<MAP_TYPES>::operator=(const map& rhs){
+    this->memory_tree = rhs.memory_tree;
+    return (*this);
+}
 
 /******************** MEMBER FUNCTIONS ********************/
 template<MAP_TEMPLATE>

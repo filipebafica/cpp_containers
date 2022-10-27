@@ -67,6 +67,7 @@ class red_black_tree {
     red_black_tree(const red_black_tree& src,
                    const key_compare& key_comp = key_compare(),
                    const allocator_type& rb_node_alloc = allocator_type());
+    red_black_tree& operator=(const red_black_tree& rhs);
     ~red_black_tree(void);
 
     /**************************************** MEMBER FUNCTIONS ****************************************/

@@ -5,6 +5,19 @@
 #include "../headers/map.hpp"
 #include "../headers/vector.hpp"
 
+void assignment_operator_test(void) {
+    ft::map<int, int> ft_1;
+
+    for (int i = 0; i < 10; i++) {
+        ft_1.insert(ft::pair<int, int>(i, i));
+    }
+
+    ft::map<int, int> ft_2 = ft_1;
+
+    ft_1.memory_tree.print_tree_debug();
+    ft_2.memory_tree.print_tree_debug();
+}
+
 void copy_constructor_test(void) {
     ft::map<int, int> ft_1;
 
@@ -40,5 +53,6 @@ void range_constructor_test(void) {
 int main(void) {
     range_constructor_test();
     copy_constructor_test();
+    assignment_operator_test();
     return (0);
 }

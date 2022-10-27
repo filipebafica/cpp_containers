@@ -60,6 +60,12 @@ ft::red_black_tree<RB_TREE_TYPES>::red_black_tree(const ft::red_black_tree<RB_TR
 }
 
 template<RB_TREE_TEMPLATE>
+ft::red_black_tree<RB_TREE_TYPES>& ft::red_black_tree<RB_TREE_TYPES>::operator=(const ft::red_black_tree<RB_TREE_TYPES>& rhs) {
+    this->copy_aux(rhs.root);
+    return (*this);
+}
+
+template<RB_TREE_TEMPLATE>
 void ft::red_black_tree<RB_TREE_TYPES>::copy_aux(ft::rb_node<RB_NODE_TYPES> *x) {
     if (x == NULL || x == x->nil)
         return ;
