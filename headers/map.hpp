@@ -39,7 +39,8 @@ class map {
         bool operator()(const value_type& x, const value_type& y) const;
     };
 
- private:
+//  private:
+ public:
     typedef ft::red_black_tree<key_type, value_type, key_compare, Alloc> RB_type;
     RB_type                                                              memory_tree;
 
@@ -61,7 +62,7 @@ class map {
     map(iterator first, iterator last,
         const key_compare& comp = key_compare(),
         const allocator_type& alloc = allocator_type());
-    // map(const map& src);
+    map(const map& src);
     // map& operator=(const map& rhs);
 
     /***************************** DESTRUCTORS *****************************/

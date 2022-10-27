@@ -49,6 +49,26 @@ ft::red_black_tree<RB_TREE_TYPES>::red_black_tree(const key_compare& key_comp, c
 }
 
 template<RB_TREE_TEMPLATE>
+ft::red_black_tree<RB_TREE_TYPES>::red_black_tree(const ft::red_black_tree<RB_TREE_TYPES>& src, 
+                                                  const key_compare& key_comp, const allocator_type& node_alloc) 
+{
+    this->key_comp = key_comp;
+    this->rb_node_alloc = node_alloc;
+    this->root = NULL;
+    this->nil = new ft::rb_node<RB_NODE_TYPES>();
+    this->copy_aux(src.root);
+}
+
+template<RB_TREE_TEMPLATE>
+void ft::red_black_tree<RB_TREE_TYPES>::copy_aux(ft::rb_node<RB_NODE_TYPES> *x) {
+    if (x == NULL || x == x->nil)
+        return ;
+    this->insert_unique_rb_node(x->data);
+    this->copy_aux(x->left);
+    this->copy_aux(x->right);
+}
+
+template<RB_TREE_TEMPLATE>
 ft::red_black_tree<RB_TREE_TYPES>::~red_black_tree(void) {
     if (this->root)
         delete this->root;
@@ -517,7 +537,7 @@ void ft::red_black_tree<RB_TREE_TYPES>::print_tree_debug(void) {
 
 template<RB_TREE_TEMPLATE>
 void ft::red_black_tree<RB_TREE_TYPES>::print_tree_debug_aux(ft::rb_node<RB_NODE_TYPES> *root, std::string indent, bool last) {
-    if (root != ft::red_black_tree<RB_TREE_TYPES>::nil) {
+    if (root != this->nil) {
         std::cout << indent;
         if (last) {
             std::cout << "R----";
@@ -529,7 +549,7 @@ void ft::red_black_tree<RB_TREE_TYPES>::print_tree_debug_aux(ft::rb_node<RB_NODE
 
         std::string sColor = root->color == 'R' ? BOLDRED "RED" RESET
                                          : BOLDBLACK "BLACK" RESET;
-        std::cout << root->key << "(" << sColor << ")" << std::endl;
+        std::cout << root->data.first << "(" << sColor << ")" << std::endl;
         print_tree_debug_aux(root->left, indent, false);
         print_tree_debug_aux(root->right, indent, true);
     }

@@ -6,6 +6,7 @@
 #include <iostream>
 #include <string>
 #include "./rb_iterator.hpp"
+#include "./pair.hpp"
 
 #define RB_TREE_TEMPLATE typename Key_type, \
                          typename Value_type, \
@@ -62,7 +63,10 @@ class red_black_tree {
 
     /**************************************** CONSTRUCTORS / DESTRUCTORS ****************************************/
     red_black_tree(void);
-    red_black_tree(const key_compare& key_comp, const allocator_type& rb_node_alloc);
+    red_black_tree(const key_compare& key_comp = key_compare(), const allocator_type& rb_node_alloc = allocator_type());
+    red_black_tree(const red_black_tree& src,
+                   const key_compare& key_comp = key_compare(),
+                   const allocator_type& rb_node_alloc = allocator_type());
     ~red_black_tree(void);
 
     /**************************************** MEMBER FUNCTIONS ****************************************/
@@ -89,6 +93,7 @@ class red_black_tree {
     void print_tree_debug_aux(ft::rb_node<RB_NODE_TYPES> *root, std::string indent, bool last);
     void print_sorted_tree_debug_aux(ft::rb_node<RB_NODE_TYPES> *node);
     void delete_rb_node_fixup(ft::rb_node<RB_NODE_TYPES> *x);
+    void copy_aux(ft::rb_node<RB_NODE_TYPES> *x);
 };
 }  // namespace ft
 
