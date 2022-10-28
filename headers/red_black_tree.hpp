@@ -6,6 +6,7 @@
 #include <iostream>
 #include <string>
 #include "./rb_iterator.hpp"
+#include "./rb_reverse_iterator.hpp"
 #include "./pair.hpp"
 
 #define RB_TREE_TEMPLATE typename Key_type, \
@@ -47,8 +48,8 @@ class red_black_tree {
     typedef typename allocator_type::const_pointer                              const_pointer;
     typedef typename ft::rb_iterator<pointer, red_black_tree>                   iterator;
     typedef typename ft::rb_iterator<const_pointer, red_black_tree>             const_iterator;
-    // typedef typename ft::rb_reverse_iterator<iterator>                          reverse_iterator;
-    // typedef typename ft::rb_reverse_iterator<const_iterator>                    const_reverse_iterator;
+    typedef typename ft::rb_reverse_iterator<iterator, red_black_tree>          reverse_iterator;
+    typedef typename ft::rb_reverse_iterator<const_iterator, red_black_tree>    const_reverse_iterator;
     typedef ptrdiff_t                                                           difference_type;
     typedef size_t                                                              size_type;
     typedef Key_type                                                            key_type;
@@ -95,6 +96,7 @@ class red_black_tree {
     void print_sorted_tree_debug_aux(ft::rb_node<RB_NODE_TYPES> *node);
     void delete_rb_node_fixup(ft::rb_node<RB_NODE_TYPES> *x);
     void copy_aux(ft::rb_node<RB_NODE_TYPES> *x);
+    void delete_aux(ft::rb_node<RB_NODE_TYPES> *x);
 };
 }  // namespace ft
 

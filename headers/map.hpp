@@ -51,9 +51,9 @@ class map {
     typedef typename Alloc::const_reference            const_reference;
     typedef typename RB_type::allocator_type           allocator_type;
     typedef typename RB_type::iterator                 iterator;
-    // typedef typename RB_type::const_iterator           const_iterator;
-    // typedef typename RB_type::reverse_iterator         reverse_iterator;
-    // typedef typename RB_type::const_reverse_iterator   const_reverse_iterator;
+    typedef typename RB_type::const_iterator           const_iterator;
+    typedef typename RB_type::reverse_iterator         reverse_iterator;
+    typedef typename RB_type::const_reverse_iterator   const_reverse_iterator;
     typedef typename RB_type::size_type                size_type;
     typedef typename RB_type::difference_type          difference_type;
 
@@ -66,11 +66,11 @@ class map {
     map& operator=(const map& rhs);
 
     /***************************** DESTRUCTORS *****************************/
-    // ~map(void);
+    ~map(void);
 
     /******************** MEMBER FUNCTIONS ********************/
-    // // element access
-    // reference operator[](size_type n);
+    // element access
+    mapped_type& operator[](const key_type& k);
     // const_reference operator[](size_type n) const;
     // reference at(size_type n);
     // const_reference at(size_type n) const;

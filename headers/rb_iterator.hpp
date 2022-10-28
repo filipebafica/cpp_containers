@@ -33,12 +33,6 @@ class rb_iterator {
     rb_iterator operator++(int);
     rb_iterator& operator--(void);
     rb_iterator operator--(int);
-    reference operator[](const difference_type& n) const;
-    rb_iterator& operator+=(const difference_type& n);
-    rb_iterator& operator-=(const difference_type& n);
-    rb_iterator operator+(const difference_type& n) const;
-    rb_iterator operator-(const difference_type& n) const;
-
     const Iterator& base(void) const;
 };
 
@@ -57,48 +51,6 @@ bool operator!=(const rb_iterator<IteratorL, Container>& lhs,
 template<typename Iterator, typename Container>
 bool operator!=(const rb_iterator<Iterator, Container>& lhs,
                 const rb_iterator<Iterator, Container>& rhs);
-
-template<typename IteratorL, typename IteratorR, typename Container>
-bool operator<(const rb_iterator<IteratorL, Container>& lhs,
-                const rb_iterator<IteratorR, Container>& rhs);
-
-template<typename Iterator, typename Container>
-bool operator<(const rb_iterator<Iterator, Container>& lhs,
-                const rb_iterator<Iterator, Container>& rhs);
-
-template<typename IteratorL, typename IteratorR, typename Container>
-bool operator>(const rb_iterator<IteratorL, Container>& lhs,
-                const rb_iterator<IteratorR, Container>& rhs);
-
-template<typename Iterator, typename Container>
-bool operator>(const rb_iterator<Iterator, Container>& lhs,
-                const rb_iterator<Iterator, Container>& rhs);
-
-template<typename IteratorL, typename IteratorR, typename Container>
-bool operator<=(const rb_iterator<IteratorL, Container>& lhs,
-                const rb_iterator<IteratorR, Container>& rhs);
-
-template<typename Iterator, typename Container>
-bool operator<=(const rb_iterator<Iterator, Container>& lhs,
-                const rb_iterator<Iterator, Container>& rhs);
-
-template<typename IteratorL, typename IteratorR, typename Container>
-bool operator>=(const rb_iterator<IteratorL, Container>& lhs,
-                const rb_iterator<IteratorR, Container>& rhs);
-
-template<typename Iterator, typename Container>
-bool operator>=(const rb_iterator<Iterator, Container>& lhs,
-                const rb_iterator<Iterator, Container>& rhs);
-
-template<typename IteratorL, typename IteratorR, typename Container>
-typename ft::rb_iterator<IteratorL, Container>::difference_type operator-(
-    const ft::rb_iterator<IteratorL, Container>& lhs,
-    const ft::rb_iterator<IteratorR, Container>& rhs);
-
-template<typename IteratorL, typename IteratorR, typename Container>
-typename ft::rb_iterator<IteratorL, Container>::difference_type operator+(
-    typename ft::rb_iterator<IteratorL, Container>::difference_type n,
-    const ft::rb_iterator<IteratorR, Container>& i);
 
 }  // namespace ft
 

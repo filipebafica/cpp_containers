@@ -76,10 +76,19 @@ void ft::red_black_tree<RB_TREE_TYPES>::copy_aux(ft::rb_node<RB_NODE_TYPES> *x) 
 
 template<RB_TREE_TEMPLATE>
 ft::red_black_tree<RB_TREE_TYPES>::~red_black_tree(void) {
-    if (this->root)
-        delete this->root;
+    this->delete_aux(this->root);
     if (this->nil)
-        delete this->nil;
+        this->rb_node_alloc.deallocate(this->nil, 1);
+}
+
+template<RB_TREE_TEMPLATE>
+void ft::red_black_tree<RB_TREE_TYPES>::delete_aux(ft::rb_node<RB_NODE_TYPES> *x) {
+    if (x == NULL || x == this->nil)
+        return ;
+    this->delete_aux(x->left);
+    this->delete_aux(x->right);
+    if (x)
+        this->rb_node_alloc.deallocate(x, 1);
 }
 
 template<RB_TREE_TEMPLATE>
@@ -404,7 +413,7 @@ ft::rb_node<RB_NODE_TYPES> *ft::red_black_tree<RB_TREE_TYPES>::maximum_rb_node(f
 template<RB_TREE_TEMPLATE>
 ft::rb_node<RB_NODE_TYPES> *ft::red_black_tree<RB_TREE_TYPES>::successor_rb_node(ft::rb_node<RB_NODE_TYPES> *x) {
     // if pointer reached the end of the tree
-    if (x == x->nil) {
+    if (x->left == NULL && x->right == NULL) {
         return (ft::red_black_tree<RB_TREE_TYPES>::maximum_rb_node(x->root));
     }
     // leftmost node in right subtree
