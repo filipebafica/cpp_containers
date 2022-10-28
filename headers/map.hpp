@@ -71,9 +71,8 @@ class map {
     /******************** MEMBER FUNCTIONS ********************/
     // element access
     mapped_type& operator[](const key_type& k);
-    // const_reference operator[](size_type n) const;
-    // reference at(size_type n);
-    // const_reference at(size_type n) const;
+    mapped_type& at(const key_type& k);
+    const mapped_type& at(const key_type& k) const;
 
     // // iterators
     // iterator begin(void);

@@ -49,6 +49,20 @@ typename ft::map<MAP_TYPES>::mapped_type& ft::map<MAP_TYPES>::operator[](const k
     return ((*p.first).second);
 }
 
+template<MAP_TEMPLATE>
+typename ft::map<MAP_TYPES>::mapped_type& ft::map<MAP_TYPES>::at(const key_type& k) {
+    if (this->memory_tree.search_rb_node(k) == NULL || this->memory_tree.search_rb_node(k) == this->memory_tree.nil)
+        throw std::out_of_range("map::out_of_range");
+    return ((*this)[k]);
+}
+
+template<MAP_TEMPLATE>
+const typename ft::map<MAP_TYPES>::mapped_type& ft::map<MAP_TYPES>::at(const key_type& k) const {
+    if (this->memory_tree.search_rb_node(k) == NULL || this->memory_tree.search_rb_node(k) == this->memory_tree.nil)
+        throw std::out_of_range("map::out_of_range");
+    return ((*this)[k]);
+}
+
 // modifiers
 template<MAP_TEMPLATE>
 ft::pair<typename ft::map<MAP_TYPES>::iterator, bool> ft::map<MAP_TYPES>::insert(const value_type& value) {

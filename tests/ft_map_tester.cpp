@@ -5,6 +5,23 @@
 #include "../headers/map.hpp"
 #include "../headers/vector.hpp"
 
+void at_test(void) {
+    ft::map<int, int> ft_1;
+
+    for (int i = 0; i < 10; i++) {
+        ft_1.insert(ft::pair<int, int>(i, i));
+    }
+
+    std::cout << ft_1.at(0) << std::endl;
+    std::cout << ft_1.at(5) << std::endl;
+    try {
+        ft_1.at(100);
+    }
+    catch(std::out_of_range& e) {
+        std::cout << e.what() << std::endl;
+    }
+}
+
 void access_operator_test(void) {
     ft::map<int, int> ft_1;
 
@@ -67,5 +84,6 @@ int main(void) {
     copy_constructor_test();
     assignment_operator_test();
     access_operator_test();
+    at_test();
     return (0);
 }
