@@ -15,11 +15,11 @@ class rb_iterator {
     Iterator memory_current;
 
  public:
-    typedef typename Container::value_type          value_type;
-    typedef typename Container::value_type&         reference;
-    typedef typename Container::value_type*         pointer;
-    typedef std::bidirectional_iterator_tag         iterator_category;
-    typedef ptrdiff_t                               difference_type;
+    typedef typename Container::value_type                  value_type;
+    typedef typename Container::value_type&                 reference;
+    typedef typename Container::value_type*                 pointer;
+    typedef std::bidirectional_iterator_tag                 iterator_category;
+    typedef ptrdiff_t                                       difference_type;
 
 
     rb_iterator(void);

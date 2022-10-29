@@ -74,11 +74,11 @@ class map {
     mapped_type& at(const key_type& k);
     const mapped_type& at(const key_type& k) const;
 
-    // // iterators
-    // iterator begin(void);
-    // const_iterator begin(void) const;
-    // iterator end(void);
-    // const_iterator end(void) const;
+    // iterators
+    iterator begin(void);
+    const_iterator begin(void) const;
+    iterator end(void);
+    const_iterator end(void) const;
     // reverse_iterator rbegin(void);
     // const_reverse_iterator rbegin(void) const;
     // reverse_iterator rend(void);

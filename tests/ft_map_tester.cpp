@@ -5,6 +5,30 @@
 #include "../headers/map.hpp"
 #include "../headers/vector.hpp"
 
+// void end_test(void) {
+//     std::map<int, int> ft_1;
+
+//     for (int i = 0; i < 10; i++) {
+//         ft_1.insert(std::pair<int, int>(i, i));
+//     }
+//     const std::map<int, int> ft_2(ft_1.begin(), ft_1.end());
+
+//     std::cout << (*++ft_2.begin()).first << std::endl;
+//     std::cout << (*++ft_1.begin()).first << std::endl;
+// }
+
+void begin_test(void) {
+    ft::map<int, int> ft_1;
+
+    for (int i = 0; i < 10; i++) {
+        ft_1.insert(ft::pair<int, int>(i, i));
+    }
+    const ft::map<int, int> ft_2(ft_1.begin(), ft_1.end());
+
+    std::cout << (*ft_2.begin()).first << std::endl;
+    std::cout << (*ft_1.begin()).first << std::endl;
+}
+
 void at_test(void) {
     ft::map<int, int> ft_1;
 
@@ -80,10 +104,11 @@ void range_constructor_test(void) {
 
 
 int main(void) {
-    range_constructor_test();
-    copy_constructor_test();
-    assignment_operator_test();
-    access_operator_test();
-    at_test();
+    // range_constructor_test();
+    // copy_constructor_test();
+    // assignment_operator_test();
+    // access_operator_test();
+    // at_test();
+    begin_test();
     return (0);
 }

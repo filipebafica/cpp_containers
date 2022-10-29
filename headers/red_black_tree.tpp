@@ -398,14 +398,14 @@ ft::rb_node<RB_NODE_TYPES> *ft::red_black_tree<RB_TREE_TYPES>::search_rb_node_au
 
 template<RB_TREE_TEMPLATE>
 ft::rb_node<RB_NODE_TYPES> *ft::red_black_tree<RB_TREE_TYPES>::minimum_rb_node(ft::rb_node<RB_NODE_TYPES> *x) {
-    while (x->left != x->nil)
+    while (x && x->left != x->nil)
         x = x->left;
     return (x);
 }
 
 template<RB_TREE_TEMPLATE>
 ft::rb_node<RB_NODE_TYPES> *ft::red_black_tree<RB_TREE_TYPES>::maximum_rb_node(ft::rb_node<RB_NODE_TYPES> *x) {
-    while (x->right != x->nil)
+    while (x && x->right != x->nil)
         x = x->right;
     return (x);
 }
@@ -587,4 +587,24 @@ void ft::red_black_tree<RB_TREE_TYPES>::print_sorted_tree_debug_aux(ft::rb_node<
                   << std::endl;
         print_sorted_tree_debug_aux(node->right);
     }
+}
+
+template<RB_TREE_TEMPLATE>
+typename ft::red_black_tree<RB_TREE_TYPES>::iterator ft::red_black_tree<RB_TREE_TYPES>::begin(void) {
+    return (iterator(ft::red_black_tree<RB_TREE_TYPES>::minimum_rb_node(this->root)));
+}
+
+template<RB_TREE_TEMPLATE>
+typename ft::red_black_tree<RB_TREE_TYPES>::const_iterator ft::red_black_tree<RB_TREE_TYPES>::begin(void) const {
+    return (const_iterator(ft::red_black_tree<RB_TREE_TYPES>::minimum_rb_node(this->root)));
+}
+
+template<RB_TREE_TEMPLATE>
+typename ft::red_black_tree<RB_TREE_TYPES>::iterator ft::red_black_tree<RB_TREE_TYPES>::end(void) {
+    return (iterator(this->nil));
+}
+
+template<RB_TREE_TEMPLATE>
+typename ft::red_black_tree<RB_TREE_TYPES>::const_iterator ft::red_black_tree<RB_TREE_TYPES>::end(void) const {
+    return (const_iterator(this->nil));
 }

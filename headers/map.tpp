@@ -63,6 +63,27 @@ const typename ft::map<MAP_TYPES>::mapped_type& ft::map<MAP_TYPES>::at(const key
     return ((*this)[k]);
 }
 
+// iterators
+template<MAP_TEMPLATE>
+typename ft::map<MAP_TYPES>::iterator ft::map<MAP_TYPES>::begin(void) {
+    return (this->memory_tree.begin());
+}
+
+template<MAP_TEMPLATE>
+typename ft::map<MAP_TYPES>::const_iterator ft::map<MAP_TYPES>::begin(void) const {
+    return (this->memory_tree.begin());
+}
+
+template<MAP_TEMPLATE>
+typename ft::map<MAP_TYPES>::iterator ft::map<MAP_TYPES>::end(void) {
+    return (this->memory_tree.end());
+}
+
+template<MAP_TEMPLATE>
+typename ft::map<MAP_TYPES>::const_iterator ft::map<MAP_TYPES>::end(void) const {
+    return (this->memory_tree.end());
+}
+
 // modifiers
 template<MAP_TEMPLATE>
 ft::pair<typename ft::map<MAP_TYPES>::iterator, bool> ft::map<MAP_TYPES>::insert(const value_type& value) {
