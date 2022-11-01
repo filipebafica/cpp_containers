@@ -7,15 +7,18 @@
 
 void end_method_test(void) {
     std::cout << std::endl << "[END METHOD TEST]" << std::endl;
-    std::map<int, int> ft_1;
+    ft::map<int, int> ft_1;
 
     for (int i = 0; i < 10; i++) {
-        ft_1.insert(std::pair<int, int>(i, i));
+        ft_1.insert(ft::pair<int, int>(i, i));
     }
-    const std::map<int, int> ft_2(ft_1.begin(), ft_1.end());
+    const ft::map<int, int> ft_2(ft_1.begin(), ft_1.end());
 
-    std::cout << (*ft_2.end()).first << std::endl;
-    std::cout << (*ft_1.end()).first << std::endl;
+    std::cout << (*--ft_2.end()).first << std::endl;
+    std::cout << (*--ft_1.end()).first << std::endl;
+
+    ft_1.memory_tree.print_tree_debug();
+    ft_2.memory_tree.print_tree_debug();
 }
 
 void begin_method_test(void) {

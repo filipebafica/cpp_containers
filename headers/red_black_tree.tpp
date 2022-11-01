@@ -22,6 +22,21 @@ ft::rb_node<RB_NODE_TYPES>::rb_node(void) :
                                     nil(NULL) {}
 
 template<RB_NODE_TEMPLATE>
+ft::rb_node<RB_NODE_TYPES>::rb_node(ft::rb_node<RB_NODE_TYPES> *root) :
+                                    data(ft::pair<
+                                        typename RB_NODE_TYPES::first_type, 
+                                        typename RB_NODE_TYPES::second_type
+                                    >(  typename RB_NODE_TYPES::first_type(), 
+                                        typename RB_NODE_TYPES::second_type()
+                                    )),
+                                    color('B'),
+                                    parent(NULL),
+                                    left(NULL),
+                                    right(NULL),
+                                    root(root),
+                                    nil(NULL) {}
+
+template<RB_NODE_TEMPLATE>
 ft::rb_node<RB_NODE_TYPES>::rb_node(const value_type& data, 
                                     ft::rb_node<RB_NODE_TYPES> *root,
                                     ft::rb_node<RB_NODE_TYPES> *nil)
@@ -47,7 +62,7 @@ ft::red_black_tree<RB_TREE_TYPES>::red_black_tree(const key_compare& key_comp, c
     this->root = NULL;
     this->nil = this->rb_node_alloc.allocate(1);
     this->rb_node_alloc.construct(this->nil, ft::rb_node<RB_NODE_TYPES>());
-    // this->nil = new ft::rb_node<RB_NODE_TYPES>();
+    this->node_count = 0;
 }
 
 template<RB_TREE_TEMPLATE>
@@ -59,7 +74,7 @@ ft::red_black_tree<RB_TREE_TYPES>::red_black_tree(const ft::red_black_tree<RB_TR
     this->root = NULL;
     this->nil = this->rb_node_alloc.allocate(1);
     this->rb_node_alloc.construct(this->nil, ft::rb_node<RB_NODE_TYPES>());
-    // this->nil = new ft::rb_node<RB_NODE_TYPES>();
+    this->node_count = 0;
     this->copy_aux(src.root);
 }
 
@@ -80,17 +95,17 @@ void ft::red_black_tree<RB_TREE_TYPES>::copy_aux(ft::rb_node<RB_NODE_TYPES> *x) 
 
 template<RB_TREE_TEMPLATE>
 ft::red_black_tree<RB_TREE_TYPES>::~red_black_tree(void) {
-    this->delete_aux(this->root);
+    this->destructor_aux(this->root);
     if (this->nil)
         this->rb_node_alloc.deallocate(this->nil, 1);
 }
 
 template<RB_TREE_TEMPLATE>
-void ft::red_black_tree<RB_TREE_TYPES>::delete_aux(ft::rb_node<RB_NODE_TYPES> *x) {
+void ft::red_black_tree<RB_TREE_TYPES>::destructor_aux(ft::rb_node<RB_NODE_TYPES> *x) {
     if (x == NULL || x == this->nil)
         return ;
-    this->delete_aux(x->left);
-    this->delete_aux(x->right);
+    this->destructor_aux(x->left);
+    this->destructor_aux(x->right);
     if (x)
         this->rb_node_alloc.deallocate(x, 1);
 }
@@ -124,6 +139,7 @@ void ft::red_black_tree<RB_TREE_TYPES>::insert_unique_rb_node(iterator first, it
     for (iterator it = first; it != last; it++) {
         if (this->search_rb_node(it->first) == this->nil) {
             this->insert_rb_node(*it);
+            ++this->node_count;
         }
     }
 }
@@ -225,6 +241,7 @@ void ft::red_black_tree<RB_TREE_TYPES>::insert_rb_node_fixup(ft::rb_node<RB_NODE
         }
     }
     this->root->color = 'B';
+    this->nil->root = this->root;
 }
 
 template<RB_TREE_TEMPLATE>
@@ -282,6 +299,7 @@ void ft::red_black_tree<RB_TREE_TYPES>::delete_rb_node(key_type key) {
     if (y_original_color == 'B') {
         this->delete_rb_node_fixup(x);
     }
+    --this->node_count;
 }
 
 template<RB_TREE_TEMPLATE>
@@ -436,13 +454,61 @@ ft::rb_node<RB_NODE_TYPES> *ft::red_black_tree<RB_TREE_TYPES>::successor_rb_node
 }
 
 template<RB_TREE_TEMPLATE>
+const ft::rb_node<RB_NODE_TYPES> *ft::red_black_tree<RB_TREE_TYPES>::successor_rb_node(const ft::rb_node<RB_NODE_TYPES> *x) {
+    // if pointer reached the end of the tree
+    if (x->left == NULL && x->right == NULL) {
+        return (ft::red_black_tree<RB_TREE_TYPES>::maximum_rb_node(x->root));
+    }
+    // leftmost node in right subtree
+    if (x->right != x->nil) {
+        return (ft::red_black_tree<RB_TREE_TYPES>::minimum_rb_node(x->right));
+    }
+    // find the lowest x's ancestor
+    // whose left child is an x's ancestor
+   ft::rb_node<RB_NODE_TYPES> *y = x->parent;
+    while (y && y != y->nil && x == y->right) {
+        x = y;
+        y = y->parent;
+    }
+    if (y == NULL)
+        return (x->nil);
+    return (y);
+}
+
+template<RB_TREE_TEMPLATE>
 ft::rb_node<RB_NODE_TYPES> *ft::red_black_tree<RB_TREE_TYPES>::predecessor_rb_node(ft::rb_node<RB_NODE_TYPES> *x) {
     // if pointer is the root
-    if (x->parent == NULL) {
+    if (x->parent == NULL && x->left != NULL && x->right != NULL) {
         return (x);
     }
     // if pointer reached the end of the tree
-    if (x == x->nil) {
+    if (x->left == NULL && x->right == NULL) {
+        return (ft::red_black_tree<RB_TREE_TYPES>::maximum_rb_node(x->root));
+    }
+    if (x->left != x->nil) {
+        // rightmost node in left subtree
+        return (ft::red_black_tree<RB_TREE_TYPES>::maximum_rb_node(x->left));
+    }
+    // find the lowest x's ancestor
+    // whose left child is an x's ancestor
+   ft::rb_node<RB_NODE_TYPES> *y = x->parent;
+    while (y && y != y->nil && x == y->left) {
+        x = y;
+        y = y->parent;
+    }
+    if (y == NULL)
+        return (x->nil);
+    return (y);
+}
+
+template<RB_TREE_TEMPLATE>
+const ft::rb_node<RB_NODE_TYPES> *ft::red_black_tree<RB_TREE_TYPES>::predecessor_rb_node(const ft::rb_node<RB_NODE_TYPES> *x) {
+    // if pointer is the root
+    if (x->parent == NULL && x->left != NULL && x->right != NULL) {
+        return (x);
+    }
+    // if pointer reached the end of the tree
+    if (x->left == NULL && x->right == NULL) {
         return (ft::red_black_tree<RB_TREE_TYPES>::maximum_rb_node(x->root));
     }
     if (x->left != x->nil) {
@@ -551,14 +617,14 @@ void ft::red_black_tree<RB_TREE_TYPES>::transplant_rb_node(ft::rb_node<RB_NODE_T
 }
 
 template<RB_TREE_TEMPLATE>
-void ft::red_black_tree<RB_TREE_TYPES>::print_tree_debug(void) {
+void ft::red_black_tree<RB_TREE_TYPES>::print_tree_debug(void) const {
     if (this->root) {
         print_tree_debug_aux(this->root, "", true);
     }
 }
 
 template<RB_TREE_TEMPLATE>
-void ft::red_black_tree<RB_TREE_TYPES>::print_tree_debug_aux(ft::rb_node<RB_NODE_TYPES> *root, std::string indent, bool last) {
+void ft::red_black_tree<RB_TREE_TYPES>::print_tree_debug_aux(const ft::rb_node<RB_NODE_TYPES> *root, std::string indent, bool last) const {
     if (root != this->nil) {
         std::cout << indent;
         if (last) {
@@ -614,4 +680,9 @@ typename ft::red_black_tree<RB_TREE_TYPES>::iterator ft::red_black_tree<RB_TREE_
 template<RB_TREE_TEMPLATE>
 typename ft::red_black_tree<RB_TREE_TYPES>::const_iterator ft::red_black_tree<RB_TREE_TYPES>::end(void) const {
     return (const_iterator(this->nil));
+}
+
+template<RB_TREE_TEMPLATE>
+bool ft::red_black_tree<RB_TREE_TYPES>::empty(void) const {
+    return (this->node_count == 0);
 }

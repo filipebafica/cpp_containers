@@ -84,6 +84,12 @@ typename ft::map<MAP_TYPES>::const_iterator ft::map<MAP_TYPES>::end(void) const 
     return (this->memory_tree.end());
 }
 
+// capacity
+template<MAP_TEMPLATE>
+bool ft::map<MAP_TYPES>::empty(void) const {
+    return (this->memory_tree.empty());
+}
+
 // modifiers
 template<MAP_TEMPLATE>
 ft::pair<typename ft::map<MAP_TYPES>::iterator, bool> ft::map<MAP_TYPES>::insert(const value_type& value) {

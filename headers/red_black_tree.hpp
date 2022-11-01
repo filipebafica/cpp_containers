@@ -37,6 +37,7 @@ struct rb_node {
     rb_node              *root;
     rb_node              *nil;
     explicit rb_node(void);
+    explicit rb_node(ft::rb_node<RB_NODE_TYPES> *root);
     explicit rb_node(const value_type& data, ft::rb_node<RB_NODE_TYPES> *root, ft::rb_node<RB_NODE_TYPES> *nil);
 };
 
@@ -62,6 +63,7 @@ class red_black_tree {
     allocator_type                                                              rb_node_alloc;
     ft::rb_node<RB_NODE_TYPES>                                                  *root;
     ft::rb_node<RB_NODE_TYPES>                                                  *nil;
+    size_type                                                                   node_count;
 
     /**************************************** CONSTRUCTORS / DESTRUCTORS ****************************************/
     red_black_tree(void);
@@ -73,7 +75,7 @@ class red_black_tree {
     ~red_black_tree(void);
 
     /**************************************** MEMBER FUNCTIONS ****************************************/
-    void print_tree_debug(void);
+    void print_tree_debug(void) const;
     void print_sorted_tree_debug(void);
     ft::pair<iterator, bool> insert_unique_rb_node(const value_type& value);
     void insert_unique_rb_node(iterator first, iterator last);
@@ -82,12 +84,15 @@ class red_black_tree {
     const_iterator begin(void) const;
     iterator end(void);
     const_iterator end(void) const;
+    bool empty(void) const;
 
    ft::rb_node<RB_NODE_TYPES> *search_rb_node(key_type key);
    static ft::rb_node<RB_NODE_TYPES> *minimum_rb_node(ft::rb_node<RB_NODE_TYPES> *x);
    static ft::rb_node<RB_NODE_TYPES> *maximum_rb_node(ft::rb_node<RB_NODE_TYPES> *x);
    static ft::rb_node<RB_NODE_TYPES> *successor_rb_node(ft::rb_node<RB_NODE_TYPES> *x);
+   static const ft::rb_node<RB_NODE_TYPES> *successor_rb_node(const ft::rb_node<RB_NODE_TYPES> *x);
    static ft::rb_node<RB_NODE_TYPES> *predecessor_rb_node(ft::rb_node<RB_NODE_TYPES> *x);
+   static const ft::rb_node<RB_NODE_TYPES> *predecessor_rb_node(const ft::rb_node<RB_NODE_TYPES> *x);
 
  private:
     ft::rb_node<RB_NODE_TYPES> *create_rb_node(const value_type& value);
@@ -97,11 +102,11 @@ class red_black_tree {
     void right_rotate(ft::rb_node<RB_NODE_TYPES> *x);
     void transplant_rb_node(ft::rb_node<RB_NODE_TYPES> *u,ft::rb_node<RB_NODE_TYPES> *v);
    ft::rb_node<RB_NODE_TYPES> *search_rb_node_aux(ft::rb_node<RB_NODE_TYPES> *x, key_type key);
-    void print_tree_debug_aux(ft::rb_node<RB_NODE_TYPES> *root, std::string indent, bool last);
+    void print_tree_debug_aux(const ft::rb_node<RB_NODE_TYPES> *root, std::string indent, bool last) const;
     void print_sorted_tree_debug_aux(ft::rb_node<RB_NODE_TYPES> *node);
     void delete_rb_node_fixup(ft::rb_node<RB_NODE_TYPES> *x);
     void copy_aux(ft::rb_node<RB_NODE_TYPES> *x);
-    void delete_aux(ft::rb_node<RB_NODE_TYPES> *x);
+    void destructor_aux(ft::rb_node<RB_NODE_TYPES> *x);
 };
 }  // namespace ft
 

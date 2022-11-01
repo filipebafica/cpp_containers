@@ -84,8 +84,8 @@ class map {
     // reverse_iterator rend(void);
     // const_reverse_iterator rend(void) const;
 
-    // // capacity
-    // bool empty(void) const;
+    // capacity
+    bool empty(void) const;
     // size_type size(void) const;
     // size_type max_size(void) const;
 
