@@ -5,19 +5,21 @@
 #include "../headers/map.hpp"
 #include "../headers/vector.hpp"
 
-// void end_test(void) {
-//     std::map<int, int> ft_1;
+void end_method_test(void) {
+    std::cout << std::endl << "[END METHOD TEST]" << std::endl;
+    std::map<int, int> ft_1;
 
-//     for (int i = 0; i < 10; i++) {
-//         ft_1.insert(std::pair<int, int>(i, i));
-//     }
-//     const std::map<int, int> ft_2(ft_1.begin(), ft_1.end());
+    for (int i = 0; i < 10; i++) {
+        ft_1.insert(std::pair<int, int>(i, i));
+    }
+    const std::map<int, int> ft_2(ft_1.begin(), ft_1.end());
 
-//     std::cout << (*++ft_2.begin()).first << std::endl;
-//     std::cout << (*++ft_1.begin()).first << std::endl;
-// }
+    std::cout << (*ft_2.end()).first << std::endl;
+    std::cout << (*ft_1.end()).first << std::endl;
+}
 
-void begin_test(void) {
+void begin_method_test(void) {
+    std::cout << std::endl << "[BEGIN METHOD TEST]" << std::endl;
     ft::map<int, int> ft_1;
 
     for (int i = 0; i < 10; i++) {
@@ -29,7 +31,8 @@ void begin_test(void) {
     std::cout << (*ft_1.begin()).first << std::endl;
 }
 
-void at_test(void) {
+void at_method_test(void) {
+    std::cout << std::endl << "[AT METHOD TEST]" << std::endl;
     ft::map<int, int> ft_1;
 
     for (int i = 0; i < 10; i++) {
@@ -47,6 +50,7 @@ void at_test(void) {
 }
 
 void access_operator_test(void) {
+    std::cout << std::endl << "[ACCESS OPERATOR TEST]" << std::endl;
     ft::map<int, int> ft_1;
 
     for (int i = 0; i < 10; i++) {
@@ -59,6 +63,7 @@ void access_operator_test(void) {
 }
 
 void assignment_operator_test(void) {
+    std::cout << std::endl << "[ASSIGNMENT OPERATOR TEST]" << std::endl;
     ft::map<int, int> ft_1;
 
     for (int i = 0; i < 10; i++) {
@@ -72,6 +77,7 @@ void assignment_operator_test(void) {
 }
 
 void copy_constructor_test(void) {
+    std::cout << std::endl << "[COPY CONSTRUCTOR TEST]" << std::endl;
     ft::map<int, int> ft_1;
 
     for (int i = 0; i < 10; i++) {
@@ -85,18 +91,14 @@ void copy_constructor_test(void) {
 }
 
 void range_constructor_test(void) {
+    std::cout << "[RANGE CONSTRUCTOR TEST]" << std::endl;
     ft::map<int, int> ft_1;
 
-    ft::pair<ft::map<int, int>::iterator, bool> ft_first;
-    ft::pair<ft::map<int, int>::iterator, bool> ft_last;
-
-    ft_first = ft_1.insert(ft::pair<int, int>(0, 0));
-
     for (int i = 0; i < 10; i++) {
-        ft_last = ft_1.insert(ft::pair<int, int>(i, i));
+        ft_1.insert(ft::pair<int, int>(i, i));
     }
 
-    ft::map<int, int> ft_2(ft_first.first, ft_last.first);
+    ft::map<int, int> ft_2(ft_1.begin(), ft_1.end());
 
     ft_1.memory_tree.print_tree_debug();
     ft_2.memory_tree.print_tree_debug();
@@ -104,11 +106,12 @@ void range_constructor_test(void) {
 
 
 int main(void) {
-    // range_constructor_test();
-    // copy_constructor_test();
-    // assignment_operator_test();
-    // access_operator_test();
-    // at_test();
-    begin_test();
+    range_constructor_test();
+    copy_constructor_test();
+    assignment_operator_test();
+    access_operator_test();
+    at_method_test();
+    begin_method_test();
+    end_method_test();
     return (0);
 }

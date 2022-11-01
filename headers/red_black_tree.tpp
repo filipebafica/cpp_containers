@@ -45,7 +45,9 @@ ft::red_black_tree<RB_TREE_TYPES>::red_black_tree(const key_compare& key_comp, c
     this->key_comp = key_comp;
     this->rb_node_alloc = node_alloc;
     this->root = NULL;
-    this->nil = new ft::rb_node<RB_NODE_TYPES>();
+    this->nil = this->rb_node_alloc.allocate(1);
+    this->rb_node_alloc.construct(this->nil, ft::rb_node<RB_NODE_TYPES>());
+    // this->nil = new ft::rb_node<RB_NODE_TYPES>();
 }
 
 template<RB_TREE_TEMPLATE>
@@ -55,7 +57,9 @@ ft::red_black_tree<RB_TREE_TYPES>::red_black_tree(const ft::red_black_tree<RB_TR
     this->key_comp = key_comp;
     this->rb_node_alloc = node_alloc;
     this->root = NULL;
-    this->nil = new ft::rb_node<RB_NODE_TYPES>();
+    this->nil = this->rb_node_alloc.allocate(1);
+    this->rb_node_alloc.construct(this->nil, ft::rb_node<RB_NODE_TYPES>());
+    // this->nil = new ft::rb_node<RB_NODE_TYPES>();
     this->copy_aux(src.root);
 }
 
@@ -278,7 +282,6 @@ void ft::red_black_tree<RB_TREE_TYPES>::delete_rb_node(key_type key) {
     if (y_original_color == 'B') {
         this->delete_rb_node_fixup(x);
     }
-    // delete x;
 }
 
 template<RB_TREE_TEMPLATE>
@@ -427,6 +430,8 @@ ft::rb_node<RB_NODE_TYPES> *ft::red_black_tree<RB_TREE_TYPES>::successor_rb_node
         x = y;
         y = y->parent;
     }
+    if (y == NULL)
+        return (x->nil);
     return (y);
 }
 
@@ -451,6 +456,8 @@ ft::rb_node<RB_NODE_TYPES> *ft::red_black_tree<RB_TREE_TYPES>::predecessor_rb_no
         x = y;
         y = y->parent;
     }
+    if (y == NULL)
+        return (x->nil);
     return (y);
 }
 
