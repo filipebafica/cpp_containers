@@ -247,7 +247,7 @@ void ft::red_black_tree<RB_TREE_TYPES>::insert_rb_node_fixup(ft::rb_node<RB_NODE
 template<RB_TREE_TEMPLATE>
 void ft::red_black_tree<RB_TREE_TYPES>::delete_rb_node(key_type key) {
    ft::rb_node<RB_NODE_TYPES> *z = this->search_rb_node(key);
-    if (z == NULL) {
+    if (z == this->nil) {
         return;
     }
 
@@ -695,4 +695,25 @@ typename ft::red_black_tree<RB_TREE_TYPES>::size_type ft::red_black_tree<RB_TREE
 template<RB_TREE_TEMPLATE>
 typename ft::red_black_tree<RB_TREE_TYPES>::size_type ft::red_black_tree<RB_TREE_TYPES>::max_size(void) const {
     return (std::numeric_limits<size_type>::max() / sizeof(value_type));
+}
+
+template<RB_TREE_TEMPLATE>
+void ft::red_black_tree<RB_TREE_TYPES>::erase(iterator position) {
+    this->delete_rb_node(position->first);
+}
+
+template<RB_TREE_TEMPLATE>
+void ft::red_black_tree<RB_TREE_TYPES>::erase(iterator first, iterator last) {
+    for (; first != last; first++)
+        this->delete_rb_node(first->first);
+}
+
+template<RB_TREE_TEMPLATE>
+typename ft::red_black_tree<RB_TREE_TYPES>::size_type ft::red_black_tree<RB_TREE_TYPES>::erase(const key_type& k) {
+    size_type before_erase = this->node_count;
+    this->delete_rb_node(k);
+    if (this->node_count < before_erase) {
+        return (1);
+    }
+    return (0);
 }

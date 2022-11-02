@@ -5,7 +5,55 @@
 #include "../headers/map.hpp"
 #include "../headers/vector.hpp"
 
-void capacity_test(void) {
+void erase_methods_test(void) {
+    std::cout << std::endl << "[ERASE METHODS TEST]" << std::endl;
+    ft::map<int, int> ft_1;
+    {
+        for (int i = 0; i < 10; i++) {
+            ft_1.insert(ft::pair<int, int>(i, i));
+        }
+
+        std::cout << "erase(iterator position)" << std::endl;
+        std::cout << "before erasing iterator begin(): " << ft_1.begin()->first << std::endl;
+        ft_1.memory_tree.print_tree_debug();
+        ft_1.erase(ft_1.begin());
+        std::cout << std::endl << "after:" << std::endl;
+        ft_1.memory_tree.print_tree_debug();
+    }
+    {
+        for (int i = 0; i < 10; i++) {
+            ft_1.insert(ft::pair<int, int>(i, i));
+        }
+
+        std::cout << "erase(iterator first, iterator last)" << std::endl;
+        std::cout << "before erasing from iterator begin() to iterator end():" << std::endl;
+        std::cout << "size(): " << ft_1.size() << std::endl;
+        ft_1.erase(ft_1.begin(), ft_1.end());
+        std::cout << "after:" << std::endl;
+        std::cout << "size(): " << ft_1.size() << std::endl;
+    }
+    {
+        for (int i = 0; i < 10; i++) {
+            ft_1.insert(ft::pair<int, int>(i, i));
+        }
+
+        std::cout << "erase(const key_type& k)" << std::endl;
+        std::cout << "before erasing key 5:" << std::endl;
+        std::cout << "size(): " << ft_1.size() << std::endl;
+        std::cout << "number of elements erased: " << ft_1.erase(5) << std::endl;
+        std::cout << "after:" << std::endl;
+        std::cout << "size(): " << ft_1.size() << std::endl;
+
+        std::cout << "erase(const key_type& k)" << std::endl;
+        std::cout << "before erasing key 99:" << std::endl;
+        std::cout << "size(): " << ft_1.size() << std::endl;
+        std::cout << "number of elements erased: " << ft_1.erase(99) << std::endl;
+        std::cout << "after:" << std::endl;
+        std::cout << "size(): " << ft_1.size() << std::endl;
+    }
+}
+
+void capacity_methods_test(void) {
     std::cout << std::endl << "[CAPACITY METHODS TEST]" << std::endl;
     ft::map<int, int> ft_1;
 
@@ -129,6 +177,7 @@ int main(void) {
     at_method_test();
     begin_method_test();
     end_method_test();
-    capacity_test();
+    capacity_methods_test();
+    erase_methods_test();
     return (0);
 }

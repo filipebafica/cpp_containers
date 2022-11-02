@@ -76,11 +76,6 @@ class red_black_tree {
     ~red_black_tree(void);
 
     /**************************************** MEMBER FUNCTIONS ****************************************/
-    void print_tree_debug(void) const;
-    void print_sorted_tree_debug(void);
-    ft::pair<iterator, bool> insert_unique_rb_node(const value_type& value);
-    void insert_unique_rb_node(iterator first, iterator last);
-    void delete_rb_node(key_type key);
     iterator begin(void);
     const_iterator begin(void) const;
     iterator end(void);
@@ -88,6 +83,15 @@ class red_black_tree {
     bool empty(void) const;
     size_type size(void) const;
     size_type max_size(void) const;
+    void erase(iterator position);
+    void erase(iterator first, iterator last);
+    size_type erase(const key_type& k);
+
+    void print_tree_debug(void) const;
+    void print_sorted_tree_debug(void);
+    ft::pair<iterator, bool> insert_unique_rb_node(const value_type& value);
+    void insert_unique_rb_node(iterator first, iterator last);
+    void delete_rb_node(key_type key);
 
    ft::rb_node<RB_NODE_TYPES> *search_rb_node(key_type key);
    static ft::rb_node<RB_NODE_TYPES> *minimum_rb_node(ft::rb_node<RB_NODE_TYPES> *x);
