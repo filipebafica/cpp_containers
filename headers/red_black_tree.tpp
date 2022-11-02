@@ -96,8 +96,9 @@ void ft::red_black_tree<RB_TREE_TYPES>::copy_aux(ft::rb_node<RB_NODE_TYPES> *x) 
 template<RB_TREE_TEMPLATE>
 ft::red_black_tree<RB_TREE_TYPES>::~red_black_tree(void) {
     this->destructor_aux(this->root);
-    if (this->nil)
+    if (this->nil) {
         this->rb_node_alloc.deallocate(this->nil, 1);
+    }
 }
 
 template<RB_TREE_TEMPLATE>
@@ -106,8 +107,10 @@ void ft::red_black_tree<RB_TREE_TYPES>::destructor_aux(ft::rb_node<RB_NODE_TYPES
         return ;
     this->destructor_aux(x->left);
     this->destructor_aux(x->right);
-    if (x)
+    if (x) {
         this->rb_node_alloc.deallocate(x, 1);
+        --this->node_count;
+    }
 }
 
 template<RB_TREE_TEMPLATE>
@@ -300,6 +303,7 @@ void ft::red_black_tree<RB_TREE_TYPES>::delete_rb_node(key_type key) {
         this->delete_rb_node_fixup(x);
     }
     --this->node_count;
+    this->rb_node_alloc.deallocate(z, 1);
 }
 
 template<RB_TREE_TEMPLATE>
@@ -698,14 +702,21 @@ typename ft::red_black_tree<RB_TREE_TYPES>::size_type ft::red_black_tree<RB_TREE
 }
 
 template<RB_TREE_TEMPLATE>
+void ft::red_black_tree<RB_TREE_TYPES>::clear(void) {
+    std::cout << "clear method" << std::endl;
+}
+
+template<RB_TREE_TEMPLATE>
 void ft::red_black_tree<RB_TREE_TYPES>::erase(iterator position) {
     this->delete_rb_node(position->first);
 }
 
 template<RB_TREE_TEMPLATE>
 void ft::red_black_tree<RB_TREE_TYPES>::erase(iterator first, iterator last) {
-    for (; first != last; first++)
-        this->delete_rb_node(first->first);
+    if (first == this->begin() && last == this->end())
+        return(this->clear());
+    while (first != last)
+        this->erase(first++);
 }
 
 template<RB_TREE_TEMPLATE>

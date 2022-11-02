@@ -83,6 +83,7 @@ class red_black_tree {
     bool empty(void) const;
     size_type size(void) const;
     size_type max_size(void) const;
+    void clear(void);
     void erase(iterator position);
     void erase(iterator first, iterator last);
     size_type erase(const key_type& k);

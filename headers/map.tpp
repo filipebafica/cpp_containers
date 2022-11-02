@@ -101,6 +101,12 @@ typename ft::map<MAP_TYPES>::size_type ft::map<MAP_TYPES>::max_size(void) const 
 }
 
 // modifiers
+
+template<MAP_TEMPLATE>
+void ft::map<MAP_TYPES>::clear(void) {
+    this->memory_tree.clear();
+}
+
 template<MAP_TEMPLATE>
 ft::pair<typename ft::map<MAP_TYPES>::iterator, bool> ft::map<MAP_TYPES>::insert(const value_type& value) {
     return (this->memory_tree.insert_unique_rb_node(value));

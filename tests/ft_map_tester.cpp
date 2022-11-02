@@ -51,6 +51,18 @@ void erase_methods_test(void) {
         std::cout << "after:" << std::endl;
         std::cout << "size(): " << ft_1.size() << std::endl;
     }
+    {
+        for (int i = 0; i < 10; i++) {
+            ft_1.insert(ft::pair<int, int>(i, i));
+        }
+
+        std::cout << "clear(void)" << std::endl;
+        std::cout << "before clear:" << std::endl;
+        std::cout << "size(): " << ft_1.size() << std::endl;
+        ft_1.clear();
+        std::cout << "after:" << std::endl;
+        std::cout << "size(): " << ft_1.size() << std::endl;
+    }
 }
 
 void capacity_methods_test(void) {

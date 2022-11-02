@@ -90,7 +90,7 @@ class map {
     size_type max_size(void) const;
 
     // modifiers
-    // void clear(void);
+    void clear(void);
     ft::pair<iterator, bool> insert(const value_type& value);
     // iterator insert(iterator position, const value_type& value);
     // void insert(iterator position, iterator first, iterator last);
