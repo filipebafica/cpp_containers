@@ -90,6 +90,16 @@ bool ft::map<MAP_TYPES>::empty(void) const {
     return (this->memory_tree.empty());
 }
 
+template<MAP_TEMPLATE>
+typename ft::map<MAP_TYPES>::size_type ft::map<MAP_TYPES>::size(void) const {
+    return (this->memory_tree.size());
+}
+
+template<MAP_TEMPLATE>
+typename ft::map<MAP_TYPES>::size_type ft::map<MAP_TYPES>::max_size(void) const {
+    return (this->memory_tree.max_size());
+}
+
 // modifiers
 template<MAP_TEMPLATE>
 ft::pair<typename ft::map<MAP_TYPES>::iterator, bool> ft::map<MAP_TYPES>::insert(const value_type& value) {

@@ -5,6 +5,19 @@
 #include "../headers/map.hpp"
 #include "../headers/vector.hpp"
 
+void capacity_test(void) {
+    std::cout << std::endl << "[CAPACITY METHODS TEST]" << std::endl;
+    ft::map<int, int> ft_1;
+
+    for (int i = 0; i < 10; i++) {
+        ft_1.insert(ft::pair<int, int>(i, i));
+    }
+
+    std::cout << ft_1.empty() << std::endl;
+    std::cout << ft_1.size() << std::endl;
+    std::cout << ft_1.max_size() << std::endl;
+}
+
 void end_method_test(void) {
     std::cout << std::endl << "[END METHOD TEST]" << std::endl;
     ft::map<int, int> ft_1;
@@ -116,5 +129,6 @@ int main(void) {
     at_method_test();
     begin_method_test();
     end_method_test();
+    capacity_test();
     return (0);
 }

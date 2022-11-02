@@ -86,8 +86,8 @@ class map {
 
     // capacity
     bool empty(void) const;
-    // size_type size(void) const;
-    // size_type max_size(void) const;
+    size_type size(void) const;
+    size_type max_size(void) const;
 
     // modifiers
     // void clear(void);

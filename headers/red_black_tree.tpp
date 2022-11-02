@@ -139,7 +139,6 @@ void ft::red_black_tree<RB_TREE_TYPES>::insert_unique_rb_node(iterator first, it
     for (iterator it = first; it != last; it++) {
         if (this->search_rb_node(it->first) == this->nil) {
             this->insert_rb_node(*it);
-            ++this->node_count;
         }
     }
 }
@@ -242,6 +241,7 @@ void ft::red_black_tree<RB_TREE_TYPES>::insert_rb_node_fixup(ft::rb_node<RB_NODE
     }
     this->root->color = 'B';
     this->nil->root = this->root;
+    ++this->node_count;
 }
 
 template<RB_TREE_TEMPLATE>
@@ -685,4 +685,14 @@ typename ft::red_black_tree<RB_TREE_TYPES>::const_iterator ft::red_black_tree<RB
 template<RB_TREE_TEMPLATE>
 bool ft::red_black_tree<RB_TREE_TYPES>::empty(void) const {
     return (this->node_count == 0);
+}
+
+template<RB_TREE_TEMPLATE>
+typename ft::red_black_tree<RB_TREE_TYPES>::size_type ft::red_black_tree<RB_TREE_TYPES>::size(void) const {
+    return (this->node_count);
+}
+
+template<RB_TREE_TEMPLATE>
+typename ft::red_black_tree<RB_TREE_TYPES>::size_type ft::red_black_tree<RB_TREE_TYPES>::max_size(void) const {
+    return (std::numeric_limits<size_type>::max() / sizeof(value_type));
 }

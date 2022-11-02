@@ -5,6 +5,7 @@
 #include <cstddef>
 #include <iostream>
 #include <string>
+#include <limits>
 #include "./rb_iterator.hpp"
 #include "./const_rb_iterator.hpp"
 #include "./rb_reverse_iterator.hpp"
@@ -85,6 +86,8 @@ class red_black_tree {
     iterator end(void);
     const_iterator end(void) const;
     bool empty(void) const;
+    size_type size(void) const;
+    size_type max_size(void) const;
 
    ft::rb_node<RB_NODE_TYPES> *search_rb_node(key_type key);
    static ft::rb_node<RB_NODE_TYPES> *minimum_rb_node(ft::rb_node<RB_NODE_TYPES> *x);
