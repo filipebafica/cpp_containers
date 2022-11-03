@@ -95,7 +95,7 @@ void ft::red_black_tree<RB_TREE_TYPES>::copy_aux(ft::rb_node<RB_NODE_TYPES> *x) 
 
 template<RB_TREE_TEMPLATE>
 ft::red_black_tree<RB_TREE_TYPES>::~red_black_tree(void) {
-    if (this->node_count > 0)
+    if (this->root != NULL)
         this->destructor_aux(this->root);
     if (this->nil) {
         this->rb_node_alloc.deallocate(this->nil, 1);
@@ -127,7 +127,7 @@ ft::red_black_tree<RB_TREE_TYPES>::insert_unique_rb_node(const value_type& value
     // checks if the element exists in the tree, if not, insertion is called
         if (this->search_rb_node(value.first) == this->nil) {
             return (ft::pair<iterator, bool>(
-                iterator(this->insert_rb_node(value)),
+                iterator(this->insert_rb_node(this->root, value)),
                 true
             ));
         }
@@ -138,19 +138,34 @@ ft::red_black_tree<RB_TREE_TYPES>::insert_unique_rb_node(const value_type& value
 }
 
 template<RB_TREE_TEMPLATE>
+typename ft::red_black_tree<RB_TREE_TYPES>::iterator ft::red_black_tree<RB_TREE_TYPES>::insert_unique_rb_node(iterator hint, const value_type& value) {
+    // checks if the element exists in the tree, if so
+    //  an iterator pointing to the element is returned
+    ft::rb_node<RB_NODE_TYPES> *node = this->search_rb_node(value.first);
+    if (node != this->nil) {
+        return (iterator(node));
+    }
+    if (value.first > (*hint).first) {
+        return (iterator(this->insert_rb_node(this->search_rb_node((*hint).first), value)));
+    } else {
+        return (iterator(this->insert_rb_node(this->root, value)));
+    }
+}
+
+template<RB_TREE_TEMPLATE>
 void ft::red_black_tree<RB_TREE_TYPES>::insert_unique_rb_node(iterator first, iterator last) {
     // checks if the element exists in the tree, if not, insertion is called
     for (iterator it = first; it != last; it++) {
         if (this->search_rb_node(it->first) == this->nil) {
-            this->insert_rb_node(*it);
+            this->insert_rb_node(this->root, *it);
         }
     }
 }
 
 template<RB_TREE_TEMPLATE>
-ft::rb_node<RB_NODE_TYPES> *ft::red_black_tree<RB_TREE_TYPES>::insert_rb_node(const value_type& value) {
+ft::rb_node<RB_NODE_TYPES> *ft::red_black_tree<RB_TREE_TYPES>::insert_rb_node(ft::rb_node<RB_NODE_TYPES> *hint_node, const value_type& value) {
    ft::rb_node<RB_NODE_TYPES> *z = this->create_rb_node(value);
-   ft::rb_node<RB_NODE_TYPES> *x = this->root;
+   ft::rb_node<RB_NODE_TYPES> *x = hint_node;
    ft::rb_node<RB_NODE_TYPES> *y = NULL;
 
     // descend until reaching a leaf
@@ -625,6 +640,7 @@ template<RB_TREE_TEMPLATE>
 void ft::red_black_tree<RB_TREE_TYPES>::print_tree_debug(void) const {
     if (this->root) {
         print_tree_debug_aux(this->root, "", true);
+        // inorder_print(this->root);
     }
 }
 
@@ -649,31 +665,27 @@ void ft::red_black_tree<RB_TREE_TYPES>::print_tree_debug_aux(const ft::rb_node<R
 }
 
 template<RB_TREE_TEMPLATE>
-void ft::red_black_tree<RB_TREE_TYPES>::print_sorted_tree_debug(void) {
-    print_sorted_tree_debug_aux(this->root);
-}
-
-template<RB_TREE_TEMPLATE>
-void ft::red_black_tree<RB_TREE_TYPES>::print_sorted_tree_debug_aux(ft::rb_node<RB_NODE_TYPES> *node) {
-    if (node != NULL) {
-        print_sorted_tree_debug_aux(node->left);
-        std::cout << "k: " << (node ? node->key : 0)
-                  << " | p: " << (node->parent ? node->parent->key : 0)
-                  << " | l: " << (node->left ? node->left->key : 0)
-                  << " | r: " << (node->right ? node->right->key : 0)
-                  << " | c: " << (node->color ? node->color : ' ')
-                  << std::endl;
-        print_sorted_tree_debug_aux(node->right);
-    }
+void ft::red_black_tree<RB_TREE_TYPES>::inorder_print(const ft::rb_node<RB_NODE_TYPES> *node) const {
+  if (node != NULL && (node->data.first) != 0) {
+    inorder_print(node->left);
+    std::cout << node->data.first << " ";
+    inorder_print(node->right);
+  }
 }
 
 template<RB_TREE_TEMPLATE>
 typename ft::red_black_tree<RB_TREE_TYPES>::iterator ft::red_black_tree<RB_TREE_TYPES>::begin(void) {
+    if (this->root == NULL) {
+        return (iterator(this->nil));
+    }
     return (iterator(ft::red_black_tree<RB_TREE_TYPES>::minimum_rb_node(this->root)));
 }
 
 template<RB_TREE_TEMPLATE>
 typename ft::red_black_tree<RB_TREE_TYPES>::const_iterator ft::red_black_tree<RB_TREE_TYPES>::begin(void) const {
+    if (this->root == NULL) {
+        return (const_iterator(this->nil));
+    }
     return (const_iterator(ft::red_black_tree<RB_TREE_TYPES>::minimum_rb_node(this->root)));
 }
 

@@ -112,6 +112,16 @@ ft::pair<typename ft::map<MAP_TYPES>::iterator, bool> ft::map<MAP_TYPES>::insert
 }
 
 template<MAP_TEMPLATE>
+typename ft::map<MAP_TYPES>::iterator ft::map<MAP_TYPES>::insert(iterator position, const value_type& value) {
+    return (this->memory_tree.insert_unique_rb_node(position, value));
+}
+
+template<MAP_TEMPLATE>
+void ft::map<MAP_TYPES>::insert(iterator first, iterator last) {
+    return (this->memory_tree.insert_unique_rb_node(first, last));
+}
+
+template<MAP_TEMPLATE>
 void ft::map<MAP_TYPES>::erase(iterator position) {
     this->memory_tree.erase(position);
 }

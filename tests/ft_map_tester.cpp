@@ -138,6 +138,43 @@ void access_operator_test(void) {
     std::cout << ft_1[100] << std::endl;
 }
 
+void insert_method_test(void) {
+    std::cout << std::endl << "[INSERT METHOD TEST]" << std::endl;
+    {
+        ft::map<int, int> ft_1;
+        std::cout << std::endl << "insert(const value_type& value)" << std::endl;
+        std::cout << "before:" << std::endl;
+        std::cout << "size(): " << ft_1.size() << std::endl;
+        ft_1.insert(ft::pair<int, int>(10, 10));
+        std::cout << "after:" << std::endl;
+        std::cout << "size(): " << ft_1.size() << std::endl;
+    }
+
+    {
+        ft::map<int, int> ft_1;
+        std::cout << std::endl << "insert(iterator position, const value_type& value)" << std::endl;
+        std::cout << "before:" << std::endl;
+        std::cout << "size(): " << ft_1.size() << std::endl;
+        ft_1.insert(ft_1.begin(), ft::pair<int, int>(10, 10));
+        std::cout << "after:" << std::endl;
+        std::cout << "size(): " << ft_1.size() << std::endl;
+    }
+
+    {
+        ft::map<int, int> ft_1;
+        ft::map<int, int> ft_2;
+        for (int i = 0; i < 10; i++) {
+        ft_1.insert(ft::pair<int, int>(i, i));
+    }
+        std::cout << std::endl << "insert(iterator first, iterator last)" << std::endl;
+        std::cout << "before:" << std::endl;
+        std::cout << "size(): " << ft_2.size() << std::endl;
+        ft_2.insert(ft_1.begin(), ft_1.end());
+        std::cout << "after:" << std::endl;
+        std::cout << "size(): " << ft_2.size() << std::endl;
+    }
+}
+
 void assignment_operator_test(void) {
     std::cout << std::endl << "[ASSIGNMENT OPERATOR TEST]" << std::endl;
     ft::map<int, int> ft_1;
@@ -185,6 +222,7 @@ int main(void) {
     range_constructor_test();
     copy_constructor_test();
     assignment_operator_test();
+    insert_method_test();
     access_operator_test();
     at_method_test();
     begin_method_test();

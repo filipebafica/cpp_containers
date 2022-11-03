@@ -92,8 +92,8 @@ class map {
     // modifiers
     void clear(void);
     ft::pair<iterator, bool> insert(const value_type& value);
-    // iterator insert(iterator position, const value_type& value);
-    // void insert(iterator position, iterator first, iterator last);
+    iterator insert(iterator position, const value_type& value);
+    void insert(iterator first, iterator last);
     void erase(iterator position);
     void erase(iterator first, iterator last);
     size_type erase(const key_type& k);
