@@ -101,7 +101,6 @@ typename ft::map<MAP_TYPES>::size_type ft::map<MAP_TYPES>::max_size(void) const 
 }
 
 // modifiers
-
 template<MAP_TEMPLATE>
 void ft::map<MAP_TYPES>::clear(void) {
     this->memory_tree.clear();

@@ -25,7 +25,7 @@ void erase_methods_test(void) {
             ft_1.insert(ft::pair<int, int>(i, i));
         }
 
-        std::cout << "erase(iterator first, iterator last)" << std::endl;
+        std::cout << std::endl << "erase(iterator first, iterator last)" << std::endl;
         std::cout << "before erasing from iterator begin() to iterator end():" << std::endl;
         std::cout << "size(): " << ft_1.size() << std::endl;
         ft_1.erase(ft_1.begin(), ft_1.end());
@@ -37,14 +37,14 @@ void erase_methods_test(void) {
             ft_1.insert(ft::pair<int, int>(i, i));
         }
 
-        std::cout << "erase(const key_type& k)" << std::endl;
+        std::cout << std::endl << "erase(const key_type& k)" << std::endl;
         std::cout << "before erasing key 5:" << std::endl;
         std::cout << "size(): " << ft_1.size() << std::endl;
         std::cout << "number of elements erased: " << ft_1.erase(5) << std::endl;
         std::cout << "after:" << std::endl;
         std::cout << "size(): " << ft_1.size() << std::endl;
 
-        std::cout << "erase(const key_type& k)" << std::endl;
+        std::cout << std::endl << "erase(const key_type& k)" << std::endl;
         std::cout << "before erasing key 99:" << std::endl;
         std::cout << "size(): " << ft_1.size() << std::endl;
         std::cout << "number of elements erased: " << ft_1.erase(99) << std::endl;
@@ -56,7 +56,7 @@ void erase_methods_test(void) {
             ft_1.insert(ft::pair<int, int>(i, i));
         }
 
-        std::cout << "clear(void)" << std::endl;
+        std::cout << std::endl << "clear(void)" << std::endl;
         std::cout << "before clear:" << std::endl;
         std::cout << "size(): " << ft_1.size() << std::endl;
         ft_1.clear();

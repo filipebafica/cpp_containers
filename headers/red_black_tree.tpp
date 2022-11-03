@@ -95,7 +95,8 @@ void ft::red_black_tree<RB_TREE_TYPES>::copy_aux(ft::rb_node<RB_NODE_TYPES> *x) 
 
 template<RB_TREE_TEMPLATE>
 ft::red_black_tree<RB_TREE_TYPES>::~red_black_tree(void) {
-    this->destructor_aux(this->root);
+    if (this->node_count > 0)
+        this->destructor_aux(this->root);
     if (this->nil) {
         this->rb_node_alloc.deallocate(this->nil, 1);
     }
@@ -703,7 +704,8 @@ typename ft::red_black_tree<RB_TREE_TYPES>::size_type ft::red_black_tree<RB_TREE
 
 template<RB_TREE_TEMPLATE>
 void ft::red_black_tree<RB_TREE_TYPES>::clear(void) {
-    std::cout << "clear method" << std::endl;
+    this->destructor_aux(this->root);
+    this->root = NULL;
 }
 
 template<RB_TREE_TEMPLATE>
