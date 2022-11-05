@@ -135,3 +135,19 @@ template<MAP_TEMPLATE>
 typename ft::map<MAP_TYPES>::size_type ft::map<MAP_TYPES>::erase(const key_type& k) {
     return(this->memory_tree.erase(k));
 }
+
+// operations
+template<MAP_TEMPLATE>
+typename ft::map<MAP_TYPES>::iterator ft::map<MAP_TYPES>::find(const key_type& k) {
+    return (this->memory_tree.find(k));
+}
+
+template<MAP_TEMPLATE>
+typename ft::map<MAP_TYPES>::const_iterator ft::map<MAP_TYPES>::find(const key_type& k) const {
+    return (this->memory_tree.find(k));
+}
+
+template<MAP_TEMPLATE>
+typename ft::map<MAP_TYPES>::size_type ft::map<MAP_TYPES>::count(const key_type& k) const {
+    return (this->memory_tree.count(k));
+}

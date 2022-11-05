@@ -5,6 +5,36 @@
 #include "../headers/map.hpp"
 #include "../headers/vector.hpp"
 
+void count_method_test(void) {
+    std::cout << std::endl << "[COUNT METHOD TEST]" << std::endl;
+    {
+        ft::map<int, int> ft_1;
+        for (int i = 0; i < 10; i++) {
+            ft_1.insert(ft::pair<int, int>(i, i));
+        }
+        std::cout << "count for 5:" << std::endl;
+        std::cout << ft_1.count(5) << std::endl;
+
+        std::cout << "count for 99:" << std::endl;
+        std::cout << ft_1.count(99) << std::endl;
+    }
+}
+
+void find_method_test(void) {
+    std::cout << std::endl << "[FIND METHOD TEST]" << std::endl;
+    {
+        ft::map<int, int> ft_1;
+        for (int i = 0; i < 10; i++) {
+            ft_1.insert(ft::pair<int, int>(i, i));
+        }
+        std::cout << "search for 5:" << std::endl;
+        std::cout << (*ft_1.find(5)).first << std::endl;
+
+        std::cout << "search for 99:" << std::endl;
+        std::cout << (*ft_1.find(99)).first << std::endl;
+    }
+}
+
 void erase_methods_test(void) {
     std::cout << std::endl << "[ERASE METHODS TEST]" << std::endl;
     ft::map<int, int> ft_1;
@@ -142,7 +172,7 @@ void insert_method_test(void) {
     std::cout << std::endl << "[INSERT METHOD TEST]" << std::endl;
     {
         ft::map<int, int> ft_1;
-        std::cout << std::endl << "insert(const value_type& value)" << std::endl;
+        std::cout << "insert(const value_type& value)" << std::endl;
         std::cout << "before:" << std::endl;
         std::cout << "size(): " << ft_1.size() << std::endl;
         ft_1.insert(ft::pair<int, int>(10, 10));
@@ -229,5 +259,7 @@ int main(void) {
     end_method_test();
     capacity_methods_test();
     erase_methods_test();
+    find_method_test();
+    count_method_test();
     return (0);
 }

@@ -417,12 +417,12 @@ void ft::red_black_tree<RB_TREE_TYPES>::delete_rb_node_fixup(ft::rb_node<RB_NODE
 }
 
 template<RB_TREE_TEMPLATE>
-ft::rb_node<RB_NODE_TYPES> *ft::red_black_tree<RB_TREE_TYPES>::search_rb_node(key_type key) {
+ft::rb_node<RB_NODE_TYPES> *ft::red_black_tree<RB_TREE_TYPES>::search_rb_node(const key_type& key) const {
     return(search_rb_node_aux(this->root, key));
 }
 
 template<RB_TREE_TEMPLATE>
-ft::rb_node<RB_NODE_TYPES> *ft::red_black_tree<RB_TREE_TYPES>::search_rb_node_aux(ft::rb_node<RB_NODE_TYPES> *x, key_type key) {
+ft::rb_node<RB_NODE_TYPES> *ft::red_black_tree<RB_TREE_TYPES>::search_rb_node_aux(ft::rb_node<RB_NODE_TYPES> *x, const key_type& key) const {
     // if x == null x will be the root and the tree is empty
     // if x == nil the key was not found in the tree
     if (!x || x == this->nil) {
@@ -741,4 +741,21 @@ typename ft::red_black_tree<RB_TREE_TYPES>::size_type ft::red_black_tree<RB_TREE
         return (1);
     }
     return (0);
+}
+
+template<RB_TREE_TEMPLATE>
+typename ft::red_black_tree<RB_TREE_TYPES>::iterator ft::red_black_tree<RB_TREE_TYPES>::find(const key_type& k) {
+    return (iterator(this->search_rb_node(k)));
+}
+
+template<RB_TREE_TEMPLATE>
+typename ft::red_black_tree<RB_TREE_TYPES>::const_iterator ft::red_black_tree<RB_TREE_TYPES>::find(const key_type& k) const {
+    return (const_iterator(this->search_rb_node(k)));
+}
+
+template<RB_TREE_TEMPLATE>
+typename ft::red_black_tree<RB_TREE_TYPES>::size_type ft::red_black_tree<RB_TREE_TYPES>::count(const key_type& k) const {
+    if (this->search_rb_node(k) == this->nil)
+        return (0);
+    return (1);
 }
