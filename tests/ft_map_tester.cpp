@@ -5,6 +5,26 @@
 #include "../headers/map.hpp"
 #include "../headers/vector.hpp"
 
+void lower_upper_bound_method_test(void) {
+    std::cout << std::endl << "[LOWER BOUND METHOD TEST]" << std::endl;
+    {
+        ft::map<int, int> ft_1;
+        for (int i = 0; i < 10; i++) {
+            ft_1.insert(ft::pair<int, int>(i, i));
+        }
+        std::cout << "lower_bound(5):" << std::endl;
+        std::cout << (*ft_1.lower_bound(5)).first << std::endl;
+    }
+    {
+        ft::map<int, int> ft_1;
+        for (int i = 0; i < 10; i++) {
+            ft_1.insert(ft::pair<int, int>(i, i));
+        }
+        std::cout << "upper_bound(5):" << std::endl;
+        std::cout << (*ft_1.upper_bound(5)).first << std::endl;
+    }
+}
+
 void count_method_test(void) {
     std::cout << std::endl << "[COUNT METHOD TEST]" << std::endl;
     {
@@ -261,5 +281,6 @@ int main(void) {
     erase_methods_test();
     find_method_test();
     count_method_test();
+    lower_upper_bound_method_test();
     return (0);
 }

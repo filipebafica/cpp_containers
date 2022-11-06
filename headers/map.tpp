@@ -151,3 +151,24 @@ template<MAP_TEMPLATE>
 typename ft::map<MAP_TYPES>::size_type ft::map<MAP_TYPES>::count(const key_type& k) const {
     return (this->memory_tree.count(k));
 }
+
+template<MAP_TEMPLATE>
+typename ft::map<MAP_TYPES>::iterator ft::map<MAP_TYPES>::lower_bound(const key_type& k) {
+    return (this->memory_tree.lower_bound(k));
+}
+
+template<MAP_TEMPLATE>
+typename ft::map<MAP_TYPES>::const_iterator ft::map<MAP_TYPES>::lower_bound(const key_type& k) const {
+    return (this->memory_tree.lower_bound(k));
+}
+
+template<MAP_TEMPLATE>
+typename ft::map<MAP_TYPES>::iterator ft::map<MAP_TYPES>::upper_bound(const key_type& k) {
+    return (this->memory_tree.upper_bound(k));
+}
+
+template<MAP_TEMPLATE>
+typename ft::map<MAP_TYPES>::const_iterator ft::map<MAP_TYPES>::upper_bound(const key_type& k) const {
+    return (this->memory_tree.upper_bound(k));
+}
+

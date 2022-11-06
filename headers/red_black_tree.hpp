@@ -90,6 +90,10 @@ class red_black_tree {
     iterator find(const key_type& k);
     const_iterator find(const key_type& k) const;
     size_type count(const key_type& k) const;
+    iterator lower_bound(const key_type& k);
+    const_iterator lower_bound(const key_type& k) const;
+    iterator upper_bound(const key_type& k);
+    const_iterator upper_bound(const key_type& k) const;
 
     void print_tree_debug(void) const;
     ft::pair<iterator, bool> insert_unique_rb_node(const value_type& value);

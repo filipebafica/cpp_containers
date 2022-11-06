@@ -759,3 +759,59 @@ typename ft::red_black_tree<RB_TREE_TYPES>::size_type ft::red_black_tree<RB_TREE
         return (0);
     return (1);
 }
+
+template<RB_TREE_TEMPLATE>
+typename ft::red_black_tree<RB_TREE_TYPES>::iterator ft::red_black_tree<RB_TREE_TYPES>::lower_bound(const key_type& k) {
+    iterator first = begin();
+    iterator last = end();
+
+    for (; first != last; first++) {
+        if (!this->key_comp((*first).first, k)) {
+            return (first);
+        }
+    }
+    
+    return (last);
+}
+
+template<RB_TREE_TEMPLATE>
+typename ft::red_black_tree<RB_TREE_TYPES>::const_iterator ft::red_black_tree<RB_TREE_TYPES>::lower_bound(const key_type& k) const {
+    const_iterator first = begin();
+    const_iterator last = end();
+
+    for (; first != last; first++) {
+        if (!this->key_comp((*first).first, k)) {
+            return (first);
+        }
+    }
+    
+    return (last);
+}
+
+template<RB_TREE_TEMPLATE>
+typename ft::red_black_tree<RB_TREE_TYPES>::iterator ft::red_black_tree<RB_TREE_TYPES>::upper_bound(const key_type& k) {
+    iterator first = begin();
+    iterator last = end();
+
+    for (; first != last; first++) {
+        if (this->key_comp(k, (*first).first)) {
+            return (first);
+        }
+    }
+    
+    return (last);
+}
+
+template<RB_TREE_TEMPLATE>
+typename ft::red_black_tree<RB_TREE_TYPES>::const_iterator ft::red_black_tree<RB_TREE_TYPES>::upper_bound(const key_type& k) const {
+    const_iterator first = begin();
+    const_iterator last = end();
+
+    for (; first != last; first++) {
+        if (this->key_comp(k, (*first).first)) {
+            return (first);
+        }
+    }
+    
+    return (last);
+}
