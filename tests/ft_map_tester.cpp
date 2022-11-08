@@ -5,6 +5,20 @@
 #include "../headers/map.hpp"
 #include "../headers/vector.hpp"
 
+void equal_range_method_test(void) {
+    std::cout << std::endl << "[EQUAL RANGE METHOD TEST]" << std::endl;
+    ft::map<int, int> m;
+
+    m.insert(ft::pair<int, int>(10, 10));
+    m.insert(ft::pair<int, int>(20, 20));
+    m.insert(ft::pair<int, int>(30, 30));
+
+    ft::pair<typename ft::map<int, int>::iterator, typename ft::map<int, int>::iterator> p = m.equal_range(20);
+
+    std::cout << (*p.first).first << std::endl;
+    std::cout << (*p.second).first << std::endl;
+}
+
 void lower_upper_bound_method_test(void) {
     std::cout << std::endl << "[LOWER BOUND METHOD TEST]" << std::endl;
     {
@@ -282,5 +296,6 @@ int main(void) {
     find_method_test();
     count_method_test();
     lower_upper_bound_method_test();
+    equal_range_method_test();
     return (0);
 }

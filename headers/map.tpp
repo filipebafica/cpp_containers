@@ -172,3 +172,19 @@ typename ft::map<MAP_TYPES>::const_iterator ft::map<MAP_TYPES>::upper_bound(cons
     return (this->memory_tree.upper_bound(k));
 }
 
+
+template<MAP_TEMPLATE>
+ft::pair<typename ft::map<MAP_TYPES>::iterator, 
+         typename ft::map<MAP_TYPES>::iterator> ft::map<MAP_TYPES>::equal_range(const key_type& k)
+{
+    return (this->memory_tree.equal_range(k));
+}
+
+
+template<MAP_TEMPLATE>
+ft::pair<typename ft::map<MAP_TYPES>::const_iterator, 
+         typename ft::map<MAP_TYPES>::const_iterator> ft::map<MAP_TYPES>::equal_range(const key_type& k) const
+{
+    return (this->memory_tree.equal_range(k));
+}
+

@@ -815,3 +815,34 @@ typename ft::red_black_tree<RB_TREE_TYPES>::const_iterator ft::red_black_tree<RB
     
     return (last);
 }
+
+template<RB_TREE_TEMPLATE>
+ft::pair<typename ft::red_black_tree<RB_TREE_TYPES>::iterator, 
+         typename ft::red_black_tree<RB_TREE_TYPES>::iterator> ft::red_black_tree<RB_TREE_TYPES>::equal_range(const key_type& k)
+{
+    iterator lower_it = this->lower_bound(k);
+    iterator upper_it = this->upper_bound(k);
+
+    if (lower_it == iterator(this->nil))
+        ++lower_it;
+    if (upper_it == iterator(this->nil))
+        ++upper_it;
+
+    return (ft::pair<iterator, iterator>(lower_it, upper_it));
+}
+
+
+template<RB_TREE_TEMPLATE>
+ft::pair<typename ft::red_black_tree<RB_TREE_TYPES>::const_iterator, 
+         typename ft::red_black_tree<RB_TREE_TYPES>::const_iterator> ft::red_black_tree<RB_TREE_TYPES>::equal_range(const key_type& k) const
+{
+    const_iterator lower_it = this->lower_bound(k);
+    const_iterator upper_it = this->upper_bound(k);
+
+    if (lower_it == const_iterator(this->nil))
+        ++lower_it;
+    if (upper_it == const_iterator(this->nil))
+        ++upper_it;
+
+    return (ft::pair<const_iterator, const_iterator>(lower_it, upper_it));
+}

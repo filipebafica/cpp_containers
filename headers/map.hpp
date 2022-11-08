@@ -103,8 +103,8 @@ class map {
     iterator find(const key_type& k);
     const_iterator find(const key_type& k) const;
     size_type count(const key_type& k) const;
-    // ft::pair<iterator, iterator> equal_range(const key_type& k);
-    // ft::pair<const_iterator, const_iterator> equal_range(const key_type& k) const;
+    ft::pair<iterator, iterator> equal_range(const key_type& k);
+    ft::pair<const_iterator, const_iterator> equal_range(const key_type& k) const;
     iterator lower_bound(const key_type& k);
     const_iterator lower_bound(const key_type& k) const;
     iterator upper_bound(const key_type& k);
