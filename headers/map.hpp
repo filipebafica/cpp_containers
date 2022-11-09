@@ -79,10 +79,10 @@ class map {
     const_iterator begin(void) const;
     iterator end(void);
     const_iterator end(void) const;
-    // reverse_iterator rbegin(void);
-    // const_reverse_iterator rbegin(void) const;
-    // reverse_iterator rend(void);
-    // const_reverse_iterator rend(void) const;
+    reverse_iterator rbegin(void);
+    const_reverse_iterator rbegin(void) const;
+    reverse_iterator rend(void);
+    const_reverse_iterator rend(void) const;
 
     // capacity
     bool empty(void) const;
@@ -97,7 +97,7 @@ class map {
     void erase(iterator position);
     void erase(iterator first, iterator last);
     size_type erase(const key_type& k);
-    // void swap(map& x);
+    void swap(map& x);
 
     // operations
     iterator find(const key_type& k);

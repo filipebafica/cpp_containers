@@ -831,7 +831,6 @@ ft::pair<typename ft::red_black_tree<RB_TREE_TYPES>::iterator,
     return (ft::pair<iterator, iterator>(lower_it, upper_it));
 }
 
-
 template<RB_TREE_TEMPLATE>
 ft::pair<typename ft::red_black_tree<RB_TREE_TYPES>::const_iterator, 
          typename ft::red_black_tree<RB_TREE_TYPES>::const_iterator> ft::red_black_tree<RB_TREE_TYPES>::equal_range(const key_type& k) const
@@ -845,4 +844,10 @@ ft::pair<typename ft::red_black_tree<RB_TREE_TYPES>::const_iterator,
         ++upper_it;
 
     return (ft::pair<const_iterator, const_iterator>(lower_it, upper_it));
+}
+
+template<RB_TREE_TEMPLATE>
+void ft::red_black_tree<RB_TREE_TYPES>::swap(red_black_tree& x) {
+    std::swap(this->root, x.root);
+    std::swap(this->nil, x.nil);
 }

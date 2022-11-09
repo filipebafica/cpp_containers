@@ -96,6 +96,7 @@ class red_black_tree {
     const_iterator upper_bound(const key_type& k) const;
     ft::pair<iterator, iterator> equal_range(const key_type& k);
     ft::pair<const_iterator, const_iterator> equal_range(const key_type& k) const;
+    void swap(red_black_tree& x);
 
     void print_tree_debug(void) const;
     ft::pair<iterator, bool> insert_unique_rb_node(const value_type& value);

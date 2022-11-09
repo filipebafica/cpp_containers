@@ -84,6 +84,26 @@ typename ft::map<MAP_TYPES>::const_iterator ft::map<MAP_TYPES>::end(void) const 
     return (this->memory_tree.end());
 }
 
+template<MAP_TEMPLATE>
+typename ft::map<MAP_TYPES>::reverse_iterator ft::map<MAP_TYPES>::rbegin(void) {
+    return (reverse_iterator(this->end()));
+}
+
+template<MAP_TEMPLATE>
+typename ft::map<MAP_TYPES>::const_reverse_iterator ft::map<MAP_TYPES>::rbegin(void) const {
+    return (const_reverse_iterator(this->end()));
+}
+
+template<MAP_TEMPLATE>
+typename ft::map<MAP_TYPES>::reverse_iterator ft::map<MAP_TYPES>::rend(void) {
+    return (reverse_iterator(this->begin()));
+}
+
+template<MAP_TEMPLATE>
+typename ft::map<MAP_TYPES>::const_reverse_iterator ft::map<MAP_TYPES>::rend(void) const {
+    return (const_reverse_iterator(this->begin()));
+}
+
 // capacity
 template<MAP_TEMPLATE>
 bool ft::map<MAP_TYPES>::empty(void) const {
@@ -134,6 +154,11 @@ void ft::map<MAP_TYPES>::erase(iterator first, iterator last) {
 template<MAP_TEMPLATE>
 typename ft::map<MAP_TYPES>::size_type ft::map<MAP_TYPES>::erase(const key_type& k) {
     return(this->memory_tree.erase(k));
+}
+
+template<MAP_TEMPLATE>
+void ft::map<MAP_TYPES>::swap(map& x) {
+    this->memory_tree.swap(x.memory_tree);
 }
 
 // operations

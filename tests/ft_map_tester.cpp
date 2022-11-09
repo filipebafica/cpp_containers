@@ -5,8 +5,35 @@
 #include "../headers/map.hpp"
 #include "../headers/vector.hpp"
 
-void equal_range_method_test(void) {
-    std::cout << std::endl << "[EQUAL RANGE METHOD TEST]" << std::endl;
+void swap_method_test(void)
+{
+    std::cout << std::endl
+              << "[SWAP METHOD TEST]" << std::endl;
+    ft::map<int, int> x;
+    ft::map<int, int> y;
+
+    for (int i = 0; i < 3; i++)
+    {
+        x.insert(ft::pair<int, int>(i, i));
+    }
+
+    for (int i = 100; i < 103; i++)
+    {
+        y.insert(ft::pair<int, int>(i, i));
+    }
+
+    x.swap(y);
+
+    x.memory_tree.print_tree_debug();
+    y.memory_tree.print_tree_debug();
+
+    std::cout << (*x.rbegin()).first << std::endl;
+}
+
+void equal_range_method_test(void)
+{
+    std::cout << std::endl
+              << "[EQUAL RANGE METHOD TEST]" << std::endl;
     ft::map<int, int> m;
 
     m.insert(ft::pair<int, int>(10, 10));
@@ -19,11 +46,14 @@ void equal_range_method_test(void) {
     std::cout << (*p.second).first << std::endl;
 }
 
-void lower_upper_bound_method_test(void) {
-    std::cout << std::endl << "[LOWER BOUND METHOD TEST]" << std::endl;
+void lower_upper_bound_method_test(void)
+{
+    std::cout << std::endl
+              << "[LOWER BOUND METHOD TEST]" << std::endl;
     {
         ft::map<int, int> ft_1;
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 10; i++)
+        {
             ft_1.insert(ft::pair<int, int>(i, i));
         }
         std::cout << "lower_bound(5):" << std::endl;
@@ -31,7 +61,8 @@ void lower_upper_bound_method_test(void) {
     }
     {
         ft::map<int, int> ft_1;
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 10; i++)
+        {
             ft_1.insert(ft::pair<int, int>(i, i));
         }
         std::cout << "upper_bound(5):" << std::endl;
@@ -39,11 +70,14 @@ void lower_upper_bound_method_test(void) {
     }
 }
 
-void count_method_test(void) {
-    std::cout << std::endl << "[COUNT METHOD TEST]" << std::endl;
+void count_method_test(void)
+{
+    std::cout << std::endl
+              << "[COUNT METHOD TEST]" << std::endl;
     {
         ft::map<int, int> ft_1;
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 10; i++)
+        {
             ft_1.insert(ft::pair<int, int>(i, i));
         }
         std::cout << "count for 5:" << std::endl;
@@ -54,11 +88,14 @@ void count_method_test(void) {
     }
 }
 
-void find_method_test(void) {
-    std::cout << std::endl << "[FIND METHOD TEST]" << std::endl;
+void find_method_test(void)
+{
+    std::cout << std::endl
+              << "[FIND METHOD TEST]" << std::endl;
     {
         ft::map<int, int> ft_1;
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 10; i++)
+        {
             ft_1.insert(ft::pair<int, int>(i, i));
         }
         std::cout << "search for 5:" << std::endl;
@@ -69,11 +106,14 @@ void find_method_test(void) {
     }
 }
 
-void erase_methods_test(void) {
-    std::cout << std::endl << "[ERASE METHODS TEST]" << std::endl;
+void erase_methods_test(void)
+{
+    std::cout << std::endl
+              << "[ERASE METHODS TEST]" << std::endl;
     ft::map<int, int> ft_1;
     {
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 10; i++)
+        {
             ft_1.insert(ft::pair<int, int>(i, i));
         }
 
@@ -81,15 +121,18 @@ void erase_methods_test(void) {
         std::cout << "before erasing iterator begin(): " << ft_1.begin()->first << std::endl;
         ft_1.memory_tree.print_tree_debug();
         ft_1.erase(ft_1.begin());
-        std::cout << std::endl << "after:" << std::endl;
+        std::cout << std::endl
+                  << "after:" << std::endl;
         ft_1.memory_tree.print_tree_debug();
     }
     {
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 10; i++)
+        {
             ft_1.insert(ft::pair<int, int>(i, i));
         }
 
-        std::cout << std::endl << "erase(iterator first, iterator last)" << std::endl;
+        std::cout << std::endl
+                  << "erase(iterator first, iterator last)" << std::endl;
         std::cout << "before erasing from iterator begin() to iterator end():" << std::endl;
         std::cout << "size(): " << ft_1.size() << std::endl;
         ft_1.erase(ft_1.begin(), ft_1.end());
@@ -97,18 +140,21 @@ void erase_methods_test(void) {
         std::cout << "size(): " << ft_1.size() << std::endl;
     }
     {
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 10; i++)
+        {
             ft_1.insert(ft::pair<int, int>(i, i));
         }
 
-        std::cout << std::endl << "erase(const key_type& k)" << std::endl;
+        std::cout << std::endl
+                  << "erase(const key_type& k)" << std::endl;
         std::cout << "before erasing key 5:" << std::endl;
         std::cout << "size(): " << ft_1.size() << std::endl;
         std::cout << "number of elements erased: " << ft_1.erase(5) << std::endl;
         std::cout << "after:" << std::endl;
         std::cout << "size(): " << ft_1.size() << std::endl;
 
-        std::cout << std::endl << "erase(const key_type& k)" << std::endl;
+        std::cout << std::endl
+                  << "erase(const key_type& k)" << std::endl;
         std::cout << "before erasing key 99:" << std::endl;
         std::cout << "size(): " << ft_1.size() << std::endl;
         std::cout << "number of elements erased: " << ft_1.erase(99) << std::endl;
@@ -116,11 +162,13 @@ void erase_methods_test(void) {
         std::cout << "size(): " << ft_1.size() << std::endl;
     }
     {
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 10; i++)
+        {
             ft_1.insert(ft::pair<int, int>(i, i));
         }
 
-        std::cout << std::endl << "clear(void)" << std::endl;
+        std::cout << std::endl
+                  << "clear(void)" << std::endl;
         std::cout << "before clear:" << std::endl;
         std::cout << "size(): " << ft_1.size() << std::endl;
         ft_1.clear();
@@ -129,11 +177,14 @@ void erase_methods_test(void) {
     }
 }
 
-void capacity_methods_test(void) {
-    std::cout << std::endl << "[CAPACITY METHODS TEST]" << std::endl;
+void capacity_methods_test(void)
+{
+    std::cout << std::endl
+              << "[CAPACITY METHODS TEST]" << std::endl;
     ft::map<int, int> ft_1;
 
-    for (int i = 0; i < 10; i++) {
+    for (int i = 0; i < 10; i++)
+    {
         ft_1.insert(ft::pair<int, int>(i, i));
     }
 
@@ -142,11 +193,14 @@ void capacity_methods_test(void) {
     std::cout << ft_1.max_size() << std::endl;
 }
 
-void end_method_test(void) {
-    std::cout << std::endl << "[END METHOD TEST]" << std::endl;
+void end_method_test(void)
+{
+    std::cout << std::endl
+              << "[END METHOD TEST]" << std::endl;
     ft::map<int, int> ft_1;
 
-    for (int i = 0; i < 10; i++) {
+    for (int i = 0; i < 10; i++)
+    {
         ft_1.insert(ft::pair<int, int>(i, i));
     }
     const ft::map<int, int> ft_2(ft_1.begin(), ft_1.end());
@@ -158,11 +212,14 @@ void end_method_test(void) {
     ft_2.memory_tree.print_tree_debug();
 }
 
-void begin_method_test(void) {
-    std::cout << std::endl << "[BEGIN METHOD TEST]" << std::endl;
+void begin_method_test(void)
+{
+    std::cout << std::endl
+              << "[BEGIN METHOD TEST]" << std::endl;
     ft::map<int, int> ft_1;
 
-    for (int i = 0; i < 10; i++) {
+    for (int i = 0; i < 10; i++)
+    {
         ft_1.insert(ft::pair<int, int>(i, i));
     }
     const ft::map<int, int> ft_2(ft_1.begin(), ft_1.end());
@@ -171,29 +228,37 @@ void begin_method_test(void) {
     std::cout << (*ft_1.begin()).first << std::endl;
 }
 
-void at_method_test(void) {
-    std::cout << std::endl << "[AT METHOD TEST]" << std::endl;
+void at_method_test(void)
+{
+    std::cout << std::endl
+              << "[AT METHOD TEST]" << std::endl;
     ft::map<int, int> ft_1;
 
-    for (int i = 0; i < 10; i++) {
+    for (int i = 0; i < 10; i++)
+    {
         ft_1.insert(ft::pair<int, int>(i, i));
     }
 
     std::cout << ft_1.at(0) << std::endl;
     std::cout << ft_1.at(5) << std::endl;
-    try {
+    try
+    {
         ft_1.at(100);
     }
-    catch(std::out_of_range& e) {
+    catch (std::out_of_range &e)
+    {
         std::cout << e.what() << std::endl;
     }
 }
 
-void access_operator_test(void) {
-    std::cout << std::endl << "[ACCESS OPERATOR TEST]" << std::endl;
+void access_operator_test(void)
+{
+    std::cout << std::endl
+              << "[ACCESS OPERATOR TEST]" << std::endl;
     ft::map<int, int> ft_1;
 
-    for (int i = 0; i < 10; i++) {
+    for (int i = 0; i < 10; i++)
+    {
         ft_1.insert(ft::pair<int, int>(i, i));
     }
 
@@ -202,8 +267,10 @@ void access_operator_test(void) {
     std::cout << ft_1[100] << std::endl;
 }
 
-void insert_method_test(void) {
-    std::cout << std::endl << "[INSERT METHOD TEST]" << std::endl;
+void insert_method_test(void)
+{
+    std::cout << std::endl
+              << "[INSERT METHOD TEST]" << std::endl;
     {
         ft::map<int, int> ft_1;
         std::cout << "insert(const value_type& value)" << std::endl;
@@ -216,7 +283,8 @@ void insert_method_test(void) {
 
     {
         ft::map<int, int> ft_1;
-        std::cout << std::endl << "insert(iterator position, const value_type& value)" << std::endl;
+        std::cout << std::endl
+                  << "insert(iterator position, const value_type& value)" << std::endl;
         std::cout << "before:" << std::endl;
         std::cout << "size(): " << ft_1.size() << std::endl;
         ft_1.insert(ft_1.begin(), ft::pair<int, int>(10, 10));
@@ -227,10 +295,12 @@ void insert_method_test(void) {
     {
         ft::map<int, int> ft_1;
         ft::map<int, int> ft_2;
-        for (int i = 0; i < 10; i++) {
-        ft_1.insert(ft::pair<int, int>(i, i));
-    }
-        std::cout << std::endl << "insert(iterator first, iterator last)" << std::endl;
+        for (int i = 0; i < 10; i++)
+        {
+            ft_1.insert(ft::pair<int, int>(i, i));
+        }
+        std::cout << std::endl
+                  << "insert(iterator first, iterator last)" << std::endl;
         std::cout << "before:" << std::endl;
         std::cout << "size(): " << ft_2.size() << std::endl;
         ft_2.insert(ft_1.begin(), ft_1.end());
@@ -239,11 +309,14 @@ void insert_method_test(void) {
     }
 }
 
-void assignment_operator_test(void) {
-    std::cout << std::endl << "[ASSIGNMENT OPERATOR TEST]" << std::endl;
+void assignment_operator_test(void)
+{
+    std::cout << std::endl
+              << "[ASSIGNMENT OPERATOR TEST]" << std::endl;
     ft::map<int, int> ft_1;
 
-    for (int i = 0; i < 10; i++) {
+    for (int i = 0; i < 10; i++)
+    {
         ft_1.insert(ft::pair<int, int>(i, i));
     }
 
@@ -253,11 +326,14 @@ void assignment_operator_test(void) {
     ft_2.memory_tree.print_tree_debug();
 }
 
-void copy_constructor_test(void) {
-    std::cout << std::endl << "[COPY CONSTRUCTOR TEST]" << std::endl;
+void copy_constructor_test(void)
+{
+    std::cout << std::endl
+              << "[COPY CONSTRUCTOR TEST]" << std::endl;
     ft::map<int, int> ft_1;
 
-    for (int i = 0; i < 10; i++) {
+    for (int i = 0; i < 10; i++)
+    {
         ft_1.insert(ft::pair<int, int>(i, i));
     }
 
@@ -267,11 +343,13 @@ void copy_constructor_test(void) {
     ft_2.memory_tree.print_tree_debug();
 }
 
-void range_constructor_test(void) {
+void range_constructor_test(void)
+{
     std::cout << "[RANGE CONSTRUCTOR TEST]" << std::endl;
     ft::map<int, int> ft_1;
 
-    for (int i = 0; i < 10; i++) {
+    for (int i = 0; i < 10; i++)
+    {
         ft_1.insert(ft::pair<int, int>(i, i));
     }
 
@@ -281,8 +359,8 @@ void range_constructor_test(void) {
     ft_2.memory_tree.print_tree_debug();
 }
 
-
-int main(void) {
+int main(void)
+{
     range_constructor_test();
     copy_constructor_test();
     assignment_operator_test();
@@ -297,5 +375,6 @@ int main(void) {
     count_method_test();
     lower_upper_bound_method_test();
     equal_range_method_test();
+    swap_method_test();
     return (0);
 }
