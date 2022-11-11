@@ -26,8 +26,6 @@ void swap_method_test(void)
 
     x.memory_tree.print_tree_debug();
     y.memory_tree.print_tree_debug();
-
-    std::cout << (*x.rbegin()).first << std::endl;
 }
 
 void equal_range_method_test(void)
