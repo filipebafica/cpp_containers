@@ -1,7 +1,7 @@
 # Copyright (c) 2022 Filipe Báfica, Licensed under the MIT License.
 NAME = program_ft
 HEADERS = ./headers/
-SOURCE = map_tester_ft.cpp
+SOURCE = vector_unit_test_ft.cpp
 OBJECTS_DIR = ./objects/
 OBJECTS = $(SOURCE:%.cpp=$(OBJECTS_DIR)%.o)
 VPATH = ./tests/

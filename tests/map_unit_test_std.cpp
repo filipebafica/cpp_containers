@@ -2,6 +2,7 @@
 
 #include <functional>
 #include <map>
+#include <iomanip>
 #include "../headers/map.hpp"
 #include "../headers/vector.hpp"
 
@@ -21,21 +22,13 @@ void swap_method_test(void)
         y.insert(std::pair<int, int>(i, i));
     }
 
-    std::cout << "size of x before swap(): "
-              << x.size()
-              << std::endl
-              << "size of y before swap(): "
-              << y.size()
-              << std::endl;
+    std::cout << "size of x before swap(): " << x.size() << std::endl
+              << "size of y before swap(): " << y.size() << std::endl;
 
     x.swap(y);
 
-    std::cout << "size of x after swap(): "
-            << x.size()
-            << std::endl
-            << "size of y after swap(): "
-            << y.size()
-            << std::endl;
+    std::cout << "size of x after swap(): " << x.size() << std::endl
+            << "size of y after swap(): " << y.size() << std::endl;
 }
 
 void equal_range_method_test(void)
@@ -49,10 +42,8 @@ void equal_range_method_test(void)
 
     std::pair<typename std::map<int, int>::iterator, typename std::map<int, int>::iterator> p = m.equal_range(20);
 
-    std::cout << (*p.first).first
-              << std::endl
-              << (*p.second).first
-              << std::endl;
+    std::cout << (*p.first).first << std::endl
+              << (*p.second).first << std::endl;
 }
 
 void lower_upper_bound_method_test(void)
@@ -65,10 +56,7 @@ void lower_upper_bound_method_test(void)
             map_1.insert(std::pair<int, int>(i, i));
         }
 
-        std::cout << "lower_bound(5):"
-                  << std::endl
-                  << (*map_1.lower_bound(5)).first
-                  << std::endl;
+        std::cout << "lower_bound(5): " << (*map_1.lower_bound(5)).first << std::endl;
     }
     {
         std::map<int, int> map_1;
@@ -77,10 +65,7 @@ void lower_upper_bound_method_test(void)
             map_1.insert(std::pair<int, int>(i, i));
         }
 
-        std::cout << "upper_bound(5):"
-                  << std::endl
-                  << (*map_1.upper_bound(5)).first
-                  << std::endl;
+        std::cout << "upper_bound(5): " << (*map_1.upper_bound(5)).first << std::endl;
     }
 }
 
@@ -94,10 +79,7 @@ void count_method_test(void)
             map_1.insert(std::pair<int, int>(i, i));
         }
 
-        std::cout << "count for 5:"
-                  << std::endl
-                  << map_1.count(5)
-                  << std::endl;
+        std::cout << "count for 5: " << map_1.count(5) << std::endl;
     }
 }
 
@@ -111,10 +93,7 @@ void find_method_test(void)
             map_1.insert(std::pair<int, int>(i, i));
         }
 
-        std::cout << "search for 5:"
-                  << std::endl
-                  << (*map_1.find(5)).first
-                  << std::endl;
+        std::cout << "search for 5: " << (*map_1.find(5)).first << std::endl;
     }
 }
 
@@ -128,21 +107,14 @@ void erase_methods_test(void)
             map_1.insert(std::pair<int, int>(i, i));
         }
 
-        std::cout << "erase(iterator position)"
-                  << std::endl
-                  << "before: "
-                  << std::endl
-                  << "size(): "
-                  << map_1.size()
-                  << std::endl;
+        std::cout << "erase(iterator position)" << std::endl
+                  << "before: " << std::endl
+                  << "size(): " << map_1.size() << std::endl;
 
         map_1.erase(map_1.begin());
 
-        std::cout << "after:"
-                  << std::endl
-                  << "size(): "
-                  << map_1.size()
-                  << std::endl;
+        std::cout << "after:" << std::endl
+                  << "size(): " << map_1.size() << std::endl;
     }
     {
         for (int i = 0; i < 10; i++)
@@ -150,22 +122,14 @@ void erase_methods_test(void)
             map_1.insert(std::pair<int, int>(i, i));
         }
 
-        std::cout << std::endl
-                  << "erase(iterator first, iterator last)"
-                  << std::endl
-                  << "before:"
-                  << std::endl
-                  << "size(): "
-                  << map_1.size()
-                  << std::endl;
+        std::cout << std::endl << "erase(iterator first, iterator last)" << std::endl
+                  << "before:" << std::endl
+                  << "size(): " << map_1.size() << std::endl;
 
         map_1.erase(map_1.begin(), map_1.end());
 
-        std::cout << "after:"
-                  << std::endl
-                  << "size(): "
-                  << map_1.size()
-                  << std::endl;
+        std::cout << "after:" << std::endl
+                  << "size(): " << map_1.size() << std::endl;
     }
     {
         for (int i = 0; i < 10; i++)
@@ -173,39 +137,19 @@ void erase_methods_test(void)
             map_1.insert(std::pair<int, int>(i, i));
         }
 
-        std::cout << std::endl
-                  << "erase(const key_type& k)"
-                  << std::endl
-                  << "before erasing key 5:"
-                  << std::endl
-                  << "size(): "
-                  << map_1.size()
-                  << std::endl
-                  << "number of elements erased: "
-                  << map_1.erase(5)
-                  << std::endl
-                  << "after:"
-                  << std::endl
-                  << "size(): "
-                  << map_1.size()
-                  << std::endl;
+        std::cout << std::endl << "erase(const key_type& k)" << std::endl
+                  << "before erasing key 5:" << std::endl
+                  << "size(): " << map_1.size() << std::endl
+                  << "number of elements erased: " << map_1.erase(5) << std::endl
+                  << "after:" << std::endl
+                  << "size(): " << map_1.size() << std::endl;
 
-        std::cout << std::endl
-                  << "erase(const key_type& k)"
-                  << std::endl
-                  << "before erasing key 99:"
-                  << std::endl
-                  << "size(): "
-                  << map_1.size()
-                  << std::endl
-                  << "number of elements erased: "
-                  << map_1.erase(99)
-                  << std::endl
-                  << "after:"
-                  << std::endl
-                  << "size(): "
-                  << map_1.size()
-                  << std::endl;
+        std::cout << std::endl << "erase(const key_type& k)" << std::endl
+                  << "before erasing key 99:" << std::endl
+                  << "size(): " << map_1.size() << std::endl
+                  << "number of elements erased: " << map_1.erase(99) << std::endl
+                  << "after:" << std::endl
+                  << "size(): " << map_1.size() << std::endl;
     }
     {
         for (int i = 0; i < 10; i++)
@@ -213,22 +157,14 @@ void erase_methods_test(void)
             map_1.insert(std::pair<int, int>(i, i));
         }
 
-        std::cout << std::endl
-                  << "clear(void)"
-                  << std::endl
-                  << "before clear:"
-                  << std::endl
-                  << "size(): "
-                  << map_1.size()
-                  << std::endl;
+        std::cout << std::endl << "clear(void)" << std::endl
+                  << "before:" << std::endl
+                  << "size(): " << map_1.size() << std::endl;
 
         map_1.clear();
 
-        std::cout << "after:"
-                  << std::endl
-                  << "size(): "
-                  << map_1.size()
-                  << std::endl;
+        std::cout << "after:" << std::endl
+                  << "size(): " << map_1.size() << std::endl;
     }
 }
 
@@ -320,41 +256,26 @@ void insert_method_test(void)
     std::cout << std::endl << "[INSERT METHOD TEST]" << std::endl;
     {
         std::map<int, int> map_1;
-        std::cout << "insert(const value_type& value)"
-                  << std::endl
-                  << "before:"
-                  << std::endl
-                  << "size(): "
-                  << map_1.size()
-                  << std::endl;
+        std::cout << "insert(const value_type& value)" << std::endl
+                  << "before:" << std::endl
+                  << "size(): " << map_1.size() << std::endl;
 
         map_1.insert(std::pair<int, int>(10, 10));
 
-        std::cout << "after:"
-                  << std::endl
-                  << "size(): "
-                  << map_1.size()
-                  << std::endl;
+        std::cout << "after:" << std::endl
+                  << "size(): " << map_1.size() << std::endl;
     }
 
     {
         std::map<int, int> map_1;
-        std::cout << std::endl
-                  << "insert(iterator position, const value_type& value)" 
-                  << std::endl
-                  << "before:"
-                  << std::endl
-                  << "size(): "
-                  << map_1.size()
-                  << std::endl;
+        std::cout << std::endl << "insert(iterator position, const value_type& value)" << std::endl
+                  << "before:" << std::endl
+                  << "size(): " << map_1.size() << std::endl;
 
         map_1.insert(map_1.begin(), std::pair<int, int>(10, 10));
 
-        std::cout << "after:"
-                  << std::endl
-                  << "size(): "
-                  << map_1.size()
-                  << std::endl;
+        std::cout << "after:" << std::endl
+                  << "size(): " << map_1.size() << std::endl;
     }
 
     {
@@ -365,22 +286,14 @@ void insert_method_test(void)
             map_1.insert(std::pair<int, int>(i, i));
         }
 
-        std::cout << std::endl
-                  << "insert(iterator first, iterator last)"
-                  << std::endl
-                  << "before:"
-                  << std::endl
-                  << "size(): "
-                  << map_2.size()
-                  << std::endl;
+        std::cout << std::endl << "insert(iterator first, iterator last)" << std::endl
+                  << "before:" << std::endl
+                  << "size(): " << map_2.size() << std::endl;
 
         map_2.insert(map_1.begin(), map_1.end());
 
-        std::cout << "after:"
-                  << std::endl
-                  << "size(): "
-                  << map_2.size()
-                  << std::endl;
+        std::cout << "after:" << std::endl
+                  << "size(): " << map_2.size() << std::endl;
     }
 }
 
@@ -395,12 +308,8 @@ void assignment_operator_test(void)
     }
 
     std::map<int, int> map_2 = map_1;
-    std::cout << "size of map_1: "
-              << map_1.size()
-              << std::endl
-              << "size of map_2: "
-              << map_2.size()
-              << std::endl;
+    std::cout << "size of map_1: " << map_1.size() << std::endl
+              << "size of map_2: " << map_2.size() << std::endl;
 }
 
 void copy_constructor_test(void)
@@ -414,12 +323,8 @@ void copy_constructor_test(void)
     }
 
     std::map<int, int> map_2(map_1);
-    std::cout << "size of map_1: "
-              << map_1.size()
-              << std::endl
-              << "size of map_2: "
-              << map_2.size()
-              << std::endl;
+    std::cout << "size of map_1: " << map_1.size() << std::endl
+              << "size of map_2: " << map_2.size() << std::endl;
 }
 
 void range_constructor_test(void)
@@ -433,12 +338,8 @@ void range_constructor_test(void)
     }
 
     std::map<int, int> map_2(map_1.begin(), map_1.end());
-    std::cout << "size of map_1: "
-              << map_1.size()
-              << std::endl
-              << "size of map_2: "
-              << map_2.size()
-              << std::endl;
+    std::cout << "size of map_1: " << map_1.size() << std::endl
+              << "size of map_2: " << map_2.size() << std::endl;
 }
 
 int main(void)
