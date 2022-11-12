@@ -109,6 +109,9 @@ class map {
     const_iterator lower_bound(const key_type& k) const;
     iterator upper_bound(const key_type& k);
     const_iterator upper_bound(const key_type& k) const;
+
+    // allocator
+    allocator_type get_allocator(void) const;
 };
 }  // namespace ft
 

@@ -52,14 +52,14 @@ typename ft::map<MAP_TYPES>::mapped_type& ft::map<MAP_TYPES>::operator[](const k
 template<MAP_TEMPLATE>
 typename ft::map<MAP_TYPES>::mapped_type& ft::map<MAP_TYPES>::at(const key_type& k) {
     if (this->memory_tree.search_rb_node(k) == NULL || this->memory_tree.search_rb_node(k) == this->memory_tree.nil)
-        throw std::out_of_range("map::out_of_range");
+        throw std::out_of_range("map::at");
     return ((*this)[k]);
 }
 
 template<MAP_TEMPLATE>
 const typename ft::map<MAP_TYPES>::mapped_type& ft::map<MAP_TYPES>::at(const key_type& k) const {
     if (this->memory_tree.search_rb_node(k) == NULL || this->memory_tree.search_rb_node(k) == this->memory_tree.nil)
-        throw std::out_of_range("map::out_of_range");
+        throw std::out_of_range("map::at");
     return ((*this)[k]);
 }
 
@@ -213,3 +213,8 @@ ft::pair<typename ft::map<MAP_TYPES>::const_iterator,
     return (this->memory_tree.equal_range(k));
 }
 
+// allocator
+template<MAP_TEMPLATE>
+typename ft::map<MAP_TYPES>::allocator_type ft::map<MAP_TYPES>::get_allocator(void) const {
+    return (allocator_type());
+}

@@ -745,12 +745,20 @@ typename ft::red_black_tree<RB_TREE_TYPES>::size_type ft::red_black_tree<RB_TREE
 
 template<RB_TREE_TEMPLATE>
 typename ft::red_black_tree<RB_TREE_TYPES>::iterator ft::red_black_tree<RB_TREE_TYPES>::find(const key_type& k) {
-    return (iterator(this->search_rb_node(k)));
+    iterator j = this->lower_bound(k);
+    return (
+        (j == this->end() ||
+        this->key_comp(k, (*j).first)) ? this->end() : j
+    );
 }
 
 template<RB_TREE_TEMPLATE>
 typename ft::red_black_tree<RB_TREE_TYPES>::const_iterator ft::red_black_tree<RB_TREE_TYPES>::find(const key_type& k) const {
-    return (const_iterator(this->search_rb_node(k)));
+    const_iterator j = this->lower_bound(k);
+    return (
+        (j == this->end() ||
+        this->key_comp(k, (*j).first)) ? this->end() : j
+    );
 }
 
 template<RB_TREE_TEMPLATE>
@@ -850,4 +858,5 @@ template<RB_TREE_TEMPLATE>
 void ft::red_black_tree<RB_TREE_TYPES>::swap(red_black_tree& x) {
     std::swap(this->root, x.root);
     std::swap(this->nil, x.nil);
+    std::swap(this->node_count, x.node_count);
 }
