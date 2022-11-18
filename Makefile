@@ -1,7 +1,7 @@
 # Copyright (c) 2022 Filipe Báfica, Licensed under the MIT License.
-NAME = program_ft
+NAME = program_std
 HEADERS = ./headers/
-SOURCE = vector_unit_test_ft.cpp
+SOURCE = stack_unit_test_std.cpp
 OBJECTS_DIR = ./objects/
 OBJECTS = $(SOURCE:%.cpp=$(OBJECTS_DIR)%.o)
 VPATH = ./tests/

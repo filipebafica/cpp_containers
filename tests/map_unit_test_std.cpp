@@ -3,8 +3,7 @@
 #include <functional>
 #include <map>
 #include <iomanip>
-#include "../headers/map.hpp"
-#include "../headers/vector.hpp"
+#include <iostream>
 
 void swap_method_test(void)
 {
