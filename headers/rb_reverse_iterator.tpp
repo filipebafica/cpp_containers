@@ -66,32 +66,3 @@ template<typename Iterator, typename Container>
 const Iterator& ft::rb_reverse_iterator<Iterator, Container>::base(void) const {
     return (this->memory_current);
 }
-
-template<typename IteratorL, typename IteratorR, typename Container>
-bool ft::operator==(
-    const ft::rb_reverse_iterator<IteratorL, Container>& lhs,
-    const ft::rb_reverse_iterator<IteratorR, Container>& rhs) {
-        return (lhs.base() == rhs.base());
-}
-
-template<typename Iterator, typename Container>
-bool ft::operator==(
-    const ft::rb_reverse_iterator<Iterator, Container>& lhs,
-    const ft::rb_reverse_iterator<Iterator, Container>& rhs) {
-        return (lhs.base() == rhs.base());
-}
-
-template<typename IteratorL, typename IteratorR, typename Container>
-bool ft::operator!=(
-    const ft::rb_reverse_iterator<IteratorL, Container>& lhs,
-    const ft::rb_reverse_iterator<IteratorR, Container>& rhs) {
-        return (lhs.base() != rhs.base());
-}
-
-template<typename Iterator, typename Container>
-bool ft::operator!=(
-    const ft::rb_reverse_iterator<Iterator, Container>& lhs,
-    const ft::rb_reverse_iterator<Iterator, Container>& rhs) {
-        return (lhs.base() != rhs.base());
-}
-
