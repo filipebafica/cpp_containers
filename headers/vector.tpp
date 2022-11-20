@@ -649,7 +649,7 @@ bool ft::operator>=(
 
 /************************************* NON-MEMBER FUNCTIONS *************************************/
 template<class T, class Alloc>
-void ft::swap(
+bool ft::swap(
         const ft::vector<T, Alloc>& x,
         const ft::vector<T, Alloc>& y) {
             x.swap(y);
