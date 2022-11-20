@@ -15,7 +15,6 @@ int main(void) {
         std::map<int, int> m;
         for (int i = 0; i < num_elements; i++)
             m.insert(std::pair<int, int>(i, i));
-        std::cout << "STATUS: OK" << std::endl;
     }
     t = clock() - t;
 

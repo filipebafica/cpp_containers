@@ -2,17 +2,14 @@
 #include <string>
 #include <deque>
 #if 1 //CREATE A REAL STL EXAMPLE
-	// #include <map>
-	// #include <stack>
-	// #include <vector>
 	#include "../headers/map.hpp"
 	#include "../headers/stack.hpp"
 	#include "../headers/vector.hpp"
 	// namespace ft = std;
 #else
-	#include <map.hpp>
-	#include <stack.hpp>
-	#include <vector.hpp>
+	#include "../headers/map.hpp"
+	#include "../headers/stack.hpp"
+	#include "../headers/vector.hpp"
 #endif
 
 #include <stdlib.h>

@@ -15,7 +15,6 @@ int main(void) {
         ft::map<int, int> m;
         for (int i = 0; i < num_elements; i++)
             m.insert(ft::pair<int, int>(i, i));
-        std::cout << "STATUS: OK" << std::endl;
     }
     t = clock() - t;
 

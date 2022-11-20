@@ -14,7 +14,6 @@ int main(void) {
         ft::stack<int> s;
         for (int i = 0; i < num_elements; i++)
             s.push(i);
-        std::cout << "STATUS: OK" << std::endl;
     }
     t = clock() - t;
 

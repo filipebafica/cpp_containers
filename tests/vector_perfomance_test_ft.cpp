@@ -14,34 +14,29 @@ int main(void) {
         ft::vector<int> ft_v(num_elements, 1);
         for (int i = 0; i < num_elements; i++)
             ft_v.insert(ft_v.begin(), i);
-        std::cout << "STATUS: OK" << std::endl;
     }
     {
         std::cout << "[TESTING INSERTION (MIDLLE)]" << std::endl;
         ft::vector<int> ft_v(num_elements, 1);
         for (int i = 0; i < num_elements; i++)
             ft_v.insert(ft_v.begin() + (num_elements / 2), i);
-        std::cout << "STATUS: OK" << std::endl;
     }
     {
         std::cout << "[TESTING INSERTION (END)]" << std::endl;
         ft::vector<int> ft_v(num_elements, 1);
         for (int i = 0; i < num_elements; i++)
             ft_v.insert(ft_v.end(), i);
-        std::cout << "STATUS: OK" << std::endl;
     }
     {
         std::cout << "[TESTING SWAP]" << std::endl;
         ft::vector<int> ft_v_a(num_elements, 1);
         ft::vector<int> ft_v_b(num_elements, 0);
         ft_v_a.swap(ft_v_b);
-        std::cout << "STATUS: OK" << std::endl;
     }
     {
         std::cout << "[TESTING ERASE]" << std::endl;
         ft::vector<int> ft_v(num_elements, 1);
         ft_v.erase(ft_v.begin(), ft_v.end());
-        std::cout << "STATUS: OK" << std::endl;
     }
     t = clock() - t;
 

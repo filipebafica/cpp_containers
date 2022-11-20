@@ -42,7 +42,7 @@ void ft_basic_test(void) {
     end = clock();
 
     double time_taken = double(end - start) / double(CLOCKS_PER_SEC);
-    std::cout << "Time taken by ft test is: " << std::fixed
+    std::cout << "Time taken by test is: " << std::fixed
               << time_taken << std::setprecision(5)
               << std::endl << std::endl;
 }
@@ -80,14 +80,14 @@ void std_basic_test(void) {
     end = clock();
 
     double time_taken = double(end - start) / double(CLOCKS_PER_SEC);
-    std::cout << "Time taken by std test is: " << std::fixed
+    std::cout << "Time taken by test is: " << std::fixed
               << time_taken << std::setprecision(5)
               << std::endl << std::endl;
 }
 
 
 int main(void) {
-    std_basic_test();
     ft_basic_test();
+    std_basic_test();
     return (0);
 }

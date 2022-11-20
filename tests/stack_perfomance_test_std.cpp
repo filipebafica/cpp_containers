@@ -15,7 +15,6 @@ int main(void) {
         std::stack<int> s;
         for (int i = 0; i < num_elements; i++)
             s.push(i);
-        std::cout << "STATUS: OK" << std::endl;
     }
     t = clock() - t;
 
