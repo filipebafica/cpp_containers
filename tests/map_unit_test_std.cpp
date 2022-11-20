@@ -39,7 +39,7 @@ void equal_range_method_test(void)
     m.insert(std::pair<int, int>(20, 20));
     m.insert(std::pair<int, int>(30, 30));
 
-    std::pair<typename std::map<int, int>::iterator, typename std::map<int, int>::iterator> p = m.equal_range(20);
+    std::pair<std::map<int, int>::iterator, std::map<int, int>::iterator> p = m.equal_range(20);
 
     std::cout << (*p.first).first << std::endl
               << (*p.second).first << std::endl;
