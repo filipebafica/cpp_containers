@@ -14,7 +14,8 @@
 
 #include <stdlib.h>
 
-#define MAX_RAM 4294967296
+// #define MAX_RAM 4294967296
+#define MAX_RAM 1000000
 #define BUFFER_SIZE 4096
 struct Buffer
 {
