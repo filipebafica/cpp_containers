@@ -1,7 +1,6 @@
 // Copyright (c) 2022 Filipe Báfica, Licensed under the MIT License.
 
 #include <ctime>
-#include <vector>
 #include "../headers/vector.hpp"
 
 int main(void) {

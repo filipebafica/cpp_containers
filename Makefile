@@ -1,7 +1,7 @@
 # Copyright (c) 2022 Filipe Báfica, Licensed under the MIT License.
-NAME = program_std
+NAME = ft_containers
 HEADERS = ./headers/
-SOURCE = stack_unit_test_std.cpp
+SOURCE = main.cpp
 OBJECTS_DIR = ./objects/
 OBJECTS = $(SOURCE:%.cpp=$(OBJECTS_DIR)%.o)
 VPATH = ./tests/
@@ -19,6 +19,11 @@ $(OBJECTS_DIR)%.o: %.cpp $(HEADERS)
 
 $(OBJECTS_DIR):
 	@mkdir -p $(OBJECTS_DIR)
+
+
+
+
+
 
 clean:
 	@rm -rf $(OBJECTS_DIR)

@@ -39,8 +39,7 @@ class map {
         bool operator()(const value_type& x, const value_type& y) const;
     };
 
-//  private:
- public:
+ private:
     typedef ft::red_black_tree<key_type, value_type, key_compare, Alloc> RB_type;
     RB_type                                                              memory_tree;
 
