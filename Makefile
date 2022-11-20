@@ -10,6 +10,11 @@ FLAGS = -g -Wall -Wextra -Werror -std=c++98
 MAKEFLAGS = --no-print-directory
 
 
+ENABLE_IF_TEST_FT = enable_if_test_ft
+ENABLE_IF_TEST_FT_SOURCE = enable_if_test_ft.cpp
+ENABLE_IF_TEST_FT_OBJECTS = $(ENABLE_IF_TEST_FT_SOURCE:%.cpp=$(OBJECTS_DIR)%.o)
+
+
 INTRA_TEST_FT = intra_test_ft
 INTRA_TEST_STD = intra_test_std
 
@@ -86,6 +91,14 @@ all: $(NAME)
 $(NAME): $(OBJECTS_DIR) $(OBJECTS)
 	@$(CC) $(FLAGS) $(OBJECTS) -o $@
 
+
+
+enable_if: SHELL := /bin/bash
+enable_if: $(ENABLE_IF_TEST_FT)
+		./$(ENABLE_IF_TEST_FT)
+
+$(ENABLE_IF_TEST_FT): $(OBJECTS_DIR) $(ENABLE_IF_TEST_FT_OBJECTS)
+	@$(CC) $(FLAGS) $(ENABLE_IF_TEST_FT_OBJECTS) -o $@
 
 
 intra: SHELL := /bin/bash
@@ -188,6 +201,7 @@ clean:
 
 fclean: clean
 	@rm -f $(NAME)
+	@rm -f $(ENABLE_IF_TEST_FT)
 	@rm -f $(INTRA_TEST_FT)
 	@rm -f $(INTRA_TEST_STD)
 	@rm -f $(VECTOR_PERFOMANCE_TEST_FT)
